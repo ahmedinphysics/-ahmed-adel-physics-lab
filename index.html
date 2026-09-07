@@ -179,7 +179,7 @@ button,input{font:inherit}
           <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
           <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalP)"/>
         </g>
-        <text x="380" y="160" text-anchor="middle" fill="#fff" font-size="12">L₁ (10 Ω)</text>
+        <text x="380" y="160" text-anchor="middle" fill="#fff" font-size="12">L₁ (<tspan id="pL1R">10</tspan> Ω)</text>
         <path class="metalWire" d="M415 105 H625" stroke="#C9D3DA" stroke-width="7"/>
         <g class="pDots" data-y="105"></g>
 
@@ -197,7 +197,7 @@ button,input{font:inherit}
           <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
           <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalP)"/>
         </g>
-        <text x="380" y="280" text-anchor="middle" fill="#fff" font-size="12">L₂ (10 Ω)</text>
+        <text x="380" y="280" text-anchor="middle" fill="#fff" font-size="12">L₂ (<tspan id="pL2R">10</tspan> Ω)</text>
         <path class="metalWire" d="M415 225 H625" stroke="#C9D3DA" stroke-width="7"/>
 
         <!-- branch 3 -->
@@ -214,7 +214,7 @@ button,input{font:inherit}
           <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
           <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalP)"/>
         </g>
-        <text x="380" y="400" text-anchor="middle" fill="#fff" font-size="12">L₃ (10 Ω)</text>
+        <text x="380" y="400" text-anchor="middle" fill="#fff" font-size="12">L₃ (<tspan id="pL3R">10</tspan> Ω)</text>
         <path class="metalWire" d="M415 345 H625" stroke="#C9D3DA" stroke-width="7"/>
 
         <!-- master + battery -->
@@ -244,9 +244,9 @@ button,input{font:inherit}
           <h3>✚ Controls (Parallel)</h3>
           <div class="row"><span>Battery Voltage (V)</span><span class="control-value" id="pVout">6.0 V</span></div>
           <input id="pVoltage" class="range" type="range" min="1.5" max="12" step=".5" value="6">
-          <div class="row"><span>R₁ (Ω)</span><span class="control-value">10 Ω</span></div><input class="range" type="range" min="1" max="50" value="10">
-          <div class="row"><span>R₂ (Ω)</span><span class="control-value">10 Ω</span></div><input class="range" type="range" min="1" max="50" value="10">
-          <div class="row"><span>R₃ (Ω)</span><span class="control-value">10 Ω</span></div><input class="range" type="range" min="1" max="50" value="10">
+          <div class="row"><span>R₁ (Ω)</span><span class="control-value" id="pR1out">10 Ω</span></div><input id="pR1" class="range" type="range" min="1" max="50" step="1" value="10">
+          <div class="row"><span>R₂ (Ω)</span><span class="control-value" id="pR2out">10 Ω</span></div><input id="pR2" class="range" type="range" min="1" max="50" step="1" value="10">
+          <div class="row"><span>R₃ (Ω)</span><span class="control-value" id="pR3out">10 Ω</span></div><input id="pR3" class="range" type="range" min="1" max="50" step="1" value="10">
         </div>
         <div class="panel">
           <h3>▥ Measurements</h3>
@@ -299,7 +299,7 @@ button,input{font:inherit}
           <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
           <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalS)"/>
         </g>
-        <text x="280" y="240" text-anchor="middle" fill="#fff" font-size="12">L₁ (10 Ω)</text>
+        <text x="280" y="240" text-anchor="middle" fill="#fff" font-size="12">L₁ (<tspan id="sL1R">10</tspan> Ω)</text>
         <path class="metalWire" d="M315 185 H350" stroke="#C9D3DA" stroke-width="7"/>
 
         <!-- S2 -->
@@ -317,7 +317,7 @@ button,input{font:inherit}
           <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
           <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalS)"/>
         </g>
-        <text x="485" y="240" text-anchor="middle" fill="#fff" font-size="12">L₂ (10 Ω)</text>
+        <text x="485" y="240" text-anchor="middle" fill="#fff" font-size="12">L₂ (<tspan id="sL2R">10</tspan> Ω)</text>
         <path class="metalWire" d="M520 185 H555" stroke="#C9D3DA" stroke-width="7"/>
 
         <!-- S3 -->
@@ -335,7 +335,7 @@ button,input{font:inherit}
           <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
           <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalS)"/>
         </g>
-        <text x="630" y="377" text-anchor="middle" fill="#fff" font-size="12">L₃ (10 Ω)</text>
+        <text x="630" y="377" text-anchor="middle" fill="#fff" font-size="12">L₃ (<tspan id="sL3R">10</tspan> Ω)</text>
         <path class="metalWire" d="M630 355 V385 H535" stroke="#C9D3DA" stroke-width="7" fill="none"/>
 
         <!-- battery -->
@@ -366,9 +366,9 @@ button,input{font:inherit}
           <h3>✚ Controls (Series)</h3>
           <div class="row"><span>Battery Voltage (V)</span><span class="control-value" id="sVout">6.0 V</span></div>
           <input id="sVoltage" class="range" type="range" min="1.5" max="12" step=".5" value="6">
-          <div class="row"><span>R₁ (Ω)</span><span class="control-value">10 Ω</span></div><input class="range" type="range" min="1" max="50" value="10">
-          <div class="row"><span>R₂ (Ω)</span><span class="control-value">10 Ω</span></div><input class="range" type="range" min="1" max="50" value="10">
-          <div class="row"><span>R₃ (Ω)</span><span class="control-value">10 Ω</span></div><input class="range" type="range" min="1" max="50" value="10">
+          <div class="row"><span>R₁ (Ω)</span><span class="control-value" id="pR1out">10 Ω</span></div><input id="pR1" class="range" type="range" min="1" max="50" step="1" value="10">
+          <div class="row"><span>R₂ (Ω)</span><span class="control-value" id="pR2out">10 Ω</span></div><input id="pR2" class="range" type="range" min="1" max="50" step="1" value="10">
+          <div class="row"><span>R₃ (Ω)</span><span class="control-value" id="pR3out">10 Ω</span></div><input id="pR3" class="range" type="range" min="1" max="50" step="1" value="10">
         </div>
         <div class="panel">
           <h3>▥ Measurements</h3>
@@ -437,7 +437,14 @@ function updateParallel(){
  const conduct=p.master&&p.sw.some(Boolean);
  document.getElementById('pVout').textContent=p.V.toFixed(1)+' V';
  document.getElementById('pVlabel').textContent=p.V.toFixed(1);
- const currents=p.sw.map(on=>p.master&&on?p.V/10:0);
+ document.getElementById('pR1out').textContent=p.R[0].toFixed(0)+' Ω';
+ document.getElementById('pR2out').textContent=p.R[1].toFixed(0)+' Ω';
+ document.getElementById('pR3out').textContent=p.R[2].toFixed(0)+' Ω';
+ document.getElementById('pL1R').textContent=p.R[0].toFixed(0);
+ document.getElementById('pL2R').textContent=p.R[1].toFixed(0);
+ document.getElementById('pL3R').textContent=p.R[2].toFixed(0);
+
+ const currents=p.sw.map((on,i)=>p.master&&on?p.V/p.R[i]:0);
  const It=currents.reduce((a,b)=>a+b,0);
  const Req=It>0?p.V/It:Infinity;
  const Pt=p.V*It;
@@ -447,7 +454,10 @@ function updateParallel(){
  document.getElementById('pPt').textContent=Pt.toFixed(1)+' W';
  ['pArm1','pArm2','pArm3'].forEach((id,i)=>{const g=document.getElementById(id);const [cx,cy]=[[210,105],[210,225],[210,345]][i];g.setAttribute('transform',p.sw[i]?'rotate(0 '+cx+' '+cy+')':'rotate(-28 '+cx+' '+cy+')');g.querySelector('path').setAttribute('stroke',p.sw[i]?'#74E06D':'#D5A85B')});
  const gm=document.getElementById('pMasterArm');gm.setAttribute('transform',p.master?'rotate(0 190 385)':'rotate(-28 190 385)');gm.querySelector('path').setAttribute('stroke',p.master?'#74E06D':'#D5A85B');
- document.querySelectorAll('.pGlow').forEach((g,i)=>g.setAttribute('opacity',p.master&&p.sw[i]?Math.min(.45,.12+p.V/24):0));
+ document.querySelectorAll('.pGlow').forEach((g,i)=>{
+   const Pi=(p.master&&p.sw[i])?(p.V*p.V/p.R[i]):0;
+   g.setAttribute('opacity',Pi>0?Math.min(.55,.08+Pi/20):0);
+ });
 }
 
 function updateSeries(){
@@ -455,6 +465,13 @@ function updateSeries(){
  const Req=s.R.reduce((a,b)=>a+b,0), I=closed?s.V/Req:0;
  document.getElementById('sVout').textContent=s.V.toFixed(1)+' V';
  document.getElementById('sVlabel').textContent=s.V.toFixed(1);
+ document.getElementById('sR1out').textContent=s.R[0].toFixed(0)+' Ω';
+ document.getElementById('sR2out').textContent=s.R[1].toFixed(0)+' Ω';
+ document.getElementById('sR3out').textContent=s.R[2].toFixed(0)+' Ω';
+ document.getElementById('sL1R').textContent=s.R[0].toFixed(0);
+ document.getElementById('sL2R').textContent=s.R[1].toFixed(0);
+ document.getElementById('sL3R').textContent=s.R[2].toFixed(0);
+
  document.getElementById('sI').textContent=I.toFixed(2)+' A';
  const drops=s.R.map(r=>I*r);
  ['sV1','sV2','sV3'].forEach((id,i)=>document.getElementById(id).textContent=drops[i].toFixed(1)+' V');
@@ -464,7 +481,10 @@ function updateSeries(){
  const cfg=[['sArm1',160,185],['sArm2',365,185],['sArm3',570,185]];
  cfg.forEach(([id,cx,cy],i)=>{const g=document.getElementById(id);g.setAttribute('transform',s.sw[i]?'rotate(0 '+cx+' '+cy+')':'rotate(-28 '+cx+' '+cy+')');g.querySelector('path').setAttribute('stroke',s.sw[i]?'#74E06D':'#D5A85B')});
  const gm=document.getElementById('sMasterArm');gm.setAttribute('transform',s.master?'rotate(0 225 385)':'rotate(-28 225 385)');gm.querySelector('path').setAttribute('stroke',s.master?'#74E06D':'#D5A85B');
- document.querySelectorAll('.sGlow').forEach(g=>g.setAttribute('opacity',closed?Math.min(.45,.12+s.V/30):0));
+ document.querySelectorAll('.sGlow').forEach((g,i)=>{
+   const Pi=closed?(I*I*s.R[i]):0;
+   g.setAttribute('opacity',Pi>0?Math.min(.55,.08+Pi/8):0);
+ });
 }
 
 function animate(){
@@ -501,8 +521,22 @@ function animate(){
 
 document.getElementById('pVoltage').addEventListener('input',e=>{p.V=+e.target.value;updateParallel()});
 document.getElementById('sVoltage').addEventListener('input',e=>{s.V=+e.target.value;updateSeries()});
-document.getElementById('pReset').onclick=()=>{Object.assign(p,{V:6,master:true,sw:[true,true,true],phase:0});document.getElementById('pVoltage').value=6;updateParallel()};
-document.getElementById('sReset').onclick=()=>{Object.assign(s,{V:6,master:true,sw:[true,true,true],phase:0});document.getElementById('sVoltage').value=6;updateSeries()};
+
+['pR1','pR2','pR3'].forEach((id,i)=>document.getElementById(id).addEventListener('input',e=>{p.R[i]=+e.target.value;updateParallel()}));
+['sR1','sR2','sR3'].forEach((id,i)=>document.getElementById(id).addEventListener('input',e=>{s.R[i]=+e.target.value;updateSeries()}));
+
+document.getElementById('pReset').onclick=()=>{
+ Object.assign(p,{V:6,master:true,sw:[true,true,true],phase:0,R:[10,10,10]});
+ document.getElementById('pVoltage').value=6;
+ ['pR1','pR2','pR3'].forEach(id=>document.getElementById(id).value=10);
+ updateParallel()
+};
+document.getElementById('sReset').onclick=()=>{
+ Object.assign(s,{V:6,master:true,sw:[true,true,true],phase:0,R:[10,10,10]});
+ document.getElementById('sVoltage').value=6;
+ ['sR1','sR2','sR3'].forEach(id=>document.getElementById(id).value=10);
+ updateSeries()
+};
 document.getElementById('resetAll').onclick=()=>{document.getElementById('pReset').click();document.getElementById('sReset').click()};
 ['pArm1','pArm2','pArm3'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{p.sw[i]=!p.sw[i];updateParallel()}));
 document.getElementById('pMasterArm').addEventListener('click',()=>{p.master=!p.master;updateParallel()});
