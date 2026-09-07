@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06192B">
+<title>Ahmed Adel Physics — Virtual Lab</title>
+<style>
+:root{
+  --navy:#06192B; --navy2:#0A2238; --navy3:#0E2E4A;
+  --copper:#B87333; --copper2:#D49A5B; --cream:#F4EEE4;
+  --text:#F7F2EA; --muted:#A8B7C1; --cyan:#71D7F1; --green:#86D9A1;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#03111E;color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{min-height:100%}
+button,input{font:inherit}
+.shell{max-width:1180px;margin:0 auto;padding:18px}
+.app{
+  background:linear-gradient(155deg,#06192B,#0A2238 68%,#0D2C49);
+  border:1px solid #ffffff14;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 24px 70px #00000035;
+}
+.header{
+  padding:22px 22px 16px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  border-bottom:1px solid #ffffff0e;
+}
+.brand .eyebrow{font-size:11px;letter-spacing:.22em;color:#ffffff6c}
+.brand h1{margin:5px 0 0;font-size:24px;line-height:1.1}
+.brand p{margin:8px 0 0;color:var(--muted);font-size:13px;max-width:700px}
+.badge{
+  padding:8px 12px;border-radius:999px;background:#ffffff0a;border:1px solid #ffffff14;
+  color:#d8e2e8;font-size:12px
+}
+.home{padding:18px 18px 22px}
+.hero{
+  display:grid;grid-template-columns:1.3fr .7fr;gap:14px;margin-bottom:16px
+}
+.heroCard,.statCard,.simCard,.panel{
+  background:#ffffff08;border:1px solid #ffffff12;border-radius:18px
+}
+.heroCard{padding:18px}
+.heroCard h2{margin:0 0 8px;font-size:20px}
+.heroCard p{margin:0;color:#c6d1d8;font-size:13px;line-height:1.6}
+.statCard{padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.statCard strong{font-size:26px}
+.statCard span{font-size:12px;color:#9dafb9}
+.sectionTitle{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:8px 2px 10px}
+.sectionTitle h3{margin:0;font-size:16px}
+.sectionTitle span{font-size:12px;color:#8396a3}
+.cards{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px
+}
+.simCard{
+  padding:15px;min-height:165px;display:flex;flex-direction:column;justify-content:space-between;gap:14px
+}
+.icon{
+  width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+  background:#b8733324;border:1px solid #d49a5b3f;font-size:22px
+}
+.simCard h4{margin:10px 0 4px;font-size:16px}
+.simCard p{margin:0;color:#9fb0ba;font-size:12px;line-height:1.5}
+.simMeta{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tag{font-size:11px;color:#cbd7de;padding:5px 8px;border:1px solid #ffffff10;border-radius:999px;background:#ffffff07}
+.openBtn{
+  border:1px solid #d49a5b66;background:#b8733326;color:#fff;border-radius:11px;
+  padding:9px 11px;font-weight:700;cursor:pointer
+}
+.openBtn:disabled{opacity:.38;cursor:not-allowed}
+.viewer{display:none}
+.viewer.active{display:block}
+.toolbar{
+  padding:12px 14px;border-bottom:1px solid #ffffff10;background:#061a2d;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap
+}
+.back{
+  border:1px solid #ffffff16;background:#ffffff08;color:white;border-radius:11px;padding:9px 12px;font-weight:700;cursor:pointer
+}
+.labWrap{padding:14px}
+.labFrame{background:#05192a;border:1px solid #ffffff12;border-radius:18px;overflow:hidden}
+.labTop{padding:14px 16px 8px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.labTitle{font-size:17px;font-weight:800}
+.status{display:flex;align-items:center;gap:7px;font-size:12px;color:#d5dfe5}
+.dot{width:9px;height:9px;border-radius:50%;background:#71808a}
+svg{width:100%;height:auto;display:block}
+.controls{padding:12px 14px 16px;border-top:1px solid #ffffff10;background:#061a2d}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.card{background:#ffffff08;border:1px solid #ffffff12;border-radius:14px;padding:10px}
+.card button{
+  width:100%;min-height:44px;border-radius:11px;border:1px solid #ffffff18;background:#ffffff0b;color:#fff;font-weight:750;cursor:pointer
+}
+.card button[aria-pressed="true"]{background:#b873332b;border-color:#d49a5b88}
+.row{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin:6px 0}
+.range{width:100%;accent-color:var(--copper)}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:9px}
+.metric{background:#ffffff07;border:1px solid #ffffff10;border-radius:13px;padding:10px}
+.metric .k{font-size:10px;color:#ffffff72}.metric .v{font-size:17px;font-weight:800;margin-top:3px}
+.note{margin-top:9px;padding:10px 12px;border:1px solid #ffffff10;background:#ffffff07;border-radius:13px;font-size:12px;line-height:1.55;color:#d9e2e7}
+.footerNote{padding:14px 18px 20px;color:#8295a1;font-size:11px}
+@media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.grid4,.metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.shell{padding:8px}.app{border-radius:18px}.cards,.grid4,.metrics{grid-template-columns:1fr}.brand h1{font-size:20px}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <main class="app">
+    <section id="homeView">
+      <header class="header">
+        <div class="brand">
+          <div class="eyebrow">AHMED ADEL PHYSICS</div>
+          <h1>Virtual Physics Lab</h1>
+          <p>Interactive simulations for classroom explanation, concept building, and live demonstrations on iPad.</p>
+        </div>
+        <div class="badge">Offline-ready structure · Home Screen friendly</div>
+      </header>
+
+      <div class="home">
+        <div class="hero">
+          <div class="heroCard">
+            <h2>Choose a simulation</h2>
+            <p>One app, multiple simulations. New experiments can be added later without changing the way you use the lab.</p>
+          </div>
+          <div class="statCard">
+            <div><strong id="readyCount">1</strong><br><span>ready simulation</span></div>
+            <div><strong>5+</strong><br><span>planned modules</span></div>
+          </div>
+        </div>
+
+        <div class="sectionTitle"><h3>Simulation Library</h3><span>Tap any ready module to launch</span></div>
+        <div class="cards">
+          <article class="simCard">
+            <div>
+              <div class="icon">⚡</div>
+              <h4>Electric Circuits</h4>
+              <p>Three lamps in parallel, independent switches, battery control, voltage, current, power, and brightness.</p>
+            </div>
+            <div class="simMeta"><span class="tag">Ready</span><button class="openBtn" data-open="circuit">Open</button></div>
+          </article>
+
+          <article class="simCard">
+            <div><div class="icon">🚗</div><h4>Motion & Velocity</h4><p>Position, time, velocity, and uniform/non-uniform motion.</p></div>
+            <div class="simMeta"><span class="tag">Planned</span><button class="openBtn" disabled>Coming soon</button></div>
+          </article>
+
+          <article class="simCard">
+            <div><div class="icon">📈</div><h4>Motion Graphs</h4><p>Explore x–t, v–t and a–t relationships interactively.</p></div>
+            <div class="simMeta"><span class="tag">Planned</span><button class="openBtn" disabled>Coming soon</button></div>
+          </article>
+
+          <article class="simCard">
+            <div><div class="icon">🏹</div><h4>Projectile Motion</h4><p>Launch speed, angle, components, trajectory, range, and height.</p></div>
+            <div class="simMeta"><span class="tag">Planned</span><button class="openBtn" disabled>Coming soon</button></div>
+          </article>
+
+          <article class="simCard">
+            <div><div class="icon">🚢</div><h4>Relative Velocity</h4><p>Galilean relative motion using vehicles, boats, and observers.</p></div>
+            <div class="simMeta"><span class="tag">Planned</span><button class="openBtn" disabled>Coming soon</button></div>
+          </article>
+
+          <article class="simCard">
+            <div><div class="icon">🧭</div><h4>Vectors</h4><p>Vector addition, subtraction, components, direction, and resultant.</p></div>
+            <div class="simMeta"><span class="tag">Planned</span><button class="openBtn" disabled>Coming soon</button></div>
+          </article>
+        </div>
+      </div>
+      <div class="footerNote">Designed as a single-file web app so it can be hosted once and used from Safari / Add to Home Screen.</div>
+    </section>
+
+    <section id="viewer" class="viewer">
+      <div class="toolbar">
+        <button class="back" id="backBtn">← Back to Virtual Lab</button>
+        <div class="badge">Electric Circuits · Live Simulation</div>
+      </div>
+
+      <div class="labWrap">
+        <section class="labFrame">
+          <div class="labTop">
+            <div>
+              <div class="eyebrow">INTERACTIVE MODULE 01</div>
+              <div class="labTitle">Parallel DC Circuit — 3 Lamps / 3 Switches</div>
+            </div>
+            <div class="status"><span class="dot" id="dot"></span><span id="statusText">Master switch open</span></div>
+          </div>
+
+          <svg viewBox="0 0 1100 520" aria-label="Parallel circuit with three lamps and independent switches">
+            <defs>
+              <linearGradient id="wireGrad" x1="0" x2="1"><stop stop-color="#9C5729"/><stop offset=".5" stop-color="#D49A5B"/><stop offset="1" stop-color="#985125"/></linearGradient>
+              <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e0e6ea"/><stop offset=".5" stop-color="#75828c"/><stop offset="1" stop-color="#c4cbd0"/></linearGradient>
+              <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5fbff"/><stop offset="1" stop-color="#93a9b8"/></linearGradient>
+              <radialGradient id="lit"><stop offset="0" stop-color="#fffbd3"/><stop offset=".55" stop-color="#ffe071"/><stop offset="1" stop-color="#ef9f34"/></radialGradient>
+              <filter id="softGlow"><feGaussianBlur stdDeviation="18"/></filter>
+              <path id="flowPath" d="M155 422 H905 Q965 422 965 362 V145 Q965 105 925 105 H175 Q135 105 135 145 V362 Q135 422 155 422"/>
+            </defs>
+
+            <text x="550" y="56" text-anchor="middle" fill="#bfcbd3" opacity=".42" font-size="14">PARALLEL CIRCUIT · EACH LAMP HAS AN INDEPENDENT SWITCH</text>
+
+            <path id="railTop" d="M175 105 H925" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+            <path id="railBottomL" d="M155 422 H392" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+            <path id="railBottomR" d="M708 422 H905 Q965 422 965 362 V145 Q965 105 925 105" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+            <path id="leftRail" d="M175 105 Q135 105 135 145 V362 Q135 422 155 422" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+
+            <path id="masterWireL" d="M392 422 H455" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+            <path id="masterWireR" d="M512 422 H548" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="465" cy="422" r="11" fill="#102638" stroke="#d49a5b" stroke-width="5"/>
+            <circle cx="512" cy="422" r="11" fill="#102638" stroke="#d49a5b" stroke-width="5"/>
+            <g id="masterArm" transform="rotate(-28 465 422)"><path d="M465 422 H512" stroke="#e7b877" stroke-width="9" stroke-linecap="round"/></g>
+            <text x="488" y="392" text-anchor="middle" fill="#aebbc4" font-size="12">MASTER</text>
+
+            <g>
+              <rect x="548" y="390" width="160" height="64" rx="15" fill="#202a33" stroke="#111a21" stroke-width="3"/>
+              <rect x="652" y="390" width="56" height="64" fill="#d49445"/>
+              <rect x="538" y="406" width="13" height="30" rx="4" fill="#d8dee2"/>
+              <rect x="705" y="402" width="14" height="38" rx="4" fill="#d8dee2"/>
+              <text x="571" y="429" fill="#d8e0e5" font-size="22" font-weight="800">−</text>
+              <text x="681" y="430" fill="#1d2930" font-size="22" font-weight="900">+</text>
+              <text x="628" y="478" text-anchor="middle" fill="#97a7b1" font-size="12">DC SOURCE</text>
+            </g>
+
+            <g class="branch" data-i="0">
+              <path class="branchWire" d="M330 105 V170 M330 260 V422" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+              <circle cx="330" cy="186" r="10" fill="#102638" stroke="#d49a5b" stroke-width="5"/>
+              <circle cx="330" cy="228" r="10" fill="#102638" stroke="#d49a5b" stroke-width="5"/>
+              <g class="arm" transform="rotate(-31 330 186)"><path d="M330 186 V228" stroke="#e7b877" stroke-width="8" stroke-linecap="round"/></g>
+              <text x="356" y="210" fill="#9fafba" font-size="11">S₁</text>
+              <g transform="translate(330 292)">
+                <circle class="halo" cx="0" cy="-26" r="68" fill="#ffd75d" opacity="0" filter="url(#softGlow)"/>
+                <path d="M-34 -40 Q-34 -78 0 -83 Q34 -78 34 -40 Q34 -17 19 -4 V8 H-19 V-4 Q-34 -17 -34 -40Z" fill="url(#glass)" stroke="#6c8190" stroke-width="3"/>
+                <path class="glassOn" d="M-34 -40 Q-34 -78 0 -83 Q34 -78 34 -40 Q34 -17 19 -4 V8 H-19 V-4 Q-34 -17 -34 -40Z" fill="url(#lit)" opacity="0"/>
+                <path class="filament" d="M-11 -31 L0 -19 L11 -31 M0 -19 V-4" fill="none" stroke="#737d84" stroke-width="3"/>
+                <rect x="-21" y="6" width="42" height="31" rx="5" fill="url(#metal)"/><path d="M-20 16H20M-20 25H20" stroke="#53626c" stroke-width="2"/>
+              </g>
+              <text x="330" y="354" text-anchor="middle" fill="#dce5ea" font-size="13">L₁ · 12 Ω</text>
+            </g>
+
+            <g class="branch" data-i="1">
+              <path class="branchWire" d="M550 105 V170 M550 260 V422" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+              <circle cx="550" cy="186" r="10" fill="#102638" stroke="#d49a5b" stroke-width="5"/>
+              <circle cx="550" cy="228" r="10" fill="#102638" stroke="#d49a5b" stroke-width="5"/>
+              <g class="arm" transform="rotate(-31 550 186)"><path d="M550 186 V228" stroke="#e7b877" stroke-width="8" stroke-linecap="round"/></g>
+              <text x="576" y="210" fill="#9fafba" font-size="11">S₂</text>
+              <g transform="translate(550 292)">
+                <circle class="halo" cx="0" cy="-26" r="68" fill="#ffd75d" opacity="0" filter="url(#softGlow)"/>
+                <path d="M-34 -40 Q-34 -78 0 -83 Q34 -78 34 -40 Q34 -17 19 -4 V8 H-19 V-4 Q-34 -17 -34 -40Z" fill="url(#glass)" stroke="#6c8190" stroke-width="3"/>
+                <path class="glassOn" d="M-34 -40 Q-34 -78 0 -83 Q34 -78 34 -40 Q34 -17 19 -4 V8 H-19 V-4 Q-34 -17 -34 -40Z" fill="url(#lit)" opacity="0"/>
+                <path class="filament" d="M-11 -31 L0 -19 L11 -31 M0 -19 V-4" fill="none" stroke="#737d84" stroke-width="3"/>
+                <rect x="-21" y="6" width="42" height="31" rx="5" fill="url(#metal)"/><path d="M-20 16H20M-20 25H20" stroke="#53626c" stroke-width="2"/>
+              </g>
+              <text x="550" y="354" text-anchor="middle" fill="#dce5ea" font-size="13">L₂ · 12 Ω</text>
+            </g>
+
+            <g class="branch" data-i="2">
+              <path class="branchWire" d="M770 105 V170 M770 260 V422" fill="none" stroke="#5c6872" stroke-width="10" stroke-linecap="round"/>
+              <circle cx="770" cy="186" r="10" fill="#102638" stroke="#d49a5b" stroke-width="5"/>
+              <circle cx="770" cy="228" r="10" fill="#102638" stroke="#d49a5b" stroke-width="5"/>
+              <g class="arm" transform="rotate(-31 770 186)"><path d="M770 186 V228" stroke="#e7b877" stroke-width="8" stroke-linecap="round"/></g>
+              <text x="796" y="210" fill="#9fafba" font-size="11">S₃</text>
+              <g transform="translate(770 292)">
+                <circle class="halo" cx="0" cy="-26" r="68" fill="#ffd75d" opacity="0" filter="url(#softGlow)"/>
+                <path d="M-34 -40 Q-34 -78 0 -83 Q34 -78 34 -40 Q34 -17 19 -4 V8 H-19 V-4 Q-34 -17 -34 -40Z" fill="url(#glass)" stroke="#6c8190" stroke-width="3"/>
+                <path class="glassOn" d="M-34 -40 Q-34 -78 0 -83 Q34 -78 34 -40 Q34 -17 19 -4 V8 H-19 V-4 Q-34 -17 -34 -40Z" fill="url(#lit)" opacity="0"/>
+                <path class="filament" d="M-11 -31 L0 -19 L11 -31 M0 -19 V-4" fill="none" stroke="#737d84" stroke-width="3"/>
+                <rect x="-21" y="6" width="42" height="31" rx="5" fill="url(#metal)"/><path d="M-20 16H20M-20 25H20" stroke="#53626c" stroke-width="2"/>
+              </g>
+              <text x="770" y="354" text-anchor="middle" fill="#dce5ea" font-size="13">L₃ · 12 Ω</text>
+            </g>
+
+            <g id="electrons"></g>
+            <text x="84" y="500" fill="#8496a2" font-size="11">Simplified model: ideal DC source + identical resistive lamps. Electron drift visualization is schematic, not to scale.</text>
+          </svg>
+
+          <div class="controls">
+            <div class="grid4">
+              <div class="card"><button id="master" aria-pressed="false">Close master switch</button></div>
+              <div class="card"><button id="s1" aria-pressed="true">S₁ · ON</button></div>
+              <div class="card"><button id="s2" aria-pressed="true">S₂ · ON</button></div>
+              <div class="card"><button id="s3" aria-pressed="true">S₃ · ON</button></div>
+            </div>
+
+            <div class="grid4" style="margin-top:9px">
+              <div class="card"><button id="batteryBtn" aria-pressed="true">Battery connected</button></div>
+              <div class="card"><button id="motionBtn" aria-pressed="true">Electron animation ON</button></div>
+              <div class="card" style="grid-column:span 2">
+                <div class="row"><span>Battery voltage</span><strong id="vOut">6.0 V</strong></div>
+                <input class="range" id="voltage" type="range" min="1.5" max="12" step=".5" value="6">
+                <div class="row" style="color:#8fa2ad"><span>1.5 V</span><span>12 V</span></div>
+              </div>
+            </div>
+
+            <div class="metrics">
+              <div class="metric"><div class="k">TOTAL CURRENT</div><div class="v" id="It">0.00 A</div></div>
+              <div class="metric"><div class="k">TOTAL POWER</div><div class="v" id="Pt">0.00 W</div></div>
+              <div class="metric"><div class="k">POWER / ACTIVE LAMP</div><div class="v" id="Pl">0.00 W</div></div>
+              <div class="metric"><div class="k">ACTIVE BRANCHES</div><div class="v" id="active">0 / 3</div></div>
+            </div>
+
+            <div class="note" id="note">The master switch is open, so the source is isolated from the circuit.</div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(()=>{
+  const home=document.getElementById('homeView'), viewer=document.getElementById('viewer');
+  document.querySelectorAll('[data-open="circuit"]').forEach(b=>b.addEventListener('click',()=>{home.style.display='none';viewer.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}));
+  document.getElementById('backBtn').addEventListener('click',()=>{viewer.classList.remove('active');home.style.display='block';window.scrollTo({top:0,behavior:'smooth'});});
+
+  const q=s=>viewer.querySelector(s), qa=s=>[...viewer.querySelectorAll(s)];
+  const st={master:false,battery:true,sw:[true,true,true],motion:true,V:6,R:12};
+  const branches=qa('.branch'), dot=q('#dot'), status=q('#statusText'), path=q('#flowPath'), eg=q('#electrons');
+  let phase=0,last=performance.now(); const total=path.getTotalLength(), dotEls=[];
+  for(let i=0;i<28;i++){const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('r',i%4===0?5.2:4.1);c.setAttribute('fill','#71D7F1');eg.appendChild(c);dotEls.push(c);}
+  function mainOn(){return st.master&&st.battery}
+  function render(){
+    const on=mainOn(), n=st.sw.filter(Boolean).length, Ibranch=on?st.V/st.R:0, It=Ibranch*n, Pl=on?st.V*st.V/st.R:0, Pt=Pl*n;
+    q('#vOut').textContent=st.V.toFixed(1)+' V'; q('#It').textContent=It.toFixed(2)+' A'; q('#Pt').textContent=Pt.toFixed(2)+' W'; q('#Pl').textContent=Pl.toFixed(2)+' W'; q('#active').textContent=(on?n:0)+' / 3';
+    q('#master').setAttribute('aria-pressed',st.master); q('#master').textContent=st.master?'Open master switch':'Close master switch';
+    q('#batteryBtn').setAttribute('aria-pressed',st.battery); q('#batteryBtn').textContent=st.battery?'Battery connected':'Battery disconnected';
+    q('#motionBtn').setAttribute('aria-pressed',st.motion); q('#motionBtn').textContent=st.motion?'Electron animation ON':'Electron animation PAUSED';
+    q('#masterArm').setAttribute('transform',st.master?'rotate(0 465 422)':'rotate(-28 465 422)');
+    ['#s1','#s2','#s3'].forEach((id,i)=>{q(id).setAttribute('aria-pressed',st.sw[i]);q(id).textContent=`S${['₁','₂','₃'][i]} · ${st.sw[i]?'ON':'OFF'}`;});
+    branches.forEach((b,i)=>{
+      const active=on&&st.sw[i], x=[330,550,770][i], arm=b.querySelector('.arm'), wire=b.querySelector('.branchWire'), halo=b.querySelector('.halo'), glassOn=b.querySelector('.glassOn'), filament=b.querySelector('.filament');
+      arm.setAttribute('transform',st.sw[i]?`rotate(0 ${x} 186)`:`rotate(-31 ${x} 186)`);
+      wire.setAttribute('stroke',active?'url(#wireGrad)':'#5c6872');
+      const rel=active?Math.min(2,Pl/3):0;
+      halo.setAttribute('opacity',active?Math.min(.82,.12+.34*rel):0);
+      glassOn.setAttribute('opacity',active?Math.min(1,.20+.45*rel):0);
+      filament.setAttribute('stroke',active?'#FFD75E':'#737d84');
+      filament.setAttribute('stroke-width',active?Math.min(5.2,3+rel):3);
+    });
+    ['#railTop','#railBottomL','#railBottomR','#leftRail','#masterWireL','#masterWireR'].forEach(id=>q(id).setAttribute('stroke',on&&n>0?'url(#wireGrad)':'#5c6872'));
+    dot.style.background=on&&n>0?'#86D9A1':'#71808a';
+    status.textContent=!st.battery?'Battery disconnected':!st.master?'Master switch open':n===0?'All lamp branches open':`${n} active branch${n>1?'es':''}`;
+    q('#note').textContent=!st.battery?'The battery is disconnected, so there is no sustained potential difference and current is zero.':!st.master?'The master switch is open, so the source is isolated from the entire circuit.':n===0?'All three branch switches are open. The source is connected, but no complete lamp path exists.':`Each active lamp has ${st.V.toFixed(1)} V across it. With R = ${st.R} Ω per lamp, each active branch carries ${Ibranch.toFixed(2)} A and dissipates ${Pl.toFixed(2)} W. Brightness is mapped to electrical power using P = V²/R.`;
+  }
+  q('#master').addEventListener('click',()=>{st.master=!st.master;render()});
+  q('#batteryBtn').addEventListener('click',()=>{st.battery=!st.battery;render()});
+  q('#motionBtn').addEventListener('click',()=>{st.motion=!st.motion;render()});
+  ['#s1','#s2','#s3'].forEach((id,i)=>q(id).addEventListener('click',()=>{st.sw[i]=!st.sw[i];render()}));
+  q('#voltage').addEventListener('input',e=>{st.V=Number(e.target.value);render()});
+  function animate(t){
+    const dt=Math.min(40,t-last);last=t;const active=mainOn()&&st.sw.some(Boolean);
+    if(active&&st.motion)phase=(phase+dt*(.022+st.V*.0038))%total;
+    dotEls.forEach((d,i)=>{const p=path.getPointAtLength(((i/dotEls.length)*total+phase)%total);d.setAttribute('cx',p.x);d.setAttribute('cy',p.y);d.setAttribute('opacity',active?(st.motion?'.95':'.45'):'.12');});
+    requestAnimationFrame(animate);
+  }
+  render();requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>
