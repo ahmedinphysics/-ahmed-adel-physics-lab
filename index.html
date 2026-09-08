@@ -105,7 +105,6 @@ button,input{font:inherit}
 }
 #pArm1 path,#pArm2 path,#pArm3 path,#pMasterArm path,
 #sArm1 path,#sArm2 path,#sArm3 path,#sMasterArm path{pointer-events:stroke}
-#pElectronLayer,#sElectronLayer{pointer-events:none}
 </style>
 </head>
 <body>
@@ -251,13 +250,17 @@ button,input{font:inherit}
           <h3>✚ Controls (Parallel)</h3>
           <div class="row"><span>Battery Voltage (V)</span><span class="control-value" id="pVout">6.0 V</span></div>
           <input id="pVoltage" class="range" type="range" min="1.5" max="12" step=".5" value="6">
-          <div class="row"><span>R₁ (Ω)</span><span class="control-value" id="pR1out">10 Ω</span></div><input id="pR1" class="range" type="range" min="1" max="50" step="1" value="10">
-          <div class="row"><span>R₂ (Ω)</span><span class="control-value" id="pR2out">10 Ω</span></div><input id="pR2" class="range" type="range" min="1" max="50" step="1" value="10">
-          <div class="row"><span>R₃ (Ω)</span><span class="control-value" id="pR3out">10 Ω</span></div><input id="pR3" class="range" type="range" min="1" max="50" step="1" value="10">
-<div class="row" style="margin-top:9px"><span>Switches</span><span style="color:#8FB7CB">tap circuit or buttons</span></div>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
-<button class="action" id="pS1Btn">S₁ ON</button><button class="action" id="pS2Btn">S₂ ON</button><button class="action" id="pS3Btn">S₃ ON</button><button class="action" id="pMainBtn">Main ON</button>
-</div>
+          <div class="row"><span>R₁ (Ω)</span><span class="control-value" id="sR1out">10 Ω</span></div><input id="sR1" class="range" type="range" min="1" max="50" step="1" value="10">
+          <div class="row"><span>R₂ (Ω)</span><span class="control-value" id="sR2out">10 Ω</span></div><input id="sR2" class="range" type="range" min="1" max="50" step="1" value="10">
+          <div class="row"><span>R₃ (Ω)</span><span class="control-value" id="sR3out">10 Ω</span></div><input id="sR3" class="range" type="range" min="1" max="50" step="1" value="10">
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px">
+            <button class="action" id="sS1Btn">S₁ ON</button>
+            <button class="action" id="sS2Btn">S₂ ON</button>
+            <button class="action" id="sS3Btn">S₃ ON</button>
+            <button class="action" id="sMainBtn">Main ON</button>
+            <button class="action" id="sBatteryBtn">Battery connected</button>
+            <button class="action" id="sMotionBtn">Charges moving</button>
+          </div>
         </div>
         <div class="panel">
           <h3>▥ Measurements</h3>
@@ -380,6 +383,14 @@ button,input{font:inherit}
           <div class="row"><span>R₁ (Ω)</span><span class="control-value" id="pR1out">10 Ω</span></div><input id="pR1" class="range" type="range" min="1" max="50" step="1" value="10">
           <div class="row"><span>R₂ (Ω)</span><span class="control-value" id="pR2out">10 Ω</span></div><input id="pR2" class="range" type="range" min="1" max="50" step="1" value="10">
           <div class="row"><span>R₃ (Ω)</span><span class="control-value" id="pR3out">10 Ω</span></div><input id="pR3" class="range" type="range" min="1" max="50" step="1" value="10">
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px">
+            <button class="action" id="pS1Btn">S₁ ON</button>
+            <button class="action" id="pS2Btn">S₂ ON</button>
+            <button class="action" id="pS3Btn">S₃ ON</button>
+            <button class="action" id="pMainBtn">Main ON</button>
+            <button class="action" id="pBatteryBtn">Battery connected</button>
+            <button class="action" id="pMotionBtn">Charges moving</button>
+          </div>
         </div>
         <div class="panel">
           <h3>▥ Measurements</h3>
@@ -408,14 +419,14 @@ button,input{font:inherit}
 <script>
 (()=>{
 const ns='http://www.w3.org/2000/svg';
-function makeDot(layer,x,y,r=4){const c=document.createElementNS(ns,'circle');c.setAttribute('r',r+1);c.setAttribute('fill','#21B7FF');c.setAttribute('stroke','#D7F5FF');c.setAttribute('stroke-width','1.2');layer.appendChild(c);return c}
+function makeDot(layer,x,y,r=4){const c=document.createElementNS(ns,'circle');c.setAttribute('r',r);c.setAttribute('fill','#21B7FF');c.setAttribute('stroke','#D7F5FF');c.setAttribute('stroke-width','1.2');layer.appendChild(c);return c}
 function setSwitch(id,on,axis='h'){
  const g=document.getElementById(id); if(!g)return;
  const p=g.querySelector('path'); p.setAttribute('stroke',on?'#74E06D':'#D5A85B');
  if(axis==='h') g.setAttribute('transform',on?'rotate(0)':'rotate(-28 '+(id.startsWith('sArm')?({sArm1:'160 185',sArm2:'365 185',sArm3:'570 185'}[id]||'0 0'):'0 0')+')');
 }
-const p={V:6,master:true,sw:[true,true,true],motion:true,R:[10,10,10],phase:0};
-const s={V:6,master:true,sw:[true,true,true],motion:true,R:[10,10,10],phase:0};
+const p={V:6,master:true,battery:true,sw:[true,true,true],motion:true,R:[10,10,10],phase:0};
+const s={V:6,master:true,battery:true,sw:[true,true,true],motion:true,R:[10,10,10],phase:0};
 const pLayer=document.getElementById('pElectronLayer');
 const sLayer=document.getElementById('sElectronLayer');
 
@@ -444,8 +455,8 @@ for(let i=0;i<60;i++)pDots.push(makeDot(pLayer,0,0,i%6===0?5:4));
 for(let i=0;i<48;i++)sDots.push(makeDot(sLayer,0,0,i%6===0?5:4));
 
 function updateParallel(){
- const active=p.master?p.sw.filter(Boolean):[];
- const conduct=p.master&&p.sw.some(Boolean);
+ const active=(p.master&&p.battery)?p.sw.filter(Boolean):[];
+ const conduct=p.master&&p.battery&&p.sw.some(Boolean);
  document.getElementById('pVout').textContent=p.V.toFixed(1)+' V';
  document.getElementById('pVlabel').textContent=p.V.toFixed(1);
  document.getElementById('pR1out').textContent=p.R[0].toFixed(0)+' Ω';
@@ -455,7 +466,7 @@ function updateParallel(){
  document.getElementById('pL2R').textContent=p.R[1].toFixed(0);
  document.getElementById('pL3R').textContent=p.R[2].toFixed(0);
 
- const currents=p.sw.map((on,i)=>p.master&&on?p.V/p.R[i]:0);
+ const currents=p.sw.map((on,i)=>p.master&&p.battery&&on?p.V/p.R[i]:0);
  const It=currents.reduce((a,b)=>a+b,0);
  const Req=It>0?p.V/It:Infinity;
  const Pt=p.V*It;
@@ -463,18 +474,26 @@ function updateParallel(){
  document.getElementById('pIt').textContent=It.toFixed(2)+' A';
  document.getElementById('pReq').textContent=isFinite(Req)?Req.toFixed(2)+' Ω':'—';
  document.getElementById('pPt').textContent=Pt.toFixed(1)+' W';
- ['pS1Btn','pS2Btn','pS3Btn'].forEach((id,i)=>{const b=document.getElementById(id);b.textContent=`S${['₁','₂','₃'][i]} ${p.sw[i]?'ON':'OFF'}`;b.style.background=p.sw[i]?'#0B4B34':'#3A291D';});
- const pb=document.getElementById('pMainBtn');pb.textContent='Main '+(p.master?'ON':'OFF');pb.style.background=p.master?'#0B4B34':'#3A291D';
+
+ ['pS1Btn','pS2Btn','pS3Btn'].forEach((id,i)=>{
+   const b=document.getElementById(id);
+   b.textContent=`S${['₁','₂','₃'][i]} ${p.sw[i]?'ON':'OFF'}`;
+   b.style.background=p.sw[i]?'#0B4B34':'#3A291D';
+ });
+ const pmb=document.getElementById('pMainBtn'); pmb.textContent='Main '+(p.master?'ON':'OFF'); pmb.style.background=p.master?'#0B4B34':'#3A291D';
+ const pbb=document.getElementById('pBatteryBtn'); pbb.textContent=p.battery?'Battery connected':'Battery disconnected'; pbb.style.background=p.battery?'#0B4B34':'#3A291D';
+ const pmo=document.getElementById('pMotionBtn'); pmo.textContent=p.motion?'Charges moving':'Charges paused'; pmo.style.background=p.motion?'#0B4B34':'#2B3442';
+
  ['pArm1','pArm2','pArm3'].forEach((id,i)=>{const g=document.getElementById(id);const [cx,cy]=[[210,105],[210,225],[210,345]][i];g.setAttribute('transform',p.sw[i]?'rotate(0 '+cx+' '+cy+')':'rotate(-28 '+cx+' '+cy+')');g.querySelector('path').setAttribute('stroke',p.sw[i]?'#74E06D':'#D5A85B')});
  const gm=document.getElementById('pMasterArm');gm.setAttribute('transform',p.master?'rotate(0 190 385)':'rotate(-28 190 385)');gm.querySelector('path').setAttribute('stroke',p.master?'#74E06D':'#D5A85B');
  document.querySelectorAll('.pGlow').forEach((g,i)=>{
-   const Pi=(p.master&&p.sw[i])?(p.V*p.V/p.R[i]):0;
+   const Pi=(p.master&&p.battery&&p.sw[i])?(p.V*p.V/p.R[i]):0;
    g.setAttribute('opacity',Pi>0?Math.min(.55,.08+Pi/20):0);
  });
 }
 
 function updateSeries(){
- const closed=s.master&&s.sw.every(Boolean);
+ const closed=s.master&&s.battery&&s.sw.every(Boolean);
  const Req=s.R.reduce((a,b)=>a+b,0), I=closed?s.V/Req:0;
  document.getElementById('sVout').textContent=s.V.toFixed(1)+' V';
  document.getElementById('sVlabel').textContent=s.V.toFixed(1);
@@ -491,8 +510,16 @@ function updateSeries(){
  document.getElementById('sVt').textContent=(closed?s.V:0).toFixed(1)+' V';
  document.getElementById('sReq').textContent=Req.toFixed(1)+' Ω';
  document.getElementById('sPt').textContent=(s.V*I).toFixed(1)+' W';
- ['sS1Btn','sS2Btn','sS3Btn'].forEach((id,i)=>{const b=document.getElementById(id);b.textContent=`S${['₁','₂','₃'][i]} ${s.sw[i]?'ON':'OFF'}`;b.style.background=s.sw[i]?'#0B4B34':'#3A291D';});
- const sb=document.getElementById('sMainBtn');sb.textContent='Main '+(s.master?'ON':'OFF');sb.style.background=s.master?'#0B4B34':'#3A291D';
+
+ ['sS1Btn','sS2Btn','sS3Btn'].forEach((id,i)=>{
+   const b=document.getElementById(id);
+   b.textContent=`S${['₁','₂','₃'][i]} ${s.sw[i]?'ON':'OFF'}`;
+   b.style.background=s.sw[i]?'#0B4B34':'#3A291D';
+ });
+ const smb=document.getElementById('sMainBtn'); smb.textContent='Main '+(s.master?'ON':'OFF'); smb.style.background=s.master?'#0B4B34':'#3A291D';
+ const sbb=document.getElementById('sBatteryBtn'); sbb.textContent=s.battery?'Battery connected':'Battery disconnected'; sbb.style.background=s.battery?'#0B4B34':'#3A291D';
+ const smo=document.getElementById('sMotionBtn'); smo.textContent=s.motion?'Charges moving':'Charges paused'; smo.style.background=s.motion?'#0B4B34':'#2B3442';
+
  const cfg=[['sArm1',160,185],['sArm2',365,185],['sArm3',570,185]];
  cfg.forEach(([id,cx,cy],i)=>{const g=document.getElementById(id);g.setAttribute('transform',s.sw[i]?'rotate(0 '+cx+' '+cy+')':'rotate(-28 '+cx+' '+cy+')');g.querySelector('path').setAttribute('stroke',s.sw[i]?'#74E06D':'#D5A85B')});
  const gm=document.getElementById('sMasterArm');gm.setAttribute('transform',s.master?'rotate(0 225 385)':'rotate(-28 225 385)');gm.querySelector('path').setAttribute('stroke',s.master?'#74E06D':'#D5A85B');
@@ -503,8 +530,8 @@ function updateSeries(){
 }
 
 function animate(){
- p.phase+=0.006*(p.V/6);
- s.phase+=0.006*(s.V/6);
+ if(p.motion)p.phase+=0.005*(p.V/6);
+ if(s.motion)s.phase+=0.005*(s.V/6);
  const pPaths=parallelPaths();
  let idx=0;
  // branch dots
@@ -513,7 +540,7 @@ function animate(){
      const t=(j/12+p.phase)%1;
      const [x,y]=interpPolyline(pPaths[b],t);
      pDots[idx].setAttribute('cx',x);pDots[idx].setAttribute('cy',y);
-     pDots[idx].setAttribute('opacity',p.master&&p.sw[b]?'1':'0.12');
+     pDots[idx].setAttribute('opacity',p.master&&p.battery&&p.sw[b]?'1':'0.12');
    }
  }
  // bottom + rails
@@ -522,14 +549,14 @@ function animate(){
    for(let j=0;j<8;j++,idx++){
      const [x,y]=interpPolyline(extra[e],(j/8+p.phase)%1);
      pDots[idx].setAttribute('cx',x);pDots[idx].setAttribute('cy',y);
-     pDots[idx].setAttribute('opacity',p.master&&p.sw.some(Boolean)?'1':'0.12');
+     pDots[idx].setAttribute('opacity',p.master&&p.battery&&p.sw.some(Boolean)?'1':'0.12');
    }
  }
  const sPts=seriesPathPoints();
  for(let i=0;i<sDots.length;i++){
    const [x,y]=interpPolyline(sPts,(i/sDots.length+s.phase)%1);
    sDots[i].setAttribute('cx',x);sDots[i].setAttribute('cy',y);
-   sDots[i].setAttribute('opacity',s.master&&s.sw.every(Boolean)?'1':'0.12');
+   sDots[i].setAttribute('opacity',s.master&&s.battery&&s.sw.every(Boolean)?'1':'0.12');
  }
  requestAnimationFrame(animate)
 }
@@ -541,13 +568,13 @@ document.getElementById('sVoltage').addEventListener('input',e=>{s.V=+e.target.v
 ['sR1','sR2','sR3'].forEach((id,i)=>document.getElementById(id).addEventListener('input',e=>{s.R[i]=+e.target.value;updateSeries()}));
 
 document.getElementById('pReset').onclick=()=>{
- Object.assign(p,{V:6,master:true,sw:[true,true,true],phase:0,R:[10,10,10]});
+ Object.assign(p,{V:6,master:true,battery:true,motion:true,sw:[true,true,true],phase:0,R:[10,10,10]});
  document.getElementById('pVoltage').value=6;
  ['pR1','pR2','pR3'].forEach(id=>document.getElementById(id).value=10);
  updateParallel()
 };
 document.getElementById('sReset').onclick=()=>{
- Object.assign(s,{V:6,master:true,sw:[true,true,true],phase:0,R:[10,10,10]});
+ Object.assign(s,{V:6,master:true,battery:true,motion:true,sw:[true,true,true],phase:0,R:[10,10,10]});
  document.getElementById('sVoltage').value=6;
  ['sR1','sR2','sR3'].forEach(id=>document.getElementById(id).value=10);
  updateSeries()
@@ -559,8 +586,12 @@ document.getElementById('pMasterArm').addEventListener('click',()=>{p.master=!p.
 document.getElementById('sMasterArm').addEventListener('click',()=>{s.master=!s.master;updateSeries()});
 ['pS1Btn','pS2Btn','pS3Btn'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{p.sw[i]=!p.sw[i];updateParallel()}));
 document.getElementById('pMainBtn').addEventListener('click',()=>{p.master=!p.master;updateParallel()});
+document.getElementById('pBatteryBtn').addEventListener('click',()=>{p.battery=!p.battery;updateParallel()});
+document.getElementById('pMotionBtn').addEventListener('click',()=>{p.motion=!p.motion;updateParallel()});
 ['sS1Btn','sS2Btn','sS3Btn'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{s.sw[i]=!s.sw[i];updateSeries()}));
 document.getElementById('sMainBtn').addEventListener('click',()=>{s.master=!s.master;updateSeries()});
+document.getElementById('sBatteryBtn').addEventListener('click',()=>{s.battery=!s.battery;updateSeries()});
+document.getElementById('sMotionBtn').addEventListener('click',()=>{s.motion=!s.motion;updateSeries()});
 
 
 updateParallel();updateSeries();animate();
