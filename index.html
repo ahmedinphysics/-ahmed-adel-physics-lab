@@ -99,6 +99,13 @@ button,input{font:inherit}
   filter:drop-shadow(0 0 3px rgba(46,168,255,.9));
 }
 
+
+#pArm1,#pArm2,#pArm3,#pMasterArm,#sArm1,#sArm2,#sArm3,#sMasterArm{
+  cursor:pointer;pointer-events:all;touch-action:manipulation;
+}
+#pArm1 path,#pArm2 path,#pArm3 path,#pMasterArm path,
+#sArm1 path,#sArm2 path,#sArm3 path,#sMasterArm path{pointer-events:stroke}
+#pElectronLayer,#sElectronLayer{pointer-events:none}
 </style>
 </head>
 <body>
@@ -247,6 +254,10 @@ button,input{font:inherit}
           <div class="row"><span>R₁ (Ω)</span><span class="control-value" id="pR1out">10 Ω</span></div><input id="pR1" class="range" type="range" min="1" max="50" step="1" value="10">
           <div class="row"><span>R₂ (Ω)</span><span class="control-value" id="pR2out">10 Ω</span></div><input id="pR2" class="range" type="range" min="1" max="50" step="1" value="10">
           <div class="row"><span>R₃ (Ω)</span><span class="control-value" id="pR3out">10 Ω</span></div><input id="pR3" class="range" type="range" min="1" max="50" step="1" value="10">
+<div class="row" style="margin-top:9px"><span>Switches</span><span style="color:#8FB7CB">tap circuit or buttons</span></div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+<button class="action" id="pS1Btn">S₁ ON</button><button class="action" id="pS2Btn">S₂ ON</button><button class="action" id="pS3Btn">S₃ ON</button><button class="action" id="pMainBtn">Main ON</button>
+</div>
         </div>
         <div class="panel">
           <h3>▥ Measurements</h3>
@@ -397,7 +408,7 @@ button,input{font:inherit}
 <script>
 (()=>{
 const ns='http://www.w3.org/2000/svg';
-function makeDot(layer,x,y,r=4){const c=document.createElementNS(ns,'circle');c.setAttribute('r',r);c.setAttribute('fill','#21B7FF');c.setAttribute('stroke','#D7F5FF');c.setAttribute('stroke-width','1.2');layer.appendChild(c);return c}
+function makeDot(layer,x,y,r=4){const c=document.createElementNS(ns,'circle');c.setAttribute('r',r+1);c.setAttribute('fill','#21B7FF');c.setAttribute('stroke','#D7F5FF');c.setAttribute('stroke-width','1.2');layer.appendChild(c);return c}
 function setSwitch(id,on,axis='h'){
  const g=document.getElementById(id); if(!g)return;
  const p=g.querySelector('path'); p.setAttribute('stroke',on?'#74E06D':'#D5A85B');
@@ -452,6 +463,8 @@ function updateParallel(){
  document.getElementById('pIt').textContent=It.toFixed(2)+' A';
  document.getElementById('pReq').textContent=isFinite(Req)?Req.toFixed(2)+' Ω':'—';
  document.getElementById('pPt').textContent=Pt.toFixed(1)+' W';
+ ['pS1Btn','pS2Btn','pS3Btn'].forEach((id,i)=>{const b=document.getElementById(id);b.textContent=`S${['₁','₂','₃'][i]} ${p.sw[i]?'ON':'OFF'}`;b.style.background=p.sw[i]?'#0B4B34':'#3A291D';});
+ const pb=document.getElementById('pMainBtn');pb.textContent='Main '+(p.master?'ON':'OFF');pb.style.background=p.master?'#0B4B34':'#3A291D';
  ['pArm1','pArm2','pArm3'].forEach((id,i)=>{const g=document.getElementById(id);const [cx,cy]=[[210,105],[210,225],[210,345]][i];g.setAttribute('transform',p.sw[i]?'rotate(0 '+cx+' '+cy+')':'rotate(-28 '+cx+' '+cy+')');g.querySelector('path').setAttribute('stroke',p.sw[i]?'#74E06D':'#D5A85B')});
  const gm=document.getElementById('pMasterArm');gm.setAttribute('transform',p.master?'rotate(0 190 385)':'rotate(-28 190 385)');gm.querySelector('path').setAttribute('stroke',p.master?'#74E06D':'#D5A85B');
  document.querySelectorAll('.pGlow').forEach((g,i)=>{
@@ -478,6 +491,8 @@ function updateSeries(){
  document.getElementById('sVt').textContent=(closed?s.V:0).toFixed(1)+' V';
  document.getElementById('sReq').textContent=Req.toFixed(1)+' Ω';
  document.getElementById('sPt').textContent=(s.V*I).toFixed(1)+' W';
+ ['sS1Btn','sS2Btn','sS3Btn'].forEach((id,i)=>{const b=document.getElementById(id);b.textContent=`S${['₁','₂','₃'][i]} ${s.sw[i]?'ON':'OFF'}`;b.style.background=s.sw[i]?'#0B4B34':'#3A291D';});
+ const sb=document.getElementById('sMainBtn');sb.textContent='Main '+(s.master?'ON':'OFF');sb.style.background=s.master?'#0B4B34':'#3A291D';
  const cfg=[['sArm1',160,185],['sArm2',365,185],['sArm3',570,185]];
  cfg.forEach(([id,cx,cy],i)=>{const g=document.getElementById(id);g.setAttribute('transform',s.sw[i]?'rotate(0 '+cx+' '+cy+')':'rotate(-28 '+cx+' '+cy+')');g.querySelector('path').setAttribute('stroke',s.sw[i]?'#74E06D':'#D5A85B')});
  const gm=document.getElementById('sMasterArm');gm.setAttribute('transform',s.master?'rotate(0 225 385)':'rotate(-28 225 385)');gm.querySelector('path').setAttribute('stroke',s.master?'#74E06D':'#D5A85B');
@@ -488,8 +503,8 @@ function updateSeries(){
 }
 
 function animate(){
- p.phase+=0.0035*(p.V/6);
- s.phase+=0.0035*(s.V/6);
+ p.phase+=0.006*(p.V/6);
+ s.phase+=0.006*(s.V/6);
  const pPaths=parallelPaths();
  let idx=0;
  // branch dots
@@ -542,6 +557,11 @@ document.getElementById('resetAll').onclick=()=>{document.getElementById('pReset
 document.getElementById('pMasterArm').addEventListener('click',()=>{p.master=!p.master;updateParallel()});
 ['sArm1','sArm2','sArm3'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{s.sw[i]=!s.sw[i];updateSeries()}));
 document.getElementById('sMasterArm').addEventListener('click',()=>{s.master=!s.master;updateSeries()});
+['pS1Btn','pS2Btn','pS3Btn'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{p.sw[i]=!p.sw[i];updateParallel()}));
+document.getElementById('pMainBtn').addEventListener('click',()=>{p.master=!p.master;updateParallel()});
+['sS1Btn','sS2Btn','sS3Btn'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{s.sw[i]=!s.sw[i];updateSeries()}));
+document.getElementById('sMainBtn').addEventListener('click',()=>{s.master=!s.master;updateSeries()});
+
 
 updateParallel();updateSeries();animate();
 })();
