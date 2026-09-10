@@ -1,601 +1,102 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06192B">
-<title>Ahmed Adel Physics — Virtual Physics Lab</title>
-<style>
-:root{
-  --bg:#03111e;
-  --nav:#06192B;
-  --nav2:#071F35;
-  --panel:#0A2238;
-  --panel2:#0C2944;
-  --panel3:#0D2E4B;
-  --line:#173A58;
-  --line2:#214A6D;
-  --text:#F7F2E9;
-  --muted:#9FB1BE;
-  --blue:#2EA8FF;
-  --blue2:#6BC7FF;
-  --green:#53D26F;
-  --yellow:#FFD54A;
-  --pink:#E767D7;
-  --orange:#FF9D2E;
-  --copper:#C87831;
-  --white:#fff;
-}
-*{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-body{min-height:100%}
-button,input{font:inherit}
-.app{display:grid;grid-template-columns:258px minmax(0,1fr);min-height:100vh;background:linear-gradient(180deg,#06192B,#071B2F 55%,#06192B)}
-.sidebar{background:linear-gradient(180deg,#06192B,#071C31);border-right:1px solid #173A58;padding:14px 10px 16px;display:flex;flex-direction:column;gap:14px}
-.brand{padding:0 6px 6px}
-.brand .k{font-size:11px;letter-spacing:.22em;color:#A8C4D7}
-.brand h1{font-size:23px;margin:4px 0 2px}
-.brand p{margin:0;color:#AAC0CD;font-size:12px}
-.nav-group{display:flex;flex-direction:column;gap:5px}
-.nav-item,.nav-sub{
-  display:flex;align-items:center;gap:10px;border-radius:12px;padding:10px 12px;
-  color:#D7E5EE;font-size:13px;border:1px solid transparent
-}
-.nav-item.active{background:#0E3A66;border-color:#164D82;color:#fff}
-.nav-sub{padding-left:32px;color:#B9CFDC}
-.nav-sub.active{background:#123F6B;color:#fff}
-.nav-ico{width:20px;text-align:center;color:#6CC3FF}
-.sidebar-bottom{margin-top:auto;display:flex;flex-direction:column;gap:10px}
-.teacher-toggle{border:1px solid #1B4160;border-radius:12px;padding:11px 12px;display:flex;justify-content:space-between;align-items:center;color:#D9E8F1;background:#0A2138}
-.switch-ui{width:39px;height:22px;border-radius:999px;background:#314A60;position:relative}
-.switch-ui:after{content:"";width:16px;height:16px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px}
-.quote{border-top:1px solid #173A58;padding:12px 8px 0;color:#AABDC9;font-size:11px;line-height:1.6}
-.main{min-width:0;display:flex;flex-direction:column}
-.topbar{height:58px;border-bottom:1px solid #173A58;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:#071C30}
-.tabs{display:flex;gap:8px}
-.tab{border:1px solid #1A466A;background:#0A2238;color:#DCEAF3;padding:8px 12px;border-radius:11px;font-size:12px}
-.tab.active{background:#0A4B8A;border-color:#1F74C2}
-.actions{display:flex;gap:8px}
-.action{border:1px solid #1B4160;background:#0A2238;color:#DDEBF4;padding:8px 12px;border-radius:11px;font-size:12px}
-.content{padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
-.module{border:1px solid #17415F;background:linear-gradient(180deg,#081F35,#08243C);border-radius:16px;overflow:hidden}
-.module-head{padding:13px 16px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.module-title{display:flex;gap:12px;align-items:flex-start}
-.module-icon{font-size:28px;line-height:1;color:#59D76F}
-.module.series .module-icon{color:#FFC52F}
-.module h2{margin:0;font-size:18px}
-.module p{margin:4px 0 0;color:#B9CCD7;font-size:12px;line-height:1.45}
-.reset{border:1px solid #1B4D73;background:#0B2742;color:#DDEAF3;border-radius:10px;padding:7px 11px;font-size:12px}
-.stage{margin:0 10px 10px;border:1px solid #17415F;background:#061A2D;border-radius:12px;padding:8px}
-.stage svg{display:block;width:100%;height:auto}
-.lower{display:grid;grid-template-columns:1.08fr .92fr;gap:8px;padding:0 10px 10px}
-.panel{border:1px solid #17415F;background:#0A2238;border-radius:12px;padding:10px}
-.panel h3{margin:0 0 8px;font-size:13px;color:#AEDDFF;display:flex;gap:7px;align-items:center}
-.row{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px;margin:5px 0;color:#D7E5ED}
-.range{width:100%;accent-color:#35A8FF}
-.measure{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:11px}
-.measure div{padding:3px 0;border-bottom:1px solid #14344D}
-.measure .v{font-weight:800;color:#BFE6FF}
-.measure .good{color:#5BE577}.measure .warn{color:#FFD84D}.measure .pink{color:#EB7BDF}
-.bottom-info{display:grid;grid-template-columns:1.2fr .8fr;gap:8px;padding:0 10px 10px}
-.info{border:1px solid #17415F;background:#0A2238;border-radius:12px;padding:10px;min-height:150px}
-.info h3{margin:0 0 8px;font-size:13px;color:#AEDDFF}
-.info ul{margin:0;padding-left:18px;color:#D7E5ED;font-size:11px;line-height:1.55}
-.eq{font-family:Georgia,serif;color:#F2F5F8;font-size:14px;line-height:1.8}
-.footer{grid-column:1/-1;padding:8px 14px 14px;color:#8EA5B3;font-size:10px;display:flex;justify-content:space-between}
-.toggle{display:inline-flex;align-items:center;gap:7px}
-.fake-toggle{width:34px;height:18px;border-radius:999px;background:#1675C4;position:relative}
-.fake-toggle:after{content:"";width:14px;height:14px;border-radius:50%;background:#fff;position:absolute;right:2px;top:2px}
-.control-value{min-width:54px;text-align:center;border:1px solid #1A466A;border-radius:7px;padding:4px 6px;background:#0B2742;color:#F4FAFF}
-@media(max-width:1100px){.app{grid-template-columns:210px 1fr}.content{grid-template-columns:1fr}.footer{display:none}}
-@media(max-width:760px){.app{grid-template-columns:1fr}.sidebar{display:none}.topbar{overflow:auto}.content{padding:6px}.lower,.bottom-info{grid-template-columns:1fr}}
-
-.metalWire{
-  filter:drop-shadow(0 1px 1px rgba(0,0,0,.75));
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-#pElectronLayer circle,#sElectronLayer circle{
-  filter:drop-shadow(0 0 3px rgba(46,168,255,.9));
-}
-
-
-#pArm1,#pArm2,#pArm3,#pMasterArm,#sArm1,#sArm2,#sArm3,#sMasterArm{
-  cursor:pointer;pointer-events:all;touch-action:manipulation;
-}
-#pArm1 path,#pArm2 path,#pArm3 path,#pMasterArm path,
-#sArm1 path,#sArm2 path,#sArm3 path,#sMasterArm path{pointer-events:stroke}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive parallel circuit simulation by AHMED ADEL PHYSICS">
+  <title>Parallel Circuit Lab — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="app">
-<aside class="sidebar">
-  <div class="brand">
-    <div class="k">AHMED ADEL PHYSICS</div>
-    <h1>Virtual Physics Lab</h1>
-    <p>Explore • Experiment • Understand</p>
-  </div>
-  <div class="nav-group">
-    <div class="nav-item"><span class="nav-ico">⌂</span>Home</div>
-    <div class="nav-item active"><span class="nav-ico">⚡</span>Electric Circuits <span style="margin-left:auto">⌄</span></div>
-    <div class="nav-sub active"><span class="nav-ico">◉</span><div>Parallel Circuit<br><small style="color:#9EB7C6">3 lamps - independent</small></div></div>
-    <div class="nav-sub"><span class="nav-ico">○</span><div>Series Circuit<br><small style="color:#9EB7C6">3 lamps - single path</small></div></div>
-    <div class="nav-item"><span class="nav-ico">∿</span>Ohm's Law</div>
-    <div class="nav-item"><span class="nav-ico">⌘</span>Kirchhoff's Laws</div>
-    <div class="nav-item"><span class="nav-ico">⚙</span>Mechanics</div>
-    <div class="nav-item"><span class="nav-ico">↗</span>Motion & Velocity</div>
-    <div class="nav-item"><span class="nav-ico">⌁</span>Projectile Motion</div>
-    <div class="nav-item"><span class="nav-ico">≋</span>Waves</div>
-    <div class="nav-item"><span class="nav-ico">♨</span>Thermodynamics</div>
-    <div class="nav-item"><span class="nav-ico">☼</span>Optics</div>
-  </div>
-  <div class="sidebar-bottom">
-    <div class="teacher-toggle"><span>🎓 Teacher Mode</span><span class="switch-ui"></span></div>
-    <div class="quote">“Physics is not just a subject,<br>it’s a way of thinking.”<br><br>— Ahmed Adel</div>
-  </div>
-</aside>
-
-<section class="main">
-  <div class="topbar">
-    <div class="tabs">
-      <button class="tab active">◈ Simulation</button>
-      <button class="tab">▤ Theory</button>
-      <button class="tab">▥ Examples</button>
-      <button class="tab">? Questions</button>
-    </div>
-    <div class="actions">
-      <button class="action">☀︎ ◐</button>
-      <button class="action">🎓 Teacher Mode</button>
-      <button class="action" id="resetAll">↻ Reset All</button>
-    </div>
-  </div>
-
-  <div class="content">
-    <!-- PARALLEL -->
-    <section class="module parallel">
-      <div class="module-head">
-        <div class="module-title"><div class="module-icon">▮▮</div><div><h2>Parallel Circuit — 3 Lamps</h2><p>Each lamp has its own branch. All branches are connected across the same two points.</p></div></div>
-        <button class="reset" id="pReset">Reset</button>
-      </div>
-
-      <div class="stage">
-      <svg id="pSvg" viewBox="0 0 720 500" aria-label="Parallel circuit">
-        <defs>
-          <linearGradient id="wireP" x1="0" x2="1"><stop stop-color="#DADDE1"/><stop offset=".5" stop-color="#A9B7C1"/><stop offset="1" stop-color="#E6EAED"/></linearGradient>
-          <linearGradient id="metalP" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#E8EDF0"/><stop offset=".5" stop-color="#76818A"/><stop offset="1" stop-color="#CDD3D7"/></linearGradient>
-          <radialGradient id="bulbP"><stop offset="0" stop-color="#FFFBD9"/><stop offset=".55" stop-color="#FFE36A"/><stop offset="1" stop-color="#F0A52D"/></radialGradient>
-          <filter id="glowP"><feGaussianBlur stdDeviation="18"/></filter><filter id="wireShadowP" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#000000" flood-opacity=".75"/></filter>
-        </defs>
-
-        <!-- left/right rails -->
-        <path class="metalWire" d="M95 100 V385" stroke="#C9D3DA" stroke-width="7" fill="none"/>
-        <path class="metalWire" d="M625 100 V385" stroke="#C9D3DA" stroke-width="7" fill="none"/>
-
-        <!-- branch 1 -->
-        <path class="metalWire" d="M95 105 H195" stroke="#C9D3DA" stroke-width="7" fill="none"/>
-        <circle cx="210" cy="105" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <circle cx="250" cy="105" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <g id="pArm1" transform="rotate(0 210 105)"><path d="M210 105 H250" stroke="#74E06D" stroke-width="10" stroke-linecap="round"/></g>
-        <text x="230" y="79" text-anchor="middle" fill="#fff" font-size="13">S₁</text>
-        <text x="230" y="132" text-anchor="middle" fill="#BFE2F2" font-size="10">ON</text>
-        <path class="metalWire" d="M258 105 H345" stroke="#C9D3DA" stroke-width="7"/>
-        <g transform="translate(380 105)">
-          <circle class="pGlow" cx="0" cy="-18" r="54" fill="#FFD84C" opacity=".28" filter="url(#glowP)"/>
-          <path d="M-28 -25 Q-28 -60 0 -64 Q28 -60 28 -25 Q28 -8 15 4 V15 H-15 V4 Q-28 -8 -28 -25Z" fill="url(#bulbP)" stroke="#D8C46D" stroke-width="2"/>
-          <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
-          <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalP)"/>
-        </g>
-        <text x="380" y="160" text-anchor="middle" fill="#fff" font-size="12">L₁ (<tspan id="pL1R">10</tspan> Ω)</text>
-        <path class="metalWire" d="M415 105 H625" stroke="#C9D3DA" stroke-width="7"/>
-        <g class="pDots" data-y="105"></g>
-
-        <!-- branch 2 -->
-        <path class="metalWire" d="M95 225 H195" stroke="#C9D3DA" stroke-width="7"/>
-        <circle cx="210" cy="225" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <circle cx="250" cy="225" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <g id="pArm2"><path d="M210 225 H250" stroke="#74E06D" stroke-width="10" stroke-linecap="round"/></g>
-        <text x="230" y="199" text-anchor="middle" fill="#fff" font-size="13">S₂</text>
-        <text x="230" y="252" text-anchor="middle" fill="#BFE2F2" font-size="10">ON</text>
-        <path class="metalWire" d="M258 225 H345" stroke="#C9D3DA" stroke-width="7"/>
-        <g transform="translate(380 225)">
-          <circle class="pGlow" cx="0" cy="-18" r="54" fill="#FFD84C" opacity=".28" filter="url(#glowP)"/>
-          <path d="M-28 -25 Q-28 -60 0 -64 Q28 -60 28 -25 Q28 -8 15 4 V15 H-15 V4 Q-28 -8 -28 -25Z" fill="url(#bulbP)" stroke="#D8C46D" stroke-width="2"/>
-          <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
-          <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalP)"/>
-        </g>
-        <text x="380" y="280" text-anchor="middle" fill="#fff" font-size="12">L₂ (<tspan id="pL2R">10</tspan> Ω)</text>
-        <path class="metalWire" d="M415 225 H625" stroke="#C9D3DA" stroke-width="7"/>
-
-        <!-- branch 3 -->
-        <path class="metalWire" d="M95 345 H195" stroke="#C9D3DA" stroke-width="7"/>
-        <circle cx="210" cy="345" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <circle cx="250" cy="345" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <g id="pArm3"><path d="M210 345 H250" stroke="#74E06D" stroke-width="10" stroke-linecap="round"/></g>
-        <text x="230" y="319" text-anchor="middle" fill="#fff" font-size="13">S₃</text>
-        <text x="230" y="372" text-anchor="middle" fill="#BFE2F2" font-size="10">ON</text>
-        <path class="metalWire" d="M258 345 H345" stroke="#C9D3DA" stroke-width="7"/>
-        <g transform="translate(380 345)">
-          <circle class="pGlow" cx="0" cy="-18" r="54" fill="#FFD84C" opacity=".28" filter="url(#glowP)"/>
-          <path d="M-28 -25 Q-28 -60 0 -64 Q28 -60 28 -25 Q28 -8 15 4 V15 H-15 V4 Q-28 -8 -28 -25Z" fill="url(#bulbP)" stroke="#D8C46D" stroke-width="2"/>
-          <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
-          <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalP)"/>
-        </g>
-        <text x="380" y="400" text-anchor="middle" fill="#fff" font-size="12">L₃ (<tspan id="pL3R">10</tspan> Ω)</text>
-        <path class="metalWire" d="M415 345 H625" stroke="#C9D3DA" stroke-width="7"/>
-
-        <!-- master + battery -->
-        <path class="metalWire" d="M95 385 H175" stroke="#C9D3DA" stroke-width="7"/>
-        <circle cx="190" cy="385" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <circle cx="230" cy="385" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <g id="pMasterArm"><path d="M190 385 H230" stroke="#74E06D" stroke-width="10" stroke-linecap="round"/></g>
-        <text x="210" y="359" text-anchor="middle" fill="#fff" font-size="13">S (Main)</text>
-        <text x="210" y="412" text-anchor="middle" fill="#BFE2F2" font-size="10">ON</text>
-        <path class="metalWire" d="M238 385 H325" stroke="#C9D3DA" stroke-width="7"/>
-        <g transform="translate(420 385)">
-          <rect x="-72" y="-23" width="144" height="46" rx="10" fill="#1E252B" stroke="#5A6570"/>
-          <rect x="-72" y="-23" width="22" height="46" rx="10 0 0 10" fill="#E52F2F"/>
-          <rect x="70" y="-15" width="14" height="30" rx="3" fill="#CDD5DA"/>
-          <text x="-36" y="7" fill="#fff" font-size="22" font-weight="700">+</text>
-          <text x="35" y="7" fill="#fff" font-size="22" font-weight="700">−</text>
-        </g>
-        <text x="420" y="438" text-anchor="middle" fill="#fff" font-size="12">V = <tspan id="pVlabel">6.0</tspan> V</text>
-        <path class="metalWire" d="M492 385 H625" stroke="#C9D3DA" stroke-width="7"/>
-
-        <g id="pElectronLayer"></g>
-      </svg>
-      </div>
-
-      <div class="lower">
-        <div class="panel">
-          <h3>✚ Controls (Parallel)</h3>
-          <div class="row"><span>Battery Voltage (V)</span><span class="control-value" id="pVout">6.0 V</span></div>
-          <input id="pVoltage" class="range" type="range" min="1.5" max="12" step=".5" value="6">
-          <div class="row"><span>R₁ (Ω)</span><span class="control-value" id="sR1out">10 Ω</span></div><input id="sR1" class="range" type="range" min="1" max="50" step="1" value="10">
-          <div class="row"><span>R₂ (Ω)</span><span class="control-value" id="sR2out">10 Ω</span></div><input id="sR2" class="range" type="range" min="1" max="50" step="1" value="10">
-          <div class="row"><span>R₃ (Ω)</span><span class="control-value" id="sR3out">10 Ω</span></div><input id="sR3" class="range" type="range" min="1" max="50" step="1" value="10">
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px">
-            <button class="action" id="sS1Btn">S₁ ON</button>
-            <button class="action" id="sS2Btn">S₂ ON</button>
-            <button class="action" id="sS3Btn">S₃ ON</button>
-            <button class="action" id="sMainBtn">Main ON</button>
-            <button class="action" id="sBatteryBtn">Battery connected</button>
-            <button class="action" id="sMotionBtn">Charges moving</button>
-          </div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open"><button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electric Circuits <span>⌄</span></button>
+          <a class="nav-item active" href="#parallel"><span class="radio-dot filled"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <button class="nav-item disabled" type="button" disabled><span class="radio-dot"></span><span><b>Series Circuit</b><small>Coming next</small></span></button>
         </div>
-        <div class="panel">
-          <h3>▥ Measurements</h3>
-          <div class="measure">
-            <div>I₁</div><div class="v" id="pI1">0.60 A</div>
-            <div>I₂</div><div class="v" id="pI2">0.60 A</div>
-            <div>I₃</div><div class="v" id="pI3">0.60 A</div>
-            <div>I<sub>total</sub></div><div class="good" id="pIt">1.80 A</div>
-            <div>R<sub>eq</sub></div><div class="v" id="pReq">3.33 Ω</div>
-            <div>P<sub>total</sub></div><div class="pink" id="pPt">10.8 W</div>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Ohm's Law <small>SOON</small></button>
+        <button class="nav-line disabled" type="button" disabled><span>⌘</span> Kirchhoff's Laws <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+    <main class="main-area" id="parallel">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Parallel Circuit</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Circuit active</strong><small>Voltage source mode</small></div>
+      </header>
+      <section class="lab-grid">
+        <article class="panel circuit-panel">
+          <div class="panel-head"><h2><span>◉</span> Circuit Workspace</h2><div class="legend"><i></i> Conventional current</div></div>
+          <div class="circuit-wrap">
+            <svg id="circuit" viewBox="0 0 820 520" role="img" aria-labelledby="svgTitle svgDesc">
+              <title id="svgTitle">Three lamps connected in parallel</title><desc id="svgDesc">Each lamp has an independent switch. A main switch and detachable battery control the whole circuit.</desc>
+              <defs>
+                <radialGradient id="bulbOn" cx=".38" cy=".28"><stop offset="0" stop-color="#fffde1"/><stop offset=".24" stop-color="#fff5a9"/><stop offset=".63" stop-color="#ffd04d"/><stop offset="1" stop-color="#da8012"/></radialGradient>
+                <linearGradient id="glassOff" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#496c82"/><stop offset=".38" stop-color="#24475f"/><stop offset="1" stop-color="#10283a"/></linearGradient>
+                <linearGradient id="batteryBody" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#19394e"/><stop offset=".5" stop-color="#0b263a"/><stop offset="1" stop-color="#061a2a"/></linearGradient>
+                <linearGradient id="batteryRed" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff5a54"/><stop offset=".55" stop-color="#d62d35"/><stop offset="1" stop-color="#981d29"/></linearGradient>
+                <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0f5f7"/><stop offset=".48" stop-color="#8fa4ae"/><stop offset="1" stop-color="#536973"/></linearGradient>
+                <linearGradient id="copperWire" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5d1d09"/><stop offset=".24" stop-color="#ff8a38"/><stop offset=".48" stop-color="#ffd0a1"/><stop offset=".62" stop-color="#d95017"/><stop offset="1" stop-color="#541607"/></linearGradient>
+                <radialGradient id="copperNode" cx=".35" cy=".28"><stop offset="0" stop-color="#ffe0bd"/><stop offset=".26" stop-color="#ff8738"/><stop offset=".66" stop-color="#9e300e"/><stop offset="1" stop-color="#321006"/></radialGradient>
+                <linearGradient id="cellBody" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#263b48"/><stop offset=".18" stop-color="#0d1b24"/><stop offset=".48" stop-color="#02070b"/><stop offset=".76" stop-color="#132b39"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="cellRed" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff774d"/><stop offset=".22" stop-color="#f22f1f"/><stop offset=".58" stop-color="#9f160f"/><stop offset=".82" stop-color="#e4321c"/><stop offset="1" stop-color="#671109"/></linearGradient>
+                <linearGradient id="bulbGlass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eaf8ff" stop-opacity=".46"/><stop offset=".18" stop-color="#7094a9" stop-opacity=".22"/><stop offset=".52" stop-color="#17384e" stop-opacity=".66"/><stop offset=".82" stop-color="#071e30" stop-opacity=".88"/><stop offset="1" stop-color="#416277" stop-opacity=".45"/></linearGradient>
+                <linearGradient id="bulbBase" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#44545b"/><stop offset=".18" stop-color="#dce5e8"/><stop offset=".38" stop-color="#6f858e"/><stop offset=".58" stop-color="#f3f6f7"/><stop offset=".82" stop-color="#697d85"/><stop offset="1" stop-color="#283a43"/></linearGradient>
+                <filter id="wireGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="copperGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5" result="b"/><feColorMatrix in="b" values="1 0 0 0 .5 0 .25 0 0 .08 0 0 .1 0 0 0 0 0 .8 0"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="softBloom" x="-180%" y="-180%" width="460%" height="460%"><feGaussianBlur stdDeviation="22"/></filter>
+                <filter id="filamentBloom" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="glow" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="20" result="b"/><feColorMatrix in="b" values="1 0 0 0 .3 0 .7 0 0 .12 0 0 .2 0 0 0 0 0 .8 0"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <g class="wire-shadow" aria-hidden="true"><path d="M110 78V430H270"/><path d="M390 430H505"/><path d="M595 430H730V78"/><path d="M110 100H230M320 100H540M660 100H730"/><path d="M110 235H230M320 235H540M660 235H730"/><path d="M110 370H230M320 370H540M660 370H730"/></g>
+              <g class="wire-layer" aria-hidden="true"><path d="M110 78V430H270"/><path d="M390 430H505"/><path d="M595 430H730V78"/><path d="M110 100H230M320 100H540M660 100H730"/><path d="M110 235H230M320 235H540M660 235H730"/><path d="M110 370H230M320 370H540M660 370H730"/></g>
+              <g id="chargeLayer" aria-hidden="true"></g>
+              <g class="node-layer" aria-hidden="true"><circle cx="110" cy="100" r="5"/><circle cx="110" cy="235" r="5"/><circle cx="110" cy="370" r="5"/><circle cx="730" cy="100" r="5"/><circle cx="730" cy="235" r="5"/><circle cx="730" cy="370" r="5"/></g>
+              <g class="switch branch-switch-svg" data-switch="0" role="button" tabindex="0" aria-label="Toggle switch S1" aria-pressed="true"><text x="275" y="66">S₁</text><circle cx="245" cy="100" r="8"/><circle cx="305" cy="100" r="8"/><line x1="252" y1="97" x2="298" y2="100"/><text class="switch-state" x="275" y="130">ON</text><rect class="hit" x="220" y="58" width="110" height="85"/></g>
+              <g class="switch branch-switch-svg" data-switch="1" role="button" tabindex="0" aria-label="Toggle switch S2" aria-pressed="true"><text x="275" y="201">S₂</text><circle cx="245" cy="235" r="8"/><circle cx="305" cy="235" r="8"/><line x1="252" y1="232" x2="298" y2="235"/><text class="switch-state" x="275" y="265">ON</text><rect class="hit" x="220" y="193" width="110" height="85"/></g>
+              <g class="switch branch-switch-svg" data-switch="2" role="button" tabindex="0" aria-label="Toggle switch S3" aria-pressed="true"><text x="275" y="336">S₃</text><circle cx="245" cy="370" r="8"/><circle cx="305" cy="370" r="8"/><line x1="252" y1="367" x2="298" y2="370"/><text class="switch-state" x="275" y="400">ON</text><rect class="hit" x="220" y="328" width="110" height="85"/></g>
+              <g class="lamp" data-lamp="0"><ellipse class="aura" cx="600" cy="93" rx="88" ry="62"/><path class="light-spill" d="M563 78c8-34 66-39 77 0 7 25-5 46-14 63h-51c-10-18-18-39-12-63Z"/><path class="glass" d="M563 84c0-28 16-47 37-47s37 19 37 47c0 18-8 29-17 40-5 6-7 11-8 18h-24c-1-7-3-12-8-18-9-11-17-22-17-40Z"/><path class="glass-highlight" d="M578 56c-8 8-11 19-10 31 1 8 4 14 7 19"/><path class="support-wire" d="M590 141l3-32m17 32-3-32"/><path class="filament" d="M584 93l11 14 10-27 12 27"/><rect class="base" x="580" y="140" width="40" height="25" rx="4"/><path class="base-ribs" d="M583 146h34m-34 6h34m-31 6h28"/><circle class="contact" cx="600" cy="165" r="4"/><text x="600" y="187">L₁ (<tspan id="lampR0">10 Ω</tspan>)</text></g>
+              <g class="lamp" data-lamp="1"><ellipse class="aura" cx="600" cy="228" rx="88" ry="62"/><path class="light-spill" d="M563 213c8-34 66-39 77 0 7 25-5 46-14 63h-51c-10-18-18-39-12-63Z"/><path class="glass" d="M563 219c0-28 16-47 37-47s37 19 37 47c0 18-8 29-17 40-5 6-7 11-8 18h-24c-1-7-3-12-8-18-9-11-17-22-17-40Z"/><path class="glass-highlight" d="M578 191c-8 8-11 19-10 31 1 8 4 14 7 19"/><path class="support-wire" d="M590 276l3-32m17 32-3-32"/><path class="filament" d="M584 228l11 14 10-27 12 27"/><rect class="base" x="580" y="275" width="40" height="25" rx="4"/><path class="base-ribs" d="M583 281h34m-34 6h34m-31 6h28"/><circle class="contact" cx="600" cy="300" r="4"/><text x="600" y="322">L₂ (<tspan id="lampR1">10 Ω</tspan>)</text></g>
+              <g class="lamp" data-lamp="2"><ellipse class="aura" cx="600" cy="363" rx="88" ry="62"/><path class="light-spill" d="M563 348c8-34 66-39 77 0 7 25-5 46-14 63h-51c-10-18-18-39-12-63Z"/><path class="glass" d="M563 354c0-28 16-47 37-47s37 19 37 47c0 18-8 29-17 40-5 6-7 11-8 18h-24c-1-7-3-12-8-18-9-11-17-22-17-40Z"/><path class="glass-highlight" d="M578 326c-8 8-11 19-10 31 1 8 4 14 7 19"/><path class="support-wire" d="M590 411l3-32m17 32-3-32"/><path class="filament" d="M584 363l11 14 10-27 12 27"/><rect class="base" x="580" y="410" width="40" height="25" rx="4"/><path class="base-ribs" d="M583 416h34m-34 6h34m-31 6h28"/><circle class="contact" cx="600" cy="435" r="4"/><text x="600" y="457">L₃ (<tspan id="lampR2">10 Ω</tspan>)</text></g>
+              <g class="battery" id="batterySvg" role="button" tabindex="0" aria-label="Connect or disconnect battery" aria-pressed="true">
+                <ellipse class="battery-floor-shadow" cx="330" cy="465" rx="70" ry="12"/>
+                <rect class="terminal terminal-left" x="266" y="416" width="16" height="25" rx="4"/><rect class="terminal terminal-right" x="378" y="416" width="16" height="25" rx="4"/>
+                <rect class="cell-shell" x="278" y="397" width="104" height="63" rx="27"/>
+                <path class="cell-red" d="M305 397h-4c-14 0-23 12-23 27v9c0 15 9 27 23 27h4Z"/>
+                <rect class="cell-band" x="304" y="397" width="10" height="63"/><rect class="cell-band silver" x="314" y="397" width="7" height="63"/>
+                <path class="cell-highlight" d="M300 403h58c9 0 15 5 18 12H292c2-7 4-10 8-12Z"/>
+                <circle class="battery-bolt" cx="347" cy="429" r="10"/><path class="bolt-mark" d="M349 416l-9 14h7l-4 13 12-17h-7Z"/>
+                <text class="sign plus-sign" x="294" y="435">+</text><text class="sign minus-sign" x="367" y="435">−</text>
+                <text x="330" y="493">V = <tspan id="batteryLabel">6.0 V</tspan></text><rect class="hit" x="258" y="388" width="145" height="112"/>
+              </g>
+              <g class="switch main-switch-svg" id="mainSvg" role="button" tabindex="0" aria-label="Toggle main switch" aria-pressed="true"><text x="550" y="394">S (Main)</text><circle cx="520" cy="430" r="8"/><circle cx="580" cy="430" r="8"/><line x1="527" y1="427" x2="573" y2="430"/><text class="switch-state" x="550" y="461">ON</text><rect class="hit" x="495" y="380" width="110" height="95"/></g>
+            </svg>
           </div>
+          <div class="flow-note"><span class="flow-dot"></span><b>Charge flow:</b> each active branch has its own closed path. Shared-wire flow represents the sum of active branch currents.</div>
+        </article>
+        <div class="lower-grid">
+          <section class="panel controls-panel"><div class="panel-head"><h2><span>＋</span> Controls (Parallel)</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="slider-control"><label for="voltage"><span>Battery Voltage (V)</span><output id="voltageOut">6.0 V</output></label><input id="voltage" type="range" min="1" max="24" step="0.5" value="6"></div>
+            <div id="resistanceControls"></div>
+            <div class="button-grid"><button class="state-button on" data-control-switch="0" type="button" aria-pressed="true">S₁ <span>ON</span></button><button class="state-button on" data-control-switch="1" type="button" aria-pressed="true">S₂ <span>ON</span></button><button class="state-button on" data-control-switch="2" type="button" aria-pressed="true">S₃ <span>ON</span></button><button class="state-button on" id="mainButton" type="button" aria-pressed="true">Main <span>ON</span></button><button class="state-button on wide" id="batteryButton" type="button" aria-pressed="true">Battery <span>connected</span></button></div>
+          </section>
+          <section class="panel measurements-panel"><div class="panel-head"><h2><span>▥</span> Measurements</h2><small>LIVE</small></div><dl><div><dt>I₁</dt><dd id="i1">0.60 A</dd></div><div><dt>I₂</dt><dd id="i2">0.60 A</dd></div><div><dt>I₃</dt><dd id="i3">0.60 A</dd></div><div class="highlight"><dt>I<sub>total</sub></dt><dd id="iTotal">1.80 A</dd></div><div><dt>R<sub>eq</sub></dt><dd id="rEq">3.33 Ω</dd></div><div><dt>P<sub>total</sub></dt><dd id="pTotal">10.8 W</dd></div></dl></section>
         </div>
-      </div>
-      <div class="bottom-info">
-        <div class="info"><h3>💡 Key Concepts (Parallel)</h3><ul><li>Each lamp has the same voltage as the source.</li><li>The total current is the sum of the branch currents.</li><li>If one lamp is turned off, the others keep working.</li><li>Adding more branches decreases the equivalent resistance.</li></ul></div>
-        <div class="info"><h3>Σ Equations</h3><div class="eq">I<sub>total</sub> = I₁ + I₂ + I₃<br>1/R<sub>eq</sub> = 1/R₁ + 1/R₂ + 1/R₃<br>V₁ = V₂ = V₃ = V<sub>source</sub></div></div>
-      </div>
-    </section>
-
-    <!-- SERIES -->
-    <section class="module series">
-      <div class="module-head">
-        <div class="module-title"><div class="module-icon">〽</div><div><h2>Series Circuit — 3 Lamps</h2><p>All lamps are in a single path. The same current flows through every component.</p></div></div>
-        <button class="reset" id="sReset">Reset</button>
-      </div>
-
-      <div class="stage">
-      <svg id="sSvg" viewBox="0 0 720 500" aria-label="Series circuit">
-        <defs>
-          <linearGradient id="wireS" x1="0" x2="1"><stop stop-color="#DADDE1"/><stop offset=".5" stop-color="#A9B7C1"/><stop offset="1" stop-color="#E6EAED"/></linearGradient>
-          <linearGradient id="metalS" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#E8EDF0"/><stop offset=".5" stop-color="#76818A"/><stop offset="1" stop-color="#CDD3D7"/></linearGradient>
-          <radialGradient id="bulbS"><stop offset="0" stop-color="#FFFBD9"/><stop offset=".55" stop-color="#FFE36A"/><stop offset="1" stop-color="#F0A52D"/></radialGradient>
-          <filter id="glowS"><feGaussianBlur stdDeviation="18"/></filter><filter id="wireShadowS" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#000000" flood-opacity=".75"/></filter>
-          <path id="sFlowPath" d="M90 185 H630 V385 H90 V185"/>
-        </defs>
-
-        <!-- top wire before S1 -->
-        <path class="metalWire" d="M90 185 H145" stroke="#C9D3DA" stroke-width="7"/>
-        <circle cx="160" cy="185" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <circle cx="200" cy="185" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <g id="sArm1"><path d="M160 185 H200" stroke="#74E06D" stroke-width="10" stroke-linecap="round"/></g>
-        <text x="180" y="156" text-anchor="middle" fill="#fff" font-size="13">S₁</text>
-        <text x="180" y="213" text-anchor="middle" fill="#BFE2F2" font-size="10">ON</text>
-        <path class="metalWire" d="M208 185 H245" stroke="#C9D3DA" stroke-width="7"/>
-
-        <!-- L1 -->
-        <g transform="translate(280 185)">
-          <circle class="sGlow" cx="0" cy="-18" r="54" fill="#FFD84C" opacity=".28" filter="url(#glowS)"/>
-          <path d="M-28 -25 Q-28 -60 0 -64 Q28 -60 28 -25 Q28 -8 15 4 V15 H-15 V4 Q-28 -8 -28 -25Z" fill="url(#bulbS)" stroke="#D8C46D" stroke-width="2"/>
-          <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
-          <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalS)"/>
-        </g>
-        <text x="280" y="240" text-anchor="middle" fill="#fff" font-size="12">L₁ (<tspan id="sL1R">10</tspan> Ω)</text>
-        <path class="metalWire" d="M315 185 H350" stroke="#C9D3DA" stroke-width="7"/>
-
-        <!-- S2 -->
-        <circle cx="365" cy="185" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <circle cx="405" cy="185" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <g id="sArm2"><path d="M365 185 H405" stroke="#74E06D" stroke-width="10" stroke-linecap="round"/></g>
-        <text x="385" y="156" text-anchor="middle" fill="#fff" font-size="13">S₂</text>
-        <text x="385" y="213" text-anchor="middle" fill="#BFE2F2" font-size="10">ON</text>
-        <path class="metalWire" d="M413 185 H450" stroke="#C9D3DA" stroke-width="7"/>
-
-        <!-- L2 -->
-        <g transform="translate(485 185)">
-          <circle class="sGlow" cx="0" cy="-18" r="54" fill="#FFD84C" opacity=".28" filter="url(#glowS)"/>
-          <path d="M-28 -25 Q-28 -60 0 -64 Q28 -60 28 -25 Q28 -8 15 4 V15 H-15 V4 Q-28 -8 -28 -25Z" fill="url(#bulbS)" stroke="#D8C46D" stroke-width="2"/>
-          <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
-          <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalS)"/>
-        </g>
-        <text x="485" y="240" text-anchor="middle" fill="#fff" font-size="12">L₂ (<tspan id="sL2R">10</tspan> Ω)</text>
-        <path class="metalWire" d="M520 185 H555" stroke="#C9D3DA" stroke-width="7"/>
-
-        <!-- S3 -->
-        <circle cx="570" cy="185" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <circle cx="610" cy="185" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <g id="sArm3"><path d="M570 185 H610" stroke="#74E06D" stroke-width="10" stroke-linecap="round"/></g>
-        <text x="590" y="156" text-anchor="middle" fill="#fff" font-size="13">S₃</text>
-        <text x="590" y="213" text-anchor="middle" fill="#BFE2F2" font-size="10">ON</text>
-
-        <!-- L3 on right side -->
-        <path class="metalWire" d="M618 185 H630 V275" stroke="#C9D3DA" stroke-width="7" fill="none"/>
-        <g transform="translate(630 320)">
-          <circle class="sGlow" cx="0" cy="-18" r="54" fill="#FFD84C" opacity=".28" filter="url(#glowS)"/>
-          <path d="M-28 -25 Q-28 -60 0 -64 Q28 -60 28 -25 Q28 -8 15 4 V15 H-15 V4 Q-28 -8 -28 -25Z" fill="url(#bulbS)" stroke="#D8C46D" stroke-width="2"/>
-          <path d="M-8 -18 L0 -8 L8 -18 M0 -8V4" stroke="#FFF8B3" stroke-width="3" fill="none"/>
-          <rect x="-17" y="13" width="34" height="24" rx="4" fill="url(#metalS)"/>
-        </g>
-        <text x="630" y="377" text-anchor="middle" fill="#fff" font-size="12">L₃ (<tspan id="sL3R">10</tspan> Ω)</text>
-        <path class="metalWire" d="M630 355 V385 H535" stroke="#C9D3DA" stroke-width="7" fill="none"/>
-
-        <!-- battery -->
-        <g transform="translate(435 385)">
-          <rect x="-72" y="-23" width="144" height="46" rx="10" fill="#1E252B" stroke="#5A6570"/>
-          <rect x="-72" y="-23" width="22" height="46" rx="10 0 0 10" fill="#E52F2F"/>
-          <rect x="70" y="-15" width="14" height="30" rx="3" fill="#CDD5DA"/>
-          <text x="-36" y="7" fill="#fff" font-size="22" font-weight="700">+</text>
-          <text x="35" y="7" fill="#fff" font-size="22" font-weight="700">−</text>
-        </g>
-        <text x="435" y="438" text-anchor="middle" fill="#fff" font-size="12">V = <tspan id="sVlabel">6.0</tspan> V</text>
-        <path class="metalWire" d="M363 385 H280" stroke="#C9D3DA" stroke-width="7"/>
-
-        <!-- main switch -->
-        <circle cx="265" cy="385" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <circle cx="225" cy="385" r="8" fill="#14324A" stroke="#69C8FF" stroke-width="2"/>
-        <g id="sMasterArm"><path d="M225 385 H265" stroke="#74E06D" stroke-width="10" stroke-linecap="round"/></g>
-        <text x="245" y="356" text-anchor="middle" fill="#fff" font-size="13">S (Main)</text>
-        <text x="245" y="413" text-anchor="middle" fill="#BFE2F2" font-size="10">ON</text>
-
-        <path class="metalWire" d="M217 385 H90 V185" stroke="#C9D3DA" stroke-width="7" fill="none"/>
-        <g id="sElectronLayer"></g>
-      </svg>
-      </div>
-
-      <div class="lower">
-        <div class="panel">
-          <h3>✚ Controls (Series)</h3>
-          <div class="row"><span>Battery Voltage (V)</span><span class="control-value" id="sVout">6.0 V</span></div>
-          <input id="sVoltage" class="range" type="range" min="1.5" max="12" step=".5" value="6">
-          <div class="row"><span>R₁ (Ω)</span><span class="control-value" id="pR1out">10 Ω</span></div><input id="pR1" class="range" type="range" min="1" max="50" step="1" value="10">
-          <div class="row"><span>R₂ (Ω)</span><span class="control-value" id="pR2out">10 Ω</span></div><input id="pR2" class="range" type="range" min="1" max="50" step="1" value="10">
-          <div class="row"><span>R₃ (Ω)</span><span class="control-value" id="pR3out">10 Ω</span></div><input id="pR3" class="range" type="range" min="1" max="50" step="1" value="10">
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:10px">
-            <button class="action" id="pS1Btn">S₁ ON</button>
-            <button class="action" id="pS2Btn">S₂ ON</button>
-            <button class="action" id="pS3Btn">S₃ ON</button>
-            <button class="action" id="pMainBtn">Main ON</button>
-            <button class="action" id="pBatteryBtn">Battery connected</button>
-            <button class="action" id="pMotionBtn">Charges moving</button>
-          </div>
-        </div>
-        <div class="panel">
-          <h3>▥ Measurements</h3>
-          <div class="measure">
-            <div>Current (I)</div><div class="good" id="sI">0.20 A</div>
-            <div>V₁</div><div class="v" id="sV1">2.0 V</div>
-            <div>V₂</div><div class="v" id="sV2">2.0 V</div>
-            <div>V₃</div><div class="v" id="sV3">2.0 V</div>
-            <div>V<sub>total</sub></div><div class="warn" id="sVt">6.0 V</div>
-            <div>R<sub>eq</sub></div><div class="v" id="sReq">30.0 Ω</div>
-            <div>P<sub>total</sub></div><div class="pink" id="sPt">1.2 W</div>
-          </div>
-        </div>
-      </div>
-      <div class="bottom-info">
-        <div class="info"><h3>💡 Key Concepts (Series)</h3><ul><li>The same current flows through all components.</li><li>The total voltage is the sum of the voltage drops.</li><li>If one lamp is turned off, all lamps stop working.</li><li>Adding more components increases the equivalent resistance.</li></ul></div>
-        <div class="info"><h3>Σ Equations</h3><div class="eq">I₁ = I₂ = I₃ = I<br>V<sub>total</sub> = V₁ + V₂ + V₃<br>R<sub>eq</sub> = R₁ + R₂ + R₃</div></div>
-      </div>
-    </section>
-
-    <div class="footer"><span>Ahmed Adel Physics — Virtual Physics Lab</span><span>Learn • Apply • Build • Explore</span></div>
+        <div class="knowledge-grid"><section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts (Parallel)</h2></div><ul><li>Each lamp gets the full battery voltage.</li><li>Total current is the sum of the branch currents.</li><li>Opening one branch does not stop the other branches.</li><li>Lower branch resistance means a larger branch current.</li></ul></section><section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>I<sub>total</sub> = I₁ + I₂ + I₃</p><p>1/R<sub>eq</sub> = 1/R₁ + 1/R₂ + 1/R₃</p><p>I<sub>n</sub> = V/R<sub>n</sub></p><p>P<sub>total</sub> = VI<sub>total</sub></p></div></section></div>
+      </section>
+    </main>
   </div>
-</section>
-</div>
-
-<script>
-(()=>{
-const ns='http://www.w3.org/2000/svg';
-function makeDot(layer,x,y,r=4){const c=document.createElementNS(ns,'circle');c.setAttribute('r',r);c.setAttribute('fill','#21B7FF');c.setAttribute('stroke','#D7F5FF');c.setAttribute('stroke-width','1.2');layer.appendChild(c);return c}
-function setSwitch(id,on,axis='h'){
- const g=document.getElementById(id); if(!g)return;
- const p=g.querySelector('path'); p.setAttribute('stroke',on?'#74E06D':'#D5A85B');
- if(axis==='h') g.setAttribute('transform',on?'rotate(0)':'rotate(-28 '+(id.startsWith('sArm')?({sArm1:'160 185',sArm2:'365 185',sArm3:'570 185'}[id]||'0 0'):'0 0')+')');
-}
-const p={V:6,master:true,battery:true,sw:[true,true,true],motion:true,R:[10,10,10],phase:0};
-const s={V:6,master:true,battery:true,sw:[true,true,true],motion:true,R:[10,10,10],phase:0};
-const pLayer=document.getElementById('pElectronLayer');
-const sLayer=document.getElementById('sElectronLayer');
-
-function parallelPaths(){
- return [
-  [[95,105],[625,105]],
-  [[95,225],[625,225]],
-  [[95,345],[625,345]],
-  [[95,385],[625,385]],
-  [[95,100],[95,385]],
-  [[625,100],[625,385]]
- ];
-}
-function seriesPathPoints(){
- return [[90,185],[630,185],[630,385],[90,385],[90,185]];
-}
-function interpPolyline(points,t){
- let segs=[],total=0;
- for(let i=0;i<points.length-1;i++){const a=points[i],b=points[i+1],d=Math.hypot(b[0]-a[0],b[1]-a[1]);segs.push([a,b,d]);total+=d}
- let dist=((t%1)+1)%1*total;
- for(const [a,b,d] of segs){if(dist<=d){const u=d?dist/d:0;return [a[0]+(b[0]-a[0])*u,a[1]+(b[1]-a[1])*u]}dist-=d}
- return points[0]
-}
-let pDots=[],sDots=[];
-for(let i=0;i<60;i++)pDots.push(makeDot(pLayer,0,0,i%6===0?5:4));
-for(let i=0;i<48;i++)sDots.push(makeDot(sLayer,0,0,i%6===0?5:4));
-
-function updateParallel(){
- const active=(p.master&&p.battery)?p.sw.filter(Boolean):[];
- const conduct=p.master&&p.battery&&p.sw.some(Boolean);
- document.getElementById('pVout').textContent=p.V.toFixed(1)+' V';
- document.getElementById('pVlabel').textContent=p.V.toFixed(1);
- document.getElementById('pR1out').textContent=p.R[0].toFixed(0)+' Ω';
- document.getElementById('pR2out').textContent=p.R[1].toFixed(0)+' Ω';
- document.getElementById('pR3out').textContent=p.R[2].toFixed(0)+' Ω';
- document.getElementById('pL1R').textContent=p.R[0].toFixed(0);
- document.getElementById('pL2R').textContent=p.R[1].toFixed(0);
- document.getElementById('pL3R').textContent=p.R[2].toFixed(0);
-
- const currents=p.sw.map((on,i)=>p.master&&p.battery&&on?p.V/p.R[i]:0);
- const It=currents.reduce((a,b)=>a+b,0);
- const Req=It>0?p.V/It:Infinity;
- const Pt=p.V*It;
- ['pI1','pI2','pI3'].forEach((id,i)=>document.getElementById(id).textContent=currents[i].toFixed(2)+' A');
- document.getElementById('pIt').textContent=It.toFixed(2)+' A';
- document.getElementById('pReq').textContent=isFinite(Req)?Req.toFixed(2)+' Ω':'—';
- document.getElementById('pPt').textContent=Pt.toFixed(1)+' W';
-
- ['pS1Btn','pS2Btn','pS3Btn'].forEach((id,i)=>{
-   const b=document.getElementById(id);
-   b.textContent=`S${['₁','₂','₃'][i]} ${p.sw[i]?'ON':'OFF'}`;
-   b.style.background=p.sw[i]?'#0B4B34':'#3A291D';
- });
- const pmb=document.getElementById('pMainBtn'); pmb.textContent='Main '+(p.master?'ON':'OFF'); pmb.style.background=p.master?'#0B4B34':'#3A291D';
- const pbb=document.getElementById('pBatteryBtn'); pbb.textContent=p.battery?'Battery connected':'Battery disconnected'; pbb.style.background=p.battery?'#0B4B34':'#3A291D';
- const pmo=document.getElementById('pMotionBtn'); pmo.textContent=p.motion?'Charges moving':'Charges paused'; pmo.style.background=p.motion?'#0B4B34':'#2B3442';
-
- ['pArm1','pArm2','pArm3'].forEach((id,i)=>{const g=document.getElementById(id);const [cx,cy]=[[210,105],[210,225],[210,345]][i];g.setAttribute('transform',p.sw[i]?'rotate(0 '+cx+' '+cy+')':'rotate(-28 '+cx+' '+cy+')');g.querySelector('path').setAttribute('stroke',p.sw[i]?'#74E06D':'#D5A85B')});
- const gm=document.getElementById('pMasterArm');gm.setAttribute('transform',p.master?'rotate(0 190 385)':'rotate(-28 190 385)');gm.querySelector('path').setAttribute('stroke',p.master?'#74E06D':'#D5A85B');
- document.querySelectorAll('.pGlow').forEach((g,i)=>{
-   const Pi=(p.master&&p.battery&&p.sw[i])?(p.V*p.V/p.R[i]):0;
-   g.setAttribute('opacity',Pi>0?Math.min(.55,.08+Pi/20):0);
- });
-}
-
-function updateSeries(){
- const closed=s.master&&s.battery&&s.sw.every(Boolean);
- const Req=s.R.reduce((a,b)=>a+b,0), I=closed?s.V/Req:0;
- document.getElementById('sVout').textContent=s.V.toFixed(1)+' V';
- document.getElementById('sVlabel').textContent=s.V.toFixed(1);
- document.getElementById('sR1out').textContent=s.R[0].toFixed(0)+' Ω';
- document.getElementById('sR2out').textContent=s.R[1].toFixed(0)+' Ω';
- document.getElementById('sR3out').textContent=s.R[2].toFixed(0)+' Ω';
- document.getElementById('sL1R').textContent=s.R[0].toFixed(0);
- document.getElementById('sL2R').textContent=s.R[1].toFixed(0);
- document.getElementById('sL3R').textContent=s.R[2].toFixed(0);
-
- document.getElementById('sI').textContent=I.toFixed(2)+' A';
- const drops=s.R.map(r=>I*r);
- ['sV1','sV2','sV3'].forEach((id,i)=>document.getElementById(id).textContent=drops[i].toFixed(1)+' V');
- document.getElementById('sVt').textContent=(closed?s.V:0).toFixed(1)+' V';
- document.getElementById('sReq').textContent=Req.toFixed(1)+' Ω';
- document.getElementById('sPt').textContent=(s.V*I).toFixed(1)+' W';
-
- ['sS1Btn','sS2Btn','sS3Btn'].forEach((id,i)=>{
-   const b=document.getElementById(id);
-   b.textContent=`S${['₁','₂','₃'][i]} ${s.sw[i]?'ON':'OFF'}`;
-   b.style.background=s.sw[i]?'#0B4B34':'#3A291D';
- });
- const smb=document.getElementById('sMainBtn'); smb.textContent='Main '+(s.master?'ON':'OFF'); smb.style.background=s.master?'#0B4B34':'#3A291D';
- const sbb=document.getElementById('sBatteryBtn'); sbb.textContent=s.battery?'Battery connected':'Battery disconnected'; sbb.style.background=s.battery?'#0B4B34':'#3A291D';
- const smo=document.getElementById('sMotionBtn'); smo.textContent=s.motion?'Charges moving':'Charges paused'; smo.style.background=s.motion?'#0B4B34':'#2B3442';
-
- const cfg=[['sArm1',160,185],['sArm2',365,185],['sArm3',570,185]];
- cfg.forEach(([id,cx,cy],i)=>{const g=document.getElementById(id);g.setAttribute('transform',s.sw[i]?'rotate(0 '+cx+' '+cy+')':'rotate(-28 '+cx+' '+cy+')');g.querySelector('path').setAttribute('stroke',s.sw[i]?'#74E06D':'#D5A85B')});
- const gm=document.getElementById('sMasterArm');gm.setAttribute('transform',s.master?'rotate(0 225 385)':'rotate(-28 225 385)');gm.querySelector('path').setAttribute('stroke',s.master?'#74E06D':'#D5A85B');
- document.querySelectorAll('.sGlow').forEach((g,i)=>{
-   const Pi=closed?(I*I*s.R[i]):0;
-   g.setAttribute('opacity',Pi>0?Math.min(.55,.08+Pi/8):0);
- });
-}
-
-function animate(){
- if(p.motion)p.phase+=0.005*(p.V/6);
- if(s.motion)s.phase+=0.005*(s.V/6);
- const pPaths=parallelPaths();
- let idx=0;
- // branch dots
- for(let b=0;b<3;b++){
-   for(let j=0;j<12;j++,idx++){
-     const t=(j/12+p.phase)%1;
-     const [x,y]=interpPolyline(pPaths[b],t);
-     pDots[idx].setAttribute('cx',x);pDots[idx].setAttribute('cy',y);
-     pDots[idx].setAttribute('opacity',p.master&&p.battery&&p.sw[b]?'1':'0.12');
-   }
- }
- // bottom + rails
- const extra=[pPaths[3],pPaths[4],pPaths[5]];
- for(let e=0;e<3;e++){
-   for(let j=0;j<8;j++,idx++){
-     const [x,y]=interpPolyline(extra[e],(j/8+p.phase)%1);
-     pDots[idx].setAttribute('cx',x);pDots[idx].setAttribute('cy',y);
-     pDots[idx].setAttribute('opacity',p.master&&p.battery&&p.sw.some(Boolean)?'1':'0.12');
-   }
- }
- const sPts=seriesPathPoints();
- for(let i=0;i<sDots.length;i++){
-   const [x,y]=interpPolyline(sPts,(i/sDots.length+s.phase)%1);
-   sDots[i].setAttribute('cx',x);sDots[i].setAttribute('cy',y);
-   sDots[i].setAttribute('opacity',s.master&&s.battery&&s.sw.every(Boolean)?'1':'0.12');
- }
- requestAnimationFrame(animate)
-}
-
-document.getElementById('pVoltage').addEventListener('input',e=>{p.V=+e.target.value;updateParallel()});
-document.getElementById('sVoltage').addEventListener('input',e=>{s.V=+e.target.value;updateSeries()});
-
-['pR1','pR2','pR3'].forEach((id,i)=>document.getElementById(id).addEventListener('input',e=>{p.R[i]=+e.target.value;updateParallel()}));
-['sR1','sR2','sR3'].forEach((id,i)=>document.getElementById(id).addEventListener('input',e=>{s.R[i]=+e.target.value;updateSeries()}));
-
-document.getElementById('pReset').onclick=()=>{
- Object.assign(p,{V:6,master:true,battery:true,motion:true,sw:[true,true,true],phase:0,R:[10,10,10]});
- document.getElementById('pVoltage').value=6;
- ['pR1','pR2','pR3'].forEach(id=>document.getElementById(id).value=10);
- updateParallel()
-};
-document.getElementById('sReset').onclick=()=>{
- Object.assign(s,{V:6,master:true,battery:true,motion:true,sw:[true,true,true],phase:0,R:[10,10,10]});
- document.getElementById('sVoltage').value=6;
- ['sR1','sR2','sR3'].forEach(id=>document.getElementById(id).value=10);
- updateSeries()
-};
-document.getElementById('resetAll').onclick=()=>{document.getElementById('pReset').click();document.getElementById('sReset').click()};
-['pArm1','pArm2','pArm3'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{p.sw[i]=!p.sw[i];updateParallel()}));
-document.getElementById('pMasterArm').addEventListener('click',()=>{p.master=!p.master;updateParallel()});
-['sArm1','sArm2','sArm3'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{s.sw[i]=!s.sw[i];updateSeries()}));
-document.getElementById('sMasterArm').addEventListener('click',()=>{s.master=!s.master;updateSeries()});
-['pS1Btn','pS2Btn','pS3Btn'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{p.sw[i]=!p.sw[i];updateParallel()}));
-document.getElementById('pMainBtn').addEventListener('click',()=>{p.master=!p.master;updateParallel()});
-document.getElementById('pBatteryBtn').addEventListener('click',()=>{p.battery=!p.battery;updateParallel()});
-document.getElementById('pMotionBtn').addEventListener('click',()=>{p.motion=!p.motion;updateParallel()});
-['sS1Btn','sS2Btn','sS3Btn'].forEach((id,i)=>document.getElementById(id).addEventListener('click',()=>{s.sw[i]=!s.sw[i];updateSeries()}));
-document.getElementById('sMainBtn').addEventListener('click',()=>{s.master=!s.master;updateSeries()});
-document.getElementById('sBatteryBtn').addEventListener('click',()=>{s.battery=!s.battery;updateSeries()});
-document.getElementById('sMotionBtn').addEventListener('click',()=>{s.motion=!s.motion;updateSeries()});
-
-
-updateParallel();updateSeries();animate();
-})();
-</script>
+  <script src="parallel.js"></script>
 </body>
 </html>
