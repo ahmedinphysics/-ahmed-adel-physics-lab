@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#06192b">
-  <meta name="description" content="Interactive parallel circuit simulation by AHMED ADEL PHYSICS">
-  <title>Parallel Circuit Lab — AHMED ADEL PHYSICS</title>
+  <meta name="description" content="Interactive series circuit simulation by AHMED ADEL PHYSICS">
+  <title>Series Circuit Lab — AHMED ADEL PHYSICS</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="series-page">
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
       <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
       <nav aria-label="Simulation library">
         <div class="nav-group open"><button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electric Circuits <span>⌄</span></button>
-          <a class="nav-item active" href="#parallel"><span class="radio-dot filled"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
-          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item active" href="#series"><span class="radio-dot filled"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
           <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
         </div>
         <button class="nav-line disabled" type="button" disabled><span>⌁</span> Ohm's Law <small>SOON</small></button>
@@ -30,10 +30,10 @@
       </nav>
       <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
     </aside>
-    <main class="main-area" id="parallel">
+    <main class="main-area" id="series">
       <header class="app-header">
         <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
-        <div><p>INTERACTIVE SIMULATION</p><h1>Parallel Circuit</h1></div>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Series Circuit</h1></div>
         <div class="header-status"><span id="statusDot"></span><strong id="headerState">Circuit active</strong><small>Voltage source mode</small></div>
       </header>
       <section class="lab-grid">
@@ -84,20 +84,20 @@
               <g class="switch main-switch-svg" id="mainSvg" role="button" tabindex="0" aria-label="Toggle main switch" aria-pressed="true"><text x="550" y="394">S (Main)</text><circle cx="520" cy="430" r="8"/><circle cx="580" cy="430" r="8"/><line x1="527" y1="427" x2="573" y2="430"/><text class="switch-state" x="550" y="461">ON</text><rect class="hit" x="495" y="380" width="110" height="95"/></g>
             </svg>
           </div>
-          <div class="flow-note"><span class="flow-dot"></span><b>Charge flow:</b> each active branch has its own closed path. Shared-wire flow represents the sum of active branch currents.</div>
+          <div class="flow-note"><span class="flow-dot"></span><b>Charge flow:</b> one current follows one closed path through all three lamps. Opening any switch stops the whole circuit.</div>
         </article>
         <div class="lower-grid">
-          <section class="panel controls-panel"><div class="panel-head"><h2><span>＋</span> Controls (Parallel)</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+          <section class="panel controls-panel"><div class="panel-head"><h2><span>＋</span> Controls (Series)</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
             <div class="slider-control"><label for="voltage"><span>Battery Voltage (V)</span><output id="voltageOut">6.0 V</output></label><input id="voltage" type="range" min="1" max="24" step="0.5" value="6"></div>
             <div id="resistanceControls"></div>
             <div class="button-grid"><button class="state-button on" data-control-switch="0" type="button" aria-pressed="true">S₁ <span>ON</span></button><button class="state-button on" data-control-switch="1" type="button" aria-pressed="true">S₂ <span>ON</span></button><button class="state-button on" data-control-switch="2" type="button" aria-pressed="true">S₃ <span>ON</span></button><button class="state-button on" id="mainButton" type="button" aria-pressed="true">Main <span>ON</span></button><button class="state-button on wide" id="batteryButton" type="button" aria-pressed="true">Battery <span>connected</span></button></div>
           </section>
-          <section class="panel measurements-panel"><div class="panel-head"><h2><span>▥</span> Measurements</h2><small>LIVE</small></div><dl><div><dt>I₁</dt><dd id="i1">0.60 A</dd></div><div><dt>I₂</dt><dd id="i2">0.60 A</dd></div><div><dt>I₃</dt><dd id="i3">0.60 A</dd></div><div class="highlight"><dt>I<sub>total</sub></dt><dd id="iTotal">1.80 A</dd></div><div><dt>R<sub>eq</sub></dt><dd id="rEq">3.33 Ω</dd></div><div><dt>P<sub>total</sub></dt><dd id="pTotal">10.8 W</dd></div></dl></section>
+          <section class="panel measurements-panel"><div class="panel-head"><h2><span>▥</span> Measurements</h2><small>LIVE</small></div><dl><div class="highlight"><dt>Current (I)</dt><dd id="current">0.20 A</dd></div><div><dt>V₁</dt><dd id="v1">2.0 V</dd></div><div><dt>V₂</dt><dd id="v2">2.0 V</dd></div><div><dt>V₃</dt><dd id="v3">2.0 V</dd></div><div><dt>R<sub>eq</sub></dt><dd id="rEq">30.0 Ω</dd></div><div><dt>P<sub>total</sub></dt><dd id="pTotal">1.2 W</dd></div></dl></section>
         </div>
-        <div class="knowledge-grid"><section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts (Parallel)</h2></div><ul><li>Each lamp gets the full battery voltage.</li><li>Total current is the sum of the branch currents.</li><li>Opening one branch does not stop the other branches.</li><li>Lower branch resistance means a larger branch current.</li></ul></section><section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>I<sub>total</sub> = I₁ + I₂ + I₃</p><p>1/R<sub>eq</sub> = 1/R₁ + 1/R₂ + 1/R₃</p><p>I<sub>n</sub> = V/R<sub>n</sub></p><p>P<sub>total</sub> = VI<sub>total</sub></p></div></section></div>
+        <div class="knowledge-grid"><section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts (Series)</h2></div><ul><li>The same current flows through every lamp.</li><li>The source voltage is divided across the lamps.</li><li>Opening any switch stops current everywhere.</li><li>A larger resistance receives a larger voltage drop.</li></ul></section><section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>I₁ = I₂ = I₃ = I</p><p>R<sub>eq</sub> = R₁ + R₂ + R₃</p><p>V<sub>total</sub> = V₁ + V₂ + V₃</p><p>P<sub>total</sub> = VI</p></div></section></div>
       </section>
     </main>
   </div>
-  <script src="parallel.js"></script>
+  <script src="series.js"></script>
 </body>
 </html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive electric current and charge drift simulation by AHMED ADEL PHYSICS">
+  <title>Electric Current Lab — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="current-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item active" href="#current"><span class="radio-dot filled"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>V</span> Voltage <small>SOON</small></button>
+        <button class="nav-line disabled" type="button" disabled><span>Ω</span> Resistance <small>SOON</small></button>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="current">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Electric Current &amp; Drift</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Current flowing</strong><small>Voltage source mode</small></div>
+      </header>
+
+      <section class="lab-grid current-lab">
+        <article class="panel current-workspace">
+          <div class="panel-head"><h2><span>◉</span> Conductor Microscope</h2><div class="legend"><i></i> Conventional current</div></div>
+          <div class="current-stage">
+            <svg id="currentScene" viewBox="0 0 1000 590" role="img" aria-labelledby="currentTitle currentDesc">
+              <title id="currentTitle">Electric current and electron drift inside a metal conductor</title>
+              <desc id="currentDesc">A battery drives conventional current through a copper wire. A magnified conductor shows fixed positive ions and moving free electrons.</desc>
+              <defs>
+                <linearGradient id="copperWireCurrent" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#491407"/><stop offset=".2" stop-color="#ff7130"/><stop offset=".43" stop-color="#ffd0a1"/><stop offset=".62" stop-color="#cf4717"/><stop offset="1" stop-color="#3a0d04"/></linearGradient>
+                <linearGradient id="cellBodyCurrent" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#263b48"/><stop offset=".18" stop-color="#0d1b24"/><stop offset=".48" stop-color="#02070b"/><stop offset=".76" stop-color="#132b39"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="cellRedCurrent" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff774d"/><stop offset=".25" stop-color="#f22f1f"/><stop offset=".6" stop-color="#8e130e"/><stop offset=".82" stop-color="#e4321c"/><stop offset="1" stop-color="#671109"/></linearGradient>
+                <linearGradient id="metalCurrent"><stop stop-color="#f3f7f8"/><stop offset=".38" stop-color="#718993"/><stop offset=".7" stop-color="#dce6e9"/><stop offset="1" stop-color="#40545d"/></linearGradient>
+                <radialGradient id="ionCurrent" cx=".35" cy=".28"><stop stop-color="#ffe5c8"/><stop offset=".24" stop-color="#ff934b"/><stop offset=".67" stop-color="#a93410"/><stop offset="1" stop-color="#381006"/></radialGradient>
+                <linearGradient id="tubeCurrent" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0a3049" stop-opacity=".96"/><stop offset=".48" stop-color="#04131f"/><stop offset="1" stop-color="#0c3650" stop-opacity=".96"/></linearGradient>
+                <filter id="copperGlowCurrent" x="-40%" y="-80%" width="180%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="cyanGlowCurrent" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="stageShadow" x="-30%" y="-50%" width="160%" height="220%"><feDropShadow dx="0" dy="9" stdDeviation="7" flood-color="#000" flood-opacity=".72"/></filter>
+                <clipPath id="conductorClip"><rect x="95" y="288" width="810" height="218" rx="62"/></clipPath>
+              </defs>
+
+              <g class="macro-circuit">
+                <path class="macro-shadow" d="M135 165V90H455M545 90H865V210H650M350 210H135v-45"/>
+                <path class="macro-wire" d="M135 165V90H455M545 90H865V210H650M350 210H135v-45"/>
+                <g id="macroCharges" aria-hidden="true"></g>
+                <g class="battery current-battery" id="batterySvg" role="button" tabindex="0" aria-label="Connect or disconnect battery" aria-pressed="true">
+                  <ellipse class="battery-floor-shadow" cx="500" cy="243" rx="92" ry="14"/>
+                  <rect class="terminal" x="337" y="194" width="20" height="30" rx="5"/><rect class="terminal" x="643" y="194" width="20" height="30" rx="5"/>
+                  <rect class="cell-shell" x="350" y="174" width="300" height="72" rx="34"/>
+                  <path class="cell-red" d="M424 174h-42c-19 0-32 14-32 34v4c0 20 13 34 32 34h42Z"/>
+                  <rect class="cell-band" x="421" y="174" width="17" height="72"/><rect class="cell-band silver" x="438" y="174" width="9" height="72"/>
+                  <path class="cell-highlight" d="M380 181h228c13 0 23 6 29 16H365c4-9 8-14 15-16Z"/>
+                  <circle class="battery-bolt" cx="535" cy="210" r="13"/><path class="bolt-mark" d="M538 193l-13 19h10l-6 17 17-23h-10Z"/>
+                  <text class="sign plus-sign" x="385" y="218">+</text><text class="sign minus-sign" x="616" y="218">−</text>
+                  <text class="battery-voltage" x="500" y="270">Potential difference = <tspan id="batteryLabel">6.0 V</tspan></text>
+                  <rect class="hit" x="330" y="160" width="340" height="120"/>
+                </g>
+                <g class="switch current-switch" id="mainSvg" role="button" tabindex="0" aria-label="Toggle main switch" aria-pressed="true">
+                  <text x="500" y="55">MAIN SWITCH</text><circle cx="465" cy="90" r="10"/><circle cx="535" cy="90" r="10"/><line x1="474" y1="86" x2="526" y2="90"/><text class="switch-state" x="500" y="122">ON</text><rect class="hit" x="440" y="34" width="120" height="105"/>
+                </g>
+                <g class="current-arrow" aria-hidden="true"><path d="M700 58h105"/><path d="m795 49 13 9-13 9"/><text x="752" y="46">Conventional current I</text></g>
+                <path class="zoom-line" d="M250 138 155 288M750 138 845 288"/>
+                <rect class="sample-window" x="250" y="126" width="500" height="26" rx="13"/>
+              </g>
+
+              <g class="microscope" filter="url(#stageShadow)">
+                <rect class="conductor-shell" x="78" y="271" width="844" height="252" rx="78"/>
+                <rect class="conductor-inner" x="95" y="288" width="810" height="218" rx="62"/>
+                <path class="conductor-shine" d="M143 300h714c22 0 35 8 43 21H100c8-13 21-21 43-21Z"/>
+                <g id="latticeLayer" clip-path="url(#conductorClip)" aria-hidden="true"></g>
+                <g id="electronLayer" clip-path="url(#conductorClip)" aria-hidden="true"></g>
+                <g class="field-overlay" id="fieldOverlay" clip-path="url(#conductorClip)" aria-hidden="true"></g>
+              </g>
+              <g class="micro-labels"><text x="500" y="558">MAGNIFIED COPPER CONDUCTOR</text><text x="110" y="548">Fixed positive metal ions</text><text x="890" y="548">Free electrons</text></g>
+            </svg>
+          </div>
+          <div class="current-explainer"><span class="electron-key">−</span><span><b>Electron motion:</b> rapid random thermal motion plus a small net drift opposite to conventional current.</span><span class="ion-key">+</span><span><b>Metal ions:</b> vibrate around fixed lattice positions.</span></div>
+        </article>
+
+        <div class="lower-grid current-panels">
+          <section class="panel controls-panel current-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="slider-control"><label for="voltage"><span>Potential Difference (V)</span><output id="voltageOut">6.0 V</output></label><input id="voltage" type="range" min="0" max="24" step="0.5" value="6"></div>
+            <div class="slider-control"><label for="resistance"><span>Circuit Resistance (Ω)</span><output id="resistanceOut">12 Ω</output></label><input id="resistance" type="range" min="2" max="60" step="1" value="12"></div>
+            <div class="slider-control"><label for="area"><span>Wire Area A (mm²)</span><output id="areaOut">1.0 mm²</output></label><input id="area" type="range" min="0.5" max="5" step="0.1" value="1"></div>
+            <div class="slider-control"><label for="density"><span>Carrier Density n</span><output id="densityOut">8.5 × 10²⁸</output></label><input id="density" type="range" min="2" max="10" step="0.1" value="8.5"></div>
+            <div class="slider-control"><label for="temperature"><span>Temperature (illustrative)</span><output id="temperatureOut">300 K</output></label><input id="temperature" type="range" min="100" max="700" step="10" value="300"></div>
+            <div class="button-grid"><button class="state-button on" id="mainButton" type="button" aria-pressed="true">Main <span>ON</span></button><button class="state-button on" id="batteryButton" type="button" aria-pressed="true">Battery <span>connected</span></button><button class="state-button on wide" id="motionButton" type="button" aria-pressed="true">Thermal motion <span>visible</span></button></div>
+          </section>
+          <section class="panel measurements-panel current-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div class="highlight"><dt>Current I</dt><dd id="currentValue">0.500 A</dd></div>
+              <div><dt>Electric field E</dt><dd id="fieldValue">6.00 V m⁻¹</dd></div>
+              <div><dt>Drift speed v<sub>d</sub></dt><dd id="driftValue">0.0367 μm s⁻¹</dd></div>
+              <div><dt>Charge per second</dt><dd id="chargeRate">0.500 C s⁻¹</dd></div>
+              <div><dt>Electrons per second</dt><dd id="electronRate">3.12 × 10¹⁸</dd></div>
+              <div><dt>Power P</dt><dd id="powerValue">3.00 W</dd></div>
+            </dl>
+            <div class="direction-card"><b id="directionTitle">Directions are opposite</b><span>Conventional current: + → −</span><span>Electron drift: − → +</span></div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>Current is the rate of flow of electric charge, not the speed of individual electrons.</li><li>Without an electric field, electrons still move randomly but have zero net drift.</li><li>Applying a potential difference adds a tiny directed drift to the thermal motion.</li><li>The conventional-current direction is opposite to electron drift in a metal.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>I = ΔQ / Δt</p><p>I = V / R</p><p>I = nqAv<sub>d</sub></p><p>P = VI</p></div></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="electric-current.js"></script>
+</body>
+</html>
