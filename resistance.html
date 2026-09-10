@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive electrical resistance simulation by AHMED ADEL PHYSICS">
+  <title>Electrical Resistance Lab — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="resistance.css">
+</head>
+<body class="resistance-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item" href="voltage.html"><span class="radio-dot"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item active" href="#resistance"><span class="radio-dot filled"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="resistance">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Electrical Resistance</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Current flowing</strong><small>Ideal voltage source</small></div>
+      </header>
+
+      <section class="lab-grid resistance-lab">
+        <article class="panel resistance-workspace">
+          <div class="panel-head"><h2><span>◉</span> Resistance Microscope</h2><div class="legend resistance-legend"><i></i> Electron drift: − → +</div></div>
+          <div class="resistance-stage">
+            <svg id="resistanceScene" viewBox="0 0 1000 650" role="img" aria-labelledby="resistanceTitle resistanceDesc">
+              <title id="resistanceTitle">Electrical resistance in a metal wire</title>
+              <desc id="resistanceDesc">A three-dimensional wire sample changes length, cross-sectional area, material and temperature while electrons scatter from a vibrating lattice.</desc>
+              <defs>
+                <linearGradient id="rCopper" x1="0" y1="0" x2="0" y2="1"><stop id="wireStop1" stop-color="#451207"/><stop id="wireStop2" offset=".22" stop-color="#ff7432"/><stop id="wireStop3" offset=".46" stop-color="#ffd1a2"/><stop id="wireStop4" offset=".68" stop-color="#c43d14"/><stop id="wireStop5" offset="1" stop-color="#310b04"/></linearGradient>
+                <linearGradient id="rMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4f8f9"/><stop offset=".28" stop-color="#718892"/><stop offset=".56" stop-color="#dce7ea"/><stop offset="1" stop-color="#3f535d"/></linearGradient>
+                <linearGradient id="rCellBody" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#273e4b"/><stop offset=".2" stop-color="#0d1b24"/><stop offset=".5" stop-color="#02070b"/><stop offset=".8" stop-color="#132b39"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="rCellRed" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff774d"/><stop offset=".24" stop-color="#f22f1f"/><stop offset=".6" stop-color="#8e130e"/><stop offset=".84" stop-color="#df321d"/><stop offset="1" stop-color="#681008"/></linearGradient>
+                <linearGradient id="rTunnel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#0b3852"/><stop offset=".46" stop-color="#03121d"/><stop offset="1" stop-color="#0b3049"/></linearGradient>
+                <radialGradient id="rIon" cx=".34" cy=".28"><stop stop-color="#fff0d8"/><stop offset=".24" stop-color="#ff9a55"/><stop offset=".68" stop-color="#a83411"/><stop offset="1" stop-color="#371006"/></radialGradient>
+                <filter id="rCopperGlow" x="-70%" y="-100%" width="240%" height="300%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="rCyanGlow" x="-220%" y="-220%" width="540%" height="540%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="rSparkGlow" x="-300%" y="-300%" width="700%" height="700%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="rShadow"><feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000" flood-opacity=".72"/></filter>
+                <clipPath id="conductorClip"><rect id="clipRect" x="105" y="322" width="790" height="176" rx="74"/></clipPath>
+              </defs>
+
+              <g class="sample-rig" filter="url(#rShadow)">
+                <text class="rig-title" x="500" y="39">ADJUSTABLE WIRE SPECIMEN</text>
+                <g class="terminal-post left"><ellipse cx="176" cy="151" rx="29" ry="43"/><rect x="164" y="92" width="24" height="58" rx="7"/><circle cx="176" cy="151" r="17"/></g>
+                <g class="terminal-post right"><ellipse cx="824" cy="151" rx="29" ry="43"/><rect x="812" y="92" width="24" height="58" rx="7"/><circle cx="824" cy="151" r="17"/></g>
+                <path id="sampleShadow" class="sample-shadow" d="M194 151H806"/><path id="sampleWire" class="sample-wire" d="M194 151H806"/>
+                <path id="sampleHighlight" class="sample-highlight" d="M194 147H806"/>
+                <g class="length-ruler"><path d="M205 220H795M205 210v20M795 210v20"/><text id="lengthLabel" x="500" y="244">L = 2.00 m</text></g>
+                <g class="cross-section" id="crossSection"><ellipse class="disc-shadow" cx="879" cy="151" rx="42" ry="49"/><ellipse id="areaDisc" class="area-disc" cx="870" cy="143" rx="28" ry="36"/><ellipse class="area-shine" cx="861" cy="132" rx="7" ry="18"/><path d="M824 151H844"/><text x="870" y="214">A = <tspan id="areaLabel">0.50 mm²</tspan></text></g>
+                <g class="current-direction"><path d="M682 71H785"/><path d="m773 63 14 8-14 8"/><text x="733" y="59">Conventional current I</text></g>
+              </g>
+
+              <path class="zoom-line" d="M285 188 175 307M715 188 825 307"/>
+              <g class="microscope" filter="url(#rShadow)">
+                <rect id="conductorShell" class="conductor-shell" x="88" y="305" width="824" height="210" rx="90"/>
+                <rect id="conductorInner" class="conductor-inner" x="105" y="322" width="790" height="176" rx="74"/>
+                <path id="conductorShine" class="conductor-shine" d="M154 334H846"/>
+                <g id="latticeLayer" clip-path="url(#conductorClip)" aria-hidden="true"></g>
+                <g id="electronLayer" clip-path="url(#conductorClip)" aria-hidden="true"></g>
+                <g id="collisionLayer" clip-path="url(#conductorClip)" aria-hidden="true"></g>
+              </g>
+              <g class="micro-captions"><text x="500" y="550">MAGNIFIED CONDUCTOR</text><text x="115" y="574">Lattice vibrations</text><text x="885" y="574">Electron scattering</text></g>
+
+              <g class="battery resistance-battery" id="batterySvg" role="button" tabindex="0" aria-label="Connect or disconnect voltage source" aria-pressed="true">
+                <path class="lead-shadow" d="M176 194v410h253M571 604h253V194"/><path class="lead-wire" d="M176 194v410h253M571 604h253V194"/>
+                <ellipse class="battery-floor-shadow" cx="500" cy="628" rx="91" ry="12"/>
+                <rect class="terminal" x="418" y="588" width="18" height="29" rx="5"/><rect class="terminal" x="564" y="588" width="18" height="29" rx="5"/>
+                <rect class="cell-shell" x="429" y="570" width="142" height="67" rx="32"/>
+                <path class="cell-red" d="M471 570h-11c-18 0-31 13-31 32v3c0 19 13 32 31 32h11Z"/>
+                <rect class="cell-band" x="469" y="570" width="14" height="67"/><rect class="cell-band silver" x="483" y="570" width="8" height="67"/>
+                <path class="cell-highlight" d="M457 577h84c12 0 20 5 25 14H441c4-8 9-13 16-14Z"/>
+                <text class="sign plus-sign" x="454" y="610">+</text><text class="sign minus-sign" x="548" y="610">−</text>
+                <rect class="hit" x="405" y="554" width="190" height="94"/>
+              </g>
+            </svg>
+          </div>
+          <div class="resistance-explainer"><span class="factor-chip">L↑</span><span><b>Longer wire:</b> resistance rises because carriers travel through more material.</span><span class="factor-chip area">A↑</span><span><b>Thicker wire:</b> resistance falls because more conducting paths are available.</span></div>
+          <div class="resistance-scale-note">Microscopic motion is magnified for teaching; collision flashes show the trend qualitatively, not a literal atomic scale.</div>
+        </article>
+
+        <div class="lower-grid resistance-panels">
+          <section class="panel controls-panel resistance-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="material-control"><label for="materialSelect">Conductor Material</label><select id="materialSelect"><option value="nichrome">Nichrome</option><option value="copper">Copper</option><option value="aluminum">Aluminum</option><option value="tungsten">Tungsten</option><option value="constantan">Constantan</option></select></div>
+            <div class="slider-control"><label for="voltage"><span>Source Voltage</span><output id="voltageOut">6.0 V</output></label><input id="voltage" type="range" min="0" max="12" step="0.5" value="6"></div>
+            <div class="slider-control"><label for="length"><span>Wire Length L</span><output id="lengthOut">2.00 m</output></label><input id="length" type="range" min="0.5" max="5" step="0.1" value="2"></div>
+            <div class="slider-control"><label for="area"><span>Cross-sectional Area A</span><output id="areaOut">0.50 mm²</output></label><input id="area" type="range" min="0.2" max="5" step="0.1" value="0.5"></div>
+            <div class="slider-control"><label for="temperature"><span>Temperature</span><output id="temperatureOut">20 °C</output></label><input id="temperature" type="range" min="20" max="200" step="5" value="20"></div>
+            <div class="slider-control presentation-control"><label for="animationSpeed"><span>Animation Speed <small>(presentation only)</small></span><output id="animationSpeedOut">1.0×</output></label><input id="animationSpeed" type="range" min="0.25" max="2" step="0.25" value="1"></div>
+            <div class="button-grid"><button class="state-button on" id="sourceButton" type="button" aria-pressed="true">Source <span>connected</span></button><button class="state-button on" id="animationButton" type="button" aria-pressed="true">Animation <span>playing</span></button></div>
+          </section>
+
+          <section class="panel measurements-panel resistance-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div class="highlight"><dt>Resistance R</dt><dd id="resistanceValue">4.40 Ω</dd></div>
+              <div><dt>Resistivity ρ(T)</dt><dd id="resistivityValue">1.10 × 10⁻⁶ Ω·m</dd></div>
+              <div><dt>Current I</dt><dd id="currentValue">1.364 A</dd></div>
+              <div><dt>Conductance G</dt><dd id="conductanceValue">0.227 S</dd></div>
+              <div><dt>Power P</dt><dd id="powerValue">8.18 W</dd></div>
+              <div><dt>Relative scattering</dt><dd id="scatteringValue">High</dd></div>
+            </dl>
+            <div class="material-card"><b id="materialName">Nichrome</b><span id="materialNote">High resistivity and weak temperature dependence; widely used in heating elements.</span></div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>Resistance depends on material, length, cross-sectional area and temperature.</li><li>Resistivity ρ is a material property; resistance R belongs to a particular object.</li><li>A longer wire has greater resistance, while a thicker wire has lower resistance.</li><li>For the metals shown, heating increases lattice vibration and usually increases resistance.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>R = ρL / A</p><p>ρ(T) ≈ ρ₂₀[1 + α(T − 20)]</p><p>I = V / R</p><p>P = VI = I²R</p></div><small class="model-note">Linear temperature model over the displayed range.</small></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="resistance.js"></script>
+</body>
+</html>

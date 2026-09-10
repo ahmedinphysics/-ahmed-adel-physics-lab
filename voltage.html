@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive voltage and electric potential difference simulation by AHMED ADEL PHYSICS">
+  <title>Voltage Difference Lab — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="voltage.css">
+</head>
+<body class="voltage-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item active" href="#voltage"><span class="radio-dot filled"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="voltage">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Voltage Difference</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Electric field active</strong><small>Uniform-field model</small></div>
+      </header>
+
+      <section class="lab-grid voltage-lab">
+        <article class="panel voltage-workspace">
+          <div class="panel-head"><h2><span>◉</span> Electric Potential Chamber</h2><div class="legend voltage-legend"><i></i> Field direction: + → −</div></div>
+          <div class="voltage-stage">
+            <svg id="voltageScene" viewBox="0 0 1000 640" role="img" aria-labelledby="voltageTitle voltageDesc">
+              <title id="voltageTitle">Voltage difference between two points in a uniform electric field</title>
+              <desc id="voltageDesc">A three-dimensional battery charges two parallel plates. Points A and B and a movable test charge reveal electric potential and potential energy.</desc>
+              <defs>
+                <linearGradient id="vCopper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#461307"/><stop offset=".2" stop-color="#ff7432"/><stop offset=".43" stop-color="#ffd2a5"/><stop offset=".64" stop-color="#c84216"/><stop offset="1" stop-color="#310b04"/></linearGradient>
+                <linearGradient id="vMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4f8f9"/><stop offset=".27" stop-color="#718892"/><stop offset=".55" stop-color="#dce7ea"/><stop offset="1" stop-color="#3f535d"/></linearGradient>
+                <linearGradient id="vPlatePositive" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#541408"/><stop offset=".2" stop-color="#ff6b2b"/><stop offset=".48" stop-color="#ffbd77"/><stop offset=".72" stop-color="#b82d10"/><stop offset="1" stop-color="#3b0b05"/></linearGradient>
+                <linearGradient id="vPlateNegative" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#06344f"/><stop offset=".24" stop-color="#39bfff"/><stop offset=".48" stop-color="#c9f3ff"/><stop offset=".72" stop-color="#1676a7"/><stop offset="1" stop-color="#041d30"/></linearGradient>
+                <linearGradient id="vField" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff7b35" stop-opacity=".42"/><stop offset=".48" stop-color="#dca76c" stop-opacity=".13"/><stop offset="1" stop-color="#37c6ff" stop-opacity=".34"/></linearGradient>
+                <linearGradient id="vCellBody" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#273e4b"/><stop offset=".2" stop-color="#0d1b24"/><stop offset=".5" stop-color="#02070b"/><stop offset=".8" stop-color="#132b39"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="vCellRed" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff774d"/><stop offset=".24" stop-color="#f22f1f"/><stop offset=".6" stop-color="#8e130e"/><stop offset=".84" stop-color="#df321d"/><stop offset="1" stop-color="#681008"/></linearGradient>
+                <radialGradient id="vNode" cx=".35" cy=".28"><stop stop-color="#ffe6c9"/><stop offset=".25" stop-color="#ff934b"/><stop offset=".66" stop-color="#a93410"/><stop offset="1" stop-color="#371006"/></radialGradient>
+                <radialGradient id="vChargePositive" cx=".34" cy=".28"><stop stop-color="#fff8df"/><stop offset=".22" stop-color="#ffd16c"/><stop offset=".64" stop-color="#f17022"/><stop offset="1" stop-color="#72200b"/></radialGradient>
+                <radialGradient id="vChargeNegative" cx=".34" cy=".28"><stop stop-color="#effcff"/><stop offset=".22" stop-color="#8fe8ff"/><stop offset=".64" stop-color="#239ed1"/><stop offset="1" stop-color="#064368"/></radialGradient>
+                <filter id="vCopperGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="vSoftGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="12"/></filter>
+                <filter id="vCyanGlow" x="-180%" y="-180%" width="460%" height="460%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="vShadow"><feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#000" flood-opacity=".7"/></filter>
+              </defs>
+
+              <g class="plate-chamber" filter="url(#vShadow)">
+                <rect class="field-volume" x="184" y="92" width="632" height="346" rx="26"/>
+                <rect class="plate-depth positive" x="133" y="76" width="72" height="382" rx="18"/>
+                <rect class="plate-face positive" x="150" y="68" width="50" height="382" rx="13"/>
+                <path class="plate-highlight" d="M164 83v348"/>
+                <rect class="plate-depth negative" x="795" y="76" width="72" height="382" rx="18"/>
+                <rect class="plate-face negative" x="800" y="68" width="50" height="382" rx="13"/>
+                <path class="plate-highlight" d="M814 83v348"/>
+                <text class="plate-sign" x="175" y="272">+</text><text class="plate-sign" x="825" y="272">−</text>
+                <text class="plate-name" x="175" y="45">HIGH POTENTIAL</text><text class="plate-name" x="825" y="45">LOW POTENTIAL</text>
+                <g id="plateCharges" aria-hidden="true"></g>
+                <g id="fieldLines" aria-hidden="true"></g>
+                <g id="pointA" class="probe-point"><line x1="0" y1="0" x2="0" y2="40"/><circle r="13"/><text class="probe-letter" y="5">A</text><text class="probe-value" y="65">0 V</text></g>
+                <g id="pointB" class="probe-point"><line x1="0" y1="0" x2="0" y2="40"/><circle r="13"/><text class="probe-letter" y="5">B</text><text class="probe-value" y="65">0 V</text></g>
+                <g id="testCharge" class="test-charge"><circle class="charge-halo" r="34"/><circle class="charge-body" r="20"/><text y="7">+</text></g>
+                <g class="move-guide"><path id="movePath" d="M300 315H700"/><path class="guide-arrow" d="m688 307 14 8-14 8"/><text id="moveLabel" x="500" y="350">Move a test charge from A to B</text></g>
+              </g>
+
+              <g class="potential-scale">
+                <text x="150" y="493">Electric potential</text>
+                <rect x="285" y="475" width="530" height="18" rx="9"/>
+                <path class="scale-shine" d="M295 479h510"/>
+                <g id="scaleA"><path d="M0 468v32"/><text y="520">A</text></g><g id="scaleB"><path d="M0 468v32"/><text y="520">B</text></g>
+                <text class="scale-high" x="285" y="520">HIGH</text><text class="scale-low" x="815" y="520">LOW</text>
+              </g>
+
+              <g class="battery voltage-battery" id="batterySvg" role="button" tabindex="0" aria-label="Connect or disconnect voltage source" aria-pressed="true">
+                <path class="lead-shadow" d="M150 450v104h275M575 554h275V450"/><path class="lead-wire" d="M150 450v104h275M575 554h275V450"/>
+                <ellipse class="battery-floor-shadow" cx="500" cy="578" rx="92" ry="13"/>
+                <rect class="terminal" x="414" y="538" width="18" height="30" rx="5"/><rect class="terminal" x="568" y="538" width="18" height="30" rx="5"/>
+                <rect class="cell-shell" x="425" y="518" width="150" height="72" rx="34"/>
+                <path class="cell-red" d="M469 518h-12c-19 0-32 14-32 34v4c0 20 13 34 32 34h12Z"/>
+                <rect class="cell-band" x="467" y="518" width="14" height="72"/><rect class="cell-band silver" x="481" y="518" width="8" height="72"/>
+                <path class="cell-highlight" d="M454 525h90c12 0 20 6 25 15H437c4-9 9-14 17-15Z"/>
+                <text class="sign plus-sign" x="451" y="561">+</text><text class="sign minus-sign" x="550" y="561">−</text>
+                <text class="source-label" x="500" y="620"><tspan id="sourceLabel">12.0 V</tspan> source</text>
+                <rect class="hit" x="395" y="500" width="210" height="106"/>
+              </g>
+            </svg>
+          </div>
+          <div class="voltage-explainer"><span class="concept-symbol">V</span><span><b>Potential difference:</b> the change in electric potential energy per coulomb of charge.</span><span class="concept-symbol energy">U</span><span><b>Charge sign matters for energy:</b> voltage belongs to the two points; potential energy also depends on the test charge.</span></div>
+        </article>
+
+        <div class="lower-grid voltage-panels">
+          <section class="panel controls-panel voltage-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="slider-control"><label for="sourceVoltage"><span>Source Voltage</span><output id="sourceVoltageOut">12.0 V</output></label><input id="sourceVoltage" type="range" min="0" max="24" step="0.5" value="12"></div>
+            <div class="slider-control"><label for="separation"><span>Plate Separation d</span><output id="separationOut">0.40 m</output></label><input id="separation" type="range" min="0.2" max="1" step="0.05" value="0.4"></div>
+            <div class="slider-control"><label for="positionA"><span>Position of Point A</span><output id="positionAOut">20%</output></label><input id="positionA" type="range" min="0" max="100" step="1" value="20"></div>
+            <div class="slider-control"><label for="positionB"><span>Position of Point B</span><output id="positionBOut">78%</output></label><input id="positionB" type="range" min="0" max="100" step="1" value="78"></div>
+            <div class="slider-control"><label for="chargeMagnitude"><span>Test Charge |q|</span><output id="chargeOut">5.0 nC</output></label><input id="chargeMagnitude" type="range" min="1" max="20" step="0.5" value="5"></div>
+            <div class="button-grid"><button class="state-button on" id="sourceButton" type="button" aria-pressed="true">Source <span>connected</span></button><button class="state-button on" id="chargeSignButton" type="button" aria-pressed="true">Test charge <span>positive</span></button><button class="state-button on wide move-charge-button" id="moveButton" type="button">Move charge A → B</button></div>
+          </section>
+
+          <section class="panel measurements-panel voltage-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div><dt>Potential at A, V<sub>A</sub></dt><dd id="potentialA">9.60 V</dd></div>
+              <div><dt>Potential at B, V<sub>B</sub></dt><dd id="potentialB">2.64 V</dd></div>
+              <div class="highlight"><dt>ΔV = V<sub>B</sub> − V<sub>A</sub></dt><dd id="deltaV">−6.96 V</dd></div>
+              <div><dt>Electric field |E|</dt><dd id="fieldValue">30.0 V m⁻¹</dd></div>
+              <div><dt>ΔU = qΔV</dt><dd id="deltaU">−34.8 nJ</dd></div>
+              <div><dt>Work by field</dt><dd id="fieldWork">+34.8 nJ</dd></div>
+            </dl>
+            <div class="meaning-card"><b id="meaningTitle">Energy decreases</b><span id="meaningText">The positive charge loses potential energy moving from A to B.</span></div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>Voltage is a comparison between two points; a single point needs a chosen reference.</li><li>One volt means one joule of potential-energy change per coulomb.</li><li>The electric field points from high potential toward low potential.</li><li>Changing the test charge changes ΔU, but it does not change ΔV.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>ΔV = V<sub>B</sub> − V<sub>A</sub></p><p>ΔV = ΔU / q</p><p>|E| = V<sub>source</sub> / d</p><p>W<sub>field</sub> = −ΔU</p></div></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="voltage.js"></script>
+</body>
+</html>
