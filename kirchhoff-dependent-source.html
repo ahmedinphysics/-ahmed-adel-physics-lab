@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive Kirchhoff dependent-source simulation with a voltage-controlled current source by AHMED ADEL PHYSICS">
+  <title>Kirchhoff VIII — Dependent Source Network — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="kirchhoff-dependent-source.css">
+</head>
+<body class="kirchhoff-page dependent-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item" href="voltage.html"><span class="radio-dot"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-parallel.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
+          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
+          <a class="nav-item" href="kirchhoff-voltage-law.html"><span class="radio-dot"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
+          <a class="nav-item" href="kirchhoff-two-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff III — Two-Loop Network</b><small>KCL + KVL · two sources</small></span></a>
+          <a class="nav-item" href="kirchhoff-wheatstone-bridge.html"><span class="radio-dot"></span><span><b>Kirchhoff IV — Wheatstone Bridge</b><small>bridge balance · current reversal</small></span></a>
+          <a class="nav-item" href="kirchhoff-three-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff V — Three-Loop Mesh</b><small>3 coupled loops · shared branches</small></span></a>
+          <a class="nav-item" href="kirchhoff-supermesh.html"><span class="radio-dot"></span><span><b>Kirchhoff VI — Supermesh</b><small>shared current source · constraint equation</small></span></a>
+          <a class="nav-item" href="kirchhoff-supernode.html"><span class="radio-dot"></span><span><b>Kirchhoff VII — Supernode</b><small>floating voltage source · nodal constraint</small></span></a>
+          <a class="nav-item active" href="#kirchhoff-dependent-source"><span class="radio-dot filled"></span><span><b>Kirchhoff VIII — Dependent Source</b><small>VCCS · controlled branch current</small></span></a>
+          <a class="nav-item" href="kirchhoff-vcvs.html"><span class="radio-dot"></span><span><b>Kirchhoff IX — VCVS Supernode</b><small>dependent voltage · control constraint</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="kirchhoff-dependent-source">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Kirchhoff VIII — Dependent Source Network</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Dependent-source equations satisfied</strong><small id="headerDetail">VCCS law · Iᴅ = gVₓ</small></div>
+      </header>
+
+      <section class="lab-grid dependent-lab">
+        <article class="panel dependent-workspace">
+          <div class="panel-head"><h2><span>◇</span> Voltage-Controlled Current Source (VCCS)</h2><div class="legend"><i></i> Conventional current · solved sign controls animation direction</div></div>
+          <div class="dependent-stage">
+            <svg id="dependentScene" viewBox="0 0 1200 790" role="img" aria-labelledby="sceneTitle sceneDesc">
+              <title id="sceneTitle">Kirchhoff circuit containing a voltage-controlled current source</title>
+              <desc id="sceneDesc">An independent voltage source drives nodes B and C through resistors. A dependent current source from C to ground enforces current Id equals transconductance g times control voltage Vx at node B.</desc>
+              <defs>
+                <linearGradient id="dCopper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#411006"/><stop offset=".2" stop-color="#f26524"/><stop offset=".42" stop-color="#ffd0a0"/><stop offset=".64" stop-color="#ba3511"/><stop offset="1" stop-color="#260803"/></linearGradient>
+                <radialGradient id="dNode" cx=".34" cy=".28"><stop stop-color="#fff2dc"/><stop offset=".2" stop-color="#ffad6d"/><stop offset=".58" stop-color="#bd4119"/><stop offset="1" stop-color="#421008"/></radialGradient>
+                <linearGradient id="dMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6fafb"/><stop offset=".22" stop-color="#748a94"/><stop offset=".48" stop-color="#dfe8ea"/><stop offset=".75" stop-color="#50636c"/><stop offset="1" stop-color="#bbc9ce"/></linearGradient>
+                <linearGradient id="dCell" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#294452"/><stop offset=".18" stop-color="#111f28"/><stop offset=".48" stop-color="#03080c"/><stop offset=".8" stop-color="#142f3d"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="dCellRed" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff8159"/><stop offset=".28" stop-color="#f04426"/><stop offset=".72" stop-color="#9b1d0e"/><stop offset="1" stop-color="#641008"/></linearGradient>
+                <linearGradient id="dResistor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8c7a0"/><stop offset=".18" stop-color="#b88658"/><stop offset=".5" stop-color="#795235"/><stop offset=".8" stop-color="#c69b6d"/><stop offset="1" stop-color="#513322"/></linearGradient>
+                <radialGradient id="dSourceFace"><stop stop-color="#124766"/><stop offset=".68" stop-color="#07283d"/><stop offset="1" stop-color="#031724"/></radialGradient>
+                <filter id="dShadow" x="-40%" y="-80%" width="180%" height="280%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".72"/></filter>
+                <filter id="dCopperGlow" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="dCyanGlow" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <marker id="dArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#70ddff"/></marker>
+                <marker id="dArrowSource" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#baf4ff"/></marker>
+              </defs>
+
+              <g class="bench-shadow"><ellipse cx="600" cy="610" rx="520" ry="32"/></g>
+              <g class="network-wires" filter="url(#dShadow)">
+                <path class="wire-under" d="M140 170H980M140 170V570H980V170M455 170V570M745 170V570"/>
+                <path class="wire-main" d="M140 170H980M140 170V570H980V170M455 170V570M745 170V570"/>
+                <path class="wire-shine" d="M140 174H980M144 170V566H976V170M459 170V570M749 170V570"/>
+              </g>
+              <g id="chargeLayer" aria-hidden="true"></g>
+
+              <g class="node-layer" aria-hidden="true">
+                <g transform="translate(140 170)"><circle class="node-dot" r="9"/><text class="node-label" y="-22">A</text><text class="node-voltage" id="svgVA" y="27">18.00 V</text></g>
+                <g transform="translate(455 170)"><circle class="node-dot junction" r="11"/><text class="node-label" y="-22">B</text><text class="node-voltage cyan" id="svgVB" y="27">7.91 V</text></g>
+                <g transform="translate(745 170)"><circle class="node-dot junction" r="11"/><text class="node-label" y="-22">C</text><text class="node-voltage cyan" id="svgVC" y="27">1.90 V</text></g>
+                <g transform="translate(600 570)"><circle class="node-dot" r="9"/><text class="node-label" y="31">G · 0 V</text></g>
+              </g>
+
+              <g class="resistor-horizontal" transform="translate(315 170)" filter="url(#dShadow)">
+                <path class="resistor-lead" d="M-85 0H-60M60 0H85"/><rect class="resistor-body" x="-60" y="-22" width="120" height="44" rx="11"/><path class="resistor-band b1" d="M-33-21V21"/><path class="resistor-band b2" d="M-8-21V21"/><path class="resistor-band b3" d="M17-21V21"/><path class="resistor-band b4" d="M42-21V21"/><rect class="resistor-highlight" x="-52" y="-14" width="104" height="8" rx="4"/>
+              </g><g class="resistor-labels"><text x="315" y="214">R₁</text><text id="svgR1" x="315" y="231">8.0 Ω</text></g>
+
+              <g class="resistor-horizontal" transform="translate(600 170)" filter="url(#dShadow)">
+                <path class="resistor-lead" d="M-85 0H-60M60 0H85"/><rect class="resistor-body" x="-60" y="-22" width="120" height="44" rx="11"/><path class="resistor-band b1" d="M-33-21V21"/><path class="resistor-band b2" d="M-8-21V21"/><path class="resistor-band b3" d="M17-21V21"/><path class="resistor-band b4" d="M42-21V21"/><rect class="resistor-highlight" x="-52" y="-14" width="104" height="8" rx="4"/>
+              </g><g class="resistor-labels"><text x="600" y="214">R₃</text><text id="svgR3" x="600" y="231">10.0 Ω</text></g>
+
+              <g class="resistor-vertical" transform="translate(455 370) rotate(90)" filter="url(#dShadow)">
+                <path class="resistor-lead" d="M-85 0H-60M60 0H85"/><rect class="resistor-body" x="-60" y="-22" width="120" height="44" rx="11"/><path class="resistor-band b1" d="M-33-21V21"/><path class="resistor-band b2" d="M-8-21V21"/><path class="resistor-band b3" d="M17-21V21"/><path class="resistor-band b4" d="M42-21V21"/><rect class="resistor-highlight" x="-52" y="-14" width="104" height="8" rx="4"/>
+              </g><g class="resistor-labels vertical-labels"><text x="510" y="366">R₂</text><text id="svgR2" x="510" y="383">12.0 Ω</text></g>
+
+              <g class="resistor-vertical" transform="translate(745 370) rotate(90)" filter="url(#dShadow)">
+                <path class="resistor-lead" d="M-85 0H-60M60 0H85"/><rect class="resistor-body" x="-60" y="-22" width="120" height="44" rx="11"/><path class="resistor-band b1" d="M-33-21V21"/><path class="resistor-band b2" d="M-8-21V21"/><path class="resistor-band b3" d="M17-21V21"/><path class="resistor-band b4" d="M42-21V21"/><rect class="resistor-highlight" x="-52" y="-14" width="104" height="8" rx="4"/>
+              </g><g class="resistor-labels vertical-labels"><text x="690" y="366">R₄</text><text id="svgR4" x="690" y="383">15.0 Ω</text></g>
+
+              <g class="battery-vertical" id="batteryE1" transform="translate(140 370)" filter="url(#dShadow)">
+                <rect class="battery-shell" x="-36" y="-82" width="72" height="164" rx="31"/><path class="battery-red" id="redE1" d="M-34-80H34V0H-34Z"/><rect class="battery-band" x="-34" y="-8" width="68" height="9"/><rect class="battery-band copper" x="-34" y="8" width="68" height="9"/><path class="battery-highlight" d="M-25-65Q-10-78 8-72V62Q-10 69-25 52Z"/><text class="battery-sign" id="e1TopSign" x="0" y="-36">+</text><text class="battery-sign" id="e1BottomSign" x="0" y="53">−</text>
+              </g><text class="emf-label" x="90" y="375" transform="rotate(-90 90 375)">E₁ = <tspan id="svgE1">+18.0 V</tspan></text>
+
+              <g class="dependent-source" id="dependentSource" transform="translate(980 370)" filter="url(#dShadow)">
+                <path class="source-diamond" d="M0-73L70 0 0 73-70 0Z"/><path class="source-arrow" d="M0-34V31"/><text class="source-name" y="-92">VOLTAGE-CONTROLLED CURRENT SOURCE</text><text class="source-value" id="svgGm" y="96">g = 60 mS</text>
+              </g>
+
+              <path class="sense-bracket" d="M400 250H385V490H400"/><text class="sense-text" id="vxSense" x="345" y="374" transform="rotate(-90 345 374)">Vₓ = Vᴮ = +7.91 V</text>
+              <path class="control-link" d="M390 490C590 650 870 650 930 445"/><text class="control-label" x="680" y="625">CONTROL SIGNAL · NO ELECTRICAL CONNECTION</text>
+
+              <g class="current-vector" id="i1Vector"><path id="i1Arrow" d="M210 126H405" marker-end="url(#dArrow)"/><text id="i1Label" x="310" y="94">I₁ = +1.261 A · A → B</text></g>
+              <g class="current-vector" id="i3Vector"><path id="i3Arrow" d="M505 126H695" marker-end="url(#dArrow)"/><text id="i3Label" x="600" y="94">I₃ = +0.601 A · B → C</text></g>
+              <g class="current-vector vertical-vector" id="i2Vector"><path id="i2Arrow" d="M420 240V505" marker-end="url(#dArrow)"/><text id="i2Label" x="360" y="525">I₂ = +0.659 A · B → G</text></g>
+              <g class="current-vector vertical-vector" id="i4Vector"><path id="i4Arrow" d="M710 240V505" marker-end="url(#dArrow)"/><text id="i4Label" x="770" y="525">I₄ = +0.127 A · C → G</text></g>
+              <g class="current-vector vertical-vector controlled-vector" id="idVector"><path id="idArrow" d="M980 245V505" marker-end="url(#dArrow)"/><text id="idLabel" x="1030" y="525">Iᴅ = +0.475 A · C → G</text></g>
+
+              <g class="constraint-card" transform="translate(600 666)"><rect x="-520" y="-47" width="1040" height="94" rx="14"/><text class="badge-kicker" y="-21">KIRCHHOFF CURRENT LAW · TWO COUPLED NODES</text><text class="badge-equation" id="svgKclB" y="5">Node B · I₁ − I₂ − I₃ = 0.000000 A</text><text class="badge-balance" id="svgKclC" y="31">Node C · I₃ − I₄ − Iᴅ = 0.000000 A</text></g>
+              <g class="law-badge" transform="translate(600 752)"><rect x="-520" y="-31" width="1040" height="62" rx="13"/><text class="badge-kicker" y="-9">DEPENDENT-SOURCE CONSTRAINT</text><text class="badge-equation" id="svgConstraint" y="14">Iᴅ = gVₓ · +0.475 A = 0.060 S × +7.913 V</text></g>
+            </svg>
+          </div>
+          <div class="effect-strip"><div><span>◇</span><strong id="effectTitle">The dependent source is absorbing power</strong></div><p id="effectText">The diamond source does not have an independent current setting. Its current is calculated from the control voltage Vₓ through Iᴅ = gVₓ, then Kirchhoff's laws determine the rest of the network.</p></div>
+        </article>
+
+        <div class="two-panels dependent-panels">
+          <section class="panel controls-panel dependent-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="source-grid">
+              <div class="source-control"><div class="branch-control-head"><span>Independent source · E₁</span><strong id="i1Mini">I₁ = +1.261 A</strong></div><div class="slider-control compact"><label for="e1"><span>Signed EMF E₁</span><output id="e1Out">+18.0 V</output></label><input id="e1" type="range" min="-30" max="30" step="0.5" value="18"></div></div>
+              <div class="source-control controlled-control"><div class="branch-control-head"><span>Dependent source · VCCS</span><strong id="idMini">Iᴅ = +0.475 A</strong></div><div class="slider-control compact"><label for="gm"><span>Transconductance g</span><output id="gmOut">60 mS</output></label><input id="gm" type="range" min="0" max="200" step="5" value="60"></div></div>
+            </div>
+            <div class="resistor-grid">
+              <div class="branch-control-block"><div class="branch-control-head"><span>Input feed · R₁</span><strong>A ↔ B</strong></div><div class="slider-control compact"><label for="r1"><span>Resistance R₁</span><output id="r1Out">8.0 Ω</output></label><input id="r1" type="range" min="1" max="40" step="0.5" value="8"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Control shunt · R₂</span><strong>B ↔ G · sets Vₓ</strong></div><div class="slider-control compact"><label for="r2"><span>Resistance R₂</span><output id="r2Out">12.0 Ω</output></label><input id="r2" type="range" min="1" max="40" step="0.5" value="12"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Coupling resistor · R₃</span><strong>B ↔ C</strong></div><div class="slider-control compact"><label for="r3"><span>Resistance R₃</span><output id="r3Out">10.0 Ω</output></label><input id="r3" type="range" min="1" max="40" step="0.5" value="10"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Output shunt · R₄</span><strong>C ↔ G</strong></div><div class="slider-control compact"><label for="r4"><span>Resistance R₄</span><output id="r4Out">15.0 Ω</output></label><input id="r4" type="range" min="1" max="40" step="0.5" value="15"></div></div>
+            </div>
+            <div class="preset-area"><span>Scenario presets</span><div class="preset-grid"><button class="preset active" data-preset="absorbs" type="button">Controlled source absorbs</button><button class="preset" data-preset="vc-zero" type="button">Vᶜ = 0 threshold</button><button class="preset" data-preset="delivers" type="button">Controlled source delivers</button></div></div>
+            <div class="slider-control presentation-control"><label for="animationSpeed"><span>Animation Speed <small>(visual only)</small></span><output id="animationSpeedOut">1.0×</output></label><input id="animationSpeed" type="range" min="0.5" max="2" step="0.25" value="1"></div>
+          </section>
+
+          <section class="panel measurements-panel dependent-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div class="highlight"><dt>Node voltage V<sub>B</sub></dt><dd id="vbValue">+7.913 V</dd></div>
+              <div class="highlight"><dt>Node voltage V<sub>C</sub></dt><dd id="vcValue">+1.899 V</dd></div>
+              <div class="highlight"><dt>Control voltage Vₓ = V<sub>B</sub></dt><dd id="vxValue">+7.913 V</dd></div>
+              <div><dt>Dependent current Iᴅ · C → G +</dt><dd id="idValue">+0.475 A</dd></div>
+              <div><dt>Input current I₁ · A → B +</dt><dd id="i1Value">+1.261 A</dd></div>
+              <div><dt>Shunt current I₂ · B → G +</dt><dd id="i2Value">+0.659 A</dd></div>
+              <div><dt>Coupling current I₃ · B → C +</dt><dd id="i3Value">+0.601 A</dd></div>
+              <div><dt>Output current I₄ · C → G +</dt><dd id="i4Value">+0.127 A</dd></div>
+              <div class="law-check"><dt>Node-B KCL residual</dt><dd id="kclBResidual">0.000000 A</dd></div>
+              <div class="law-check"><dt>Node-C KCL residual</dt><dd id="kclCResidual">0.000000 A</dd></div>
+              <div class="law-check"><dt>Control-law residual</dt><dd id="controlResidual">0.000000 A</dd></div>
+              <div><dt>Dependent-source power · + absorbs</dt><dd id="dependentPower">+0.90 W</dd></div>
+              <div><dt>Net source power delivered</dt><dd id="sourcePower">21.79 W</dd></div>
+              <div><dt>Total resistor dissipation</dt><dd id="resistorPower">21.79 W</dd></div>
+            </dl>
+            <div class="law-accounting dependent-accounting">
+              <div><span>NODE B · KCL</span><strong id="kclBAccount">I₁ − I₂ − I₃ = 0</strong></div>
+              <div><span>NODE C · KCL</span><strong id="kclCAccount">I₃ − I₄ − Iᴅ = 0</strong></div>
+              <div><span>CONTROL LAW</span><strong id="controlAccount">Iᴅ = gVₓ</strong></div>
+              <div><span>LEFT LOOP · KVL</span><strong id="leftKvlAccount">E₁ − I₁R₁ − I₂R₂ = 0</strong></div>
+              <div><span>RIGHT RESISTOR LOOP</span><strong id="rightKvlAccount">I₂R₂ − I₃R₃ − I₄R₄ = 0</strong></div>
+              <div><span>POWER BALANCE</span><strong id="powerAccount">0.000000 W</strong></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>A <b>dependent source</b> is controlled by another voltage or current somewhere in the circuit. It is drawn with a diamond symbol.</li><li>This model uses a <b>voltage-controlled current source (VCCS)</b>: <b>Iᴅ = gVₓ</b>, where g is the transconductance in siemens.</li><li>Vₓ is the voltage at node B relative to ground. The dashed cyan line is only a control relation; it is <b>not an electrical wire</b>.</li><li>KCL must include Iᴅ exactly like any other branch current, but Iᴅ is not found from resistance. It comes from the dependent-source equation.</li><li>The controlled source can either <b>absorb or deliver power</b>. Dependent does not mean passive.</li><li>A negative solved branch current means the physical current is opposite to its reference arrow; the animation reverses automatically.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Nodal + Control Equations</h2></div><div class="equations"><p>(V<sub>B</sub> − E₁)/R₁ + V<sub>B</sub>/R₂ + (V<sub>B</sub> − V<sub>C</sub>)/R₃ = 0</p><p>(V<sub>C</sub> − V<sub>B</sub>)/R₃ + V<sub>C</sub>/R₄ + Iᴅ = 0</p><p>Iᴅ = gVₓ</p><p>Vₓ = V<sub>B</sub></p><p>I₁ = (E₁ − V<sub>B</sub>)/R₁ · I₂ = V<sub>B</sub>/R₂</p><p>I₃ = (V<sub>B</sub> − V<sub>C</sub>)/R₃ · I₄ = V<sub>C</sub>/R₄</p></div><small class="model-note">Model assumptions: ideal DC sources, ideal wires, linear ohmic resistors and steady state. Positive Iᴅ is defined from C to ground. g is displayed in mS but solved internally in siemens.</small></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="kirchhoff-dependent-source.js"></script>
+</body>
+</html>

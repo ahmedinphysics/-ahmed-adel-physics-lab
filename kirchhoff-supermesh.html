@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive Kirchhoff supermesh simulation with a shared current source by AHMED ADEL PHYSICS">
+  <title>Kirchhoff VI — Supermesh Current Source — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="kirchhoff-supermesh.css">
+</head>
+<body class="kirchhoff-page supermesh-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item" href="voltage.html"><span class="radio-dot"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-parallel.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
+          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
+          <a class="nav-item" href="kirchhoff-voltage-law.html"><span class="radio-dot"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
+          <a class="nav-item" href="kirchhoff-two-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff III — Two-Loop Network</b><small>KCL + KVL · two sources</small></span></a>
+          <a class="nav-item" href="kirchhoff-wheatstone-bridge.html"><span class="radio-dot"></span><span><b>Kirchhoff IV — Wheatstone Bridge</b><small>bridge balance · current reversal</small></span></a>
+          <a class="nav-item" href="kirchhoff-three-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff V — Three-Loop Mesh</b><small>3 coupled loops · shared branches</small></span></a>
+          <a class="nav-item active" href="#kirchhoff-supermesh"><span class="radio-dot filled"></span><span><b>Kirchhoff VI — Supermesh</b><small>shared current source · constraint equation</small></span></a>
+          <a class="nav-item" href="kirchhoff-supernode.html"><span class="radio-dot"></span><span><b>Kirchhoff VII — Supernode</b><small>floating voltage source · nodal constraint</small></span></a>
+          <a class="nav-item" href="kirchhoff-dependent-source.html"><span class="radio-dot"></span><span><b>Kirchhoff VIII — Dependent Source</b><small>VCCS · controlled branch current</small></span></a>
+          <a class="nav-item" href="kirchhoff-vcvs.html"><span class="radio-dot"></span><span><b>Kirchhoff IX — VCVS Supernode</b><small>dependent voltage · control constraint</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="kirchhoff-supermesh">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Kirchhoff VI — Supermesh with a Current Source</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Supermesh + constraint solved</strong><small id="headerDetail">KVL around the outer path · J₁ − J₂ = Iₛ</small></div>
+      </header>
+
+      <section class="lab-grid supermesh-lab">
+        <article class="panel supermesh-workspace">
+          <div class="panel-head"><h2><span>⌘</span> Two Meshes Sharing an Ideal Current Source</h2><div class="legend"><i></i> Conventional current · motion reverses with solved sign</div></div>
+          <div class="supermesh-stage">
+            <svg id="supermeshScene" viewBox="0 0 1200 760" role="img" aria-labelledby="sceneTitle sceneDesc">
+              <title id="sceneTitle">Kirchhoff supermesh circuit with a shared current source</title>
+              <desc id="sceneDesc">Two adjacent meshes share an ideal current source. The supermesh KVL equation and current-source constraint determine both mesh currents.</desc>
+              <defs>
+                <linearGradient id="sCopper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#411006"/><stop offset=".2" stop-color="#f26524"/><stop offset=".42" stop-color="#ffd0a0"/><stop offset=".64" stop-color="#ba3511"/><stop offset="1" stop-color="#260803"/></linearGradient>
+                <radialGradient id="sNode" cx=".34" cy=".28"><stop stop-color="#fff2dc"/><stop offset=".2" stop-color="#ffad6d"/><stop offset=".58" stop-color="#bd4119"/><stop offset="1" stop-color="#421008"/></radialGradient>
+                <linearGradient id="sMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6fafb"/><stop offset=".22" stop-color="#748a94"/><stop offset=".48" stop-color="#dfe8ea"/><stop offset=".75" stop-color="#50636c"/><stop offset="1" stop-color="#bbc9ce"/></linearGradient>
+                <linearGradient id="sCell" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#294452"/><stop offset=".18" stop-color="#111f28"/><stop offset=".48" stop-color="#03080c"/><stop offset=".8" stop-color="#142f3d"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="sCellRed" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff8159"/><stop offset=".28" stop-color="#f04426"/><stop offset=".72" stop-color="#9b1d0e"/><stop offset="1" stop-color="#641008"/></linearGradient>
+                <linearGradient id="sResistor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8c7a0"/><stop offset=".18" stop-color="#b88658"/><stop offset=".5" stop-color="#795235"/><stop offset=".8" stop-color="#c69b6d"/><stop offset="1" stop-color="#513322"/></linearGradient>
+                <radialGradient id="sSourceFace"><stop stop-color="#124766"/><stop offset=".68" stop-color="#07283d"/><stop offset="1" stop-color="#031724"/></radialGradient>
+                <filter id="sShadow" x="-40%" y="-80%" width="180%" height="280%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".72"/></filter>
+                <filter id="sCopperGlow" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="sCyanGlow" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <marker id="sArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#70ddff"/></marker>
+                <marker id="sMeshArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#e6a167"/></marker>
+                <marker id="sSourceArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#d7f7ff"/></marker>
+              </defs>
+
+              <g class="bench-shadow"><ellipse cx="600" cy="586" rx="510" ry="30"/></g>
+              <g class="network-wires" filter="url(#sShadow)">
+                <path class="wire-under" d="M155 170H1045M155 170V540H1045V170M600 170V540M155 540H1045"/>
+                <path class="wire-main" d="M155 170H1045M155 170V540H1045V170M600 170V540M155 540H1045"/>
+                <path class="wire-shine" d="M155 174H1045M159 170V536H1041V170M604 170V540M155 536H1045"/>
+              </g>
+
+              <g id="chargeLayer" aria-hidden="true"></g>
+
+              <g class="node-layer" aria-hidden="true">
+                <g transform="translate(155 170)"><circle class="node-dot" r="9"/><text class="node-label" y="-22">A</text><text class="node-voltage" id="svgVA" y="27">18.00 V</text></g>
+                <g transform="translate(600 170)"><circle class="node-dot junction" r="11"/><text class="node-label" y="-22">B · JUNCTION</text><text class="node-voltage cyan" id="svgVB" y="27">3.78 V</text></g>
+                <g transform="translate(1045 170)"><circle class="node-dot" r="9"/><text class="node-label" y="-22">C</text><text class="node-voltage" id="svgVC" y="27">6.00 V</text></g>
+                <g transform="translate(600 540)"><circle class="node-dot junction" r="10"/><text class="node-label" y="30">D · 0 V REFERENCE</text></g>
+              </g>
+
+              <g class="resistor" transform="translate(375 170)" filter="url(#sShadow)">
+                <path class="resistor-lead" d="M-82 0H-61M61 0H82"/><rect class="resistor-body" x="-61" y="-23" width="122" height="46" rx="21"/><line class="resistor-band b1" x1="-34" y1="-19" x2="-34" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="13" y1="-21" x2="13" y2="21"/><line class="resistor-band b4" x1="37" y1="-19" x2="37" y2="19"/><path class="resistor-highlight" d="M-42-14H40c8 0 13 4 15 8H-51c2-4 5-8 9-8Z"/>
+              </g>
+              <g class="resistor-labels"><text x="375" y="117">R₁</text><text id="svgR1" x="375" y="137">8.0 Ω</text></g>
+
+              <g class="resistor" transform="translate(825 170)" filter="url(#sShadow)">
+                <path class="resistor-lead" d="M-82 0H-61M61 0H82"/><rect class="resistor-body" x="-61" y="-23" width="122" height="46" rx="21"/><line class="resistor-band b1" x1="-34" y1="-19" x2="-34" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="13" y1="-21" x2="13" y2="21"/><line class="resistor-band b4" x1="37" y1="-19" x2="37" y2="19"/><path class="resistor-highlight" d="M-42-14H40c8 0 13 4 15 8H-51c2-4 5-8 9-8Z"/>
+              </g>
+              <g class="resistor-labels"><text x="825" y="117">R₂</text><text id="svgR2" x="825" y="137">10.0 Ω</text></g>
+
+              <g class="battery-vertical" id="batteryE1" transform="translate(155 355)" filter="url(#sShadow)">
+                <rect class="battery-shell" x="-36" y="-82" width="72" height="164" rx="31"/><path class="battery-red" id="redE1" d="M-34-80H34V0H-34Z"/><rect class="battery-band" x="-34" y="-8" width="68" height="9"/><rect class="battery-band copper" x="-34" y="8" width="68" height="9"/><path class="battery-highlight" d="M-25-65Q-10-78 8-72V62Q-10 69-25 52Z"/><text class="battery-sign" id="e1TopSign" x="0" y="-36">+</text><text class="battery-sign" id="e1BottomSign" x="0" y="53">−</text>
+              </g>
+              <text class="emf-label" x="105" y="355" transform="rotate(-90 105 355)">E₁ = <tspan id="svgE1">+18.0 V</tspan></text>
+
+              <g class="battery-vertical" id="batteryE2" transform="translate(1045 355)" filter="url(#sShadow)">
+                <rect class="battery-shell" x="-36" y="-82" width="72" height="164" rx="31"/><path class="battery-red" id="redE2" d="M-34-80H34V0H-34Z"/><rect class="battery-band" x="-34" y="-8" width="68" height="9"/><rect class="battery-band copper" x="-34" y="8" width="68" height="9"/><path class="battery-highlight" d="M-25-65Q-10-78 8-72V62Q-10 69-25 52Z"/><text class="battery-sign" id="e2TopSign" x="0" y="-36">+</text><text class="battery-sign" id="e2BottomSign" x="0" y="53">−</text>
+              </g>
+              <text class="emf-label" x="1095" y="355" transform="rotate(90 1095 355)">E₂ = <tspan id="svgE2">+6.0 V</tspan></text>
+
+              <!-- ideal current source in the shared branch -->
+              <g class="current-source" id="currentSource" transform="translate(600 355)" filter="url(#sShadow)">
+                <circle class="source-shell" r="58"/><circle class="source-face" r="49"/><path id="sourceArrow" class="source-arrow" d="M0-27V27" marker-end="url(#sSourceArrow)"/><circle class="source-terminal top" cy="-58" r="6"/><circle class="source-terminal bottom" cy="58" r="6"/>
+                <text class="source-name" y="-72">IDEAL CURRENT SOURCE</text><text class="source-value" id="svgIs" y="86">Iₛ = +2.00 A</text>
+              </g>
+              <g class="source-voltage-box" transform="translate(600 470)"><rect x="-112" y="-30" width="224" height="60" rx="10"/><text class="source-box-kicker" y="-8">VOLTAGE ACROSS SOURCE</text><text class="source-box-value" id="svgVcs" y="15">VBD = +3.78 V</text></g>
+
+              <!-- mesh-current reference arrows -->
+              <g class="mesh-reference" id="mesh1Ref"><path id="mesh1Arrow" d="M260 325C260 255 470 255 470 325" marker-end="url(#sMeshArrow)"/><text id="mesh1Label" x="365" y="350">J₁ = +1.778 A · clockwise</text></g>
+              <g class="mesh-reference" id="mesh2Ref"><path id="mesh2Arrow" d="M730 325C730 255 940 255 940 325" marker-end="url(#sMeshArrow)"/><text id="mesh2Label" x="835" y="350">J₂ = −0.222 A · counterclockwise</text></g>
+
+              <!-- physical current arrows -->
+              <g class="current-vector" id="i1Vector"><path id="i1Arrow" d="M235 128H520" marker-end="url(#sArrow)"/><text id="i1Label" x="375" y="92">I₁ = J₁ = +1.778 A · A → B</text></g>
+              <g class="current-vector" id="i2Vector"><path id="i2Arrow" d="M965 128H680" marker-end="url(#sArrow)"/><text id="i2Label" x="825" y="92">I₂ = J₂ = −0.222 A · C → B</text></g>
+              <g class="current-vector source-vector" id="isVector"><path id="isArrow" d="M650 245V455" marker-end="url(#sArrow)"/><text id="isLabel" x="716" y="455">Iₛ = +2.000 A · B → D</text></g>
+
+              <g class="constraint-card" transform="translate(600 624)"><rect x="-520" y="-45" width="1040" height="90" rx="14"/><text class="badge-kicker" y="-19">CURRENT-SOURCE CONSTRAINT · KCL</text><text class="badge-equation" id="svgConstraint" y="7">J₁ − J₂ = Iₛ</text><text class="badge-balance" id="svgConstraintValue" y="31">+1.778 − (−0.222) = +2.000 A</text></g>
+              <g class="law-badge" transform="translate(600 709)"><rect x="-520" y="-34" width="1040" height="68" rx="13"/><text class="badge-kicker" y="-11">SUPERMESH KVL · SKIP THE CURRENT-SOURCE BRANCH</text><text class="badge-equation" id="svgSupermesh" y="13">E₁ − J₁R₁ − J₂R₂ − E₂ = 0.000 V</text></g>
+            </svg>
+          </div>
+          <div class="effect-strip"><div><span>Σ</span><strong id="effectTitle">The current source forces the mesh-current difference</strong></div><p id="effectText">You cannot write an ordinary KVL equation through an ideal current source because its voltage is not prescribed. Instead, go around the outer supermesh and add the constraint J₁ − J₂ = Iₛ.</p></div>
+        </article>
+
+        <div class="two-panels supermesh-panels">
+          <section class="panel controls-panel supermesh-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="source-grid">
+              <div class="source-control"><div class="branch-control-head"><span>Left voltage source · E₁</span><strong id="j1Mini">J₁ = +1.778 A</strong></div><div class="slider-control compact"><label for="e1"><span>Signed EMF E₁</span><output id="e1Out">+18.0 V</output></label><input id="e1" type="range" min="-30" max="30" step="0.5" value="18"></div></div>
+              <div class="source-control current-control"><div class="branch-control-head"><span>Shared current source · Iₛ</span><strong id="isMini">B → D = +2.000 A</strong></div><div class="slider-control compact"><label for="is"><span>Signed source current Iₛ</span><output id="isOut">+2.0 A</output></label><input id="is" type="range" min="-4" max="4" step="0.1" value="2"></div></div>
+              <div class="source-control"><div class="branch-control-head"><span>Right voltage source · E₂</span><strong id="j2Mini">J₂ = −0.222 A</strong></div><div class="slider-control compact"><label for="e2"><span>Signed EMF E₂</span><output id="e2Out">+6.0 V</output></label><input id="e2" type="range" min="-30" max="30" step="0.5" value="6"></div></div>
+            </div>
+            <div class="resistance-control-grid resistor-grid">
+              <div class="branch-control-block"><div class="branch-control-head"><span>Left top branch · R₁</span><strong>A ↔ B</strong></div><div class="slider-control compact"><label for="r1"><span>Resistance R₁</span><output id="r1Out">8.0 Ω</output></label><input id="r1" type="range" min="1" max="40" step="0.5" value="8"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Right top branch · R₂</span><strong>B ↔ C</strong></div><div class="slider-control compact"><label for="r2"><span>Resistance R₂</span><output id="r2Out">10.0 Ω</output></label><input id="r2" type="range" min="1" max="40" step="0.5" value="10"></div></div>
+            </div>
+            <div class="preset-area"><span>Scenario presets</span><div class="preset-grid"><button class="preset active" data-preset="mesh-reversal" type="button">Current source reverses J₂</button><button class="preset" data-preset="symmetric" type="button">Equal EMFs · symmetric split</button><button class="preset" data-preset="source-delivers" type="button">Current source delivers power</button></div></div>
+            <div class="slider-control presentation-control"><label for="animationSpeed"><span>Animation Speed <small>(visual only)</small></span><output id="animationSpeedOut">1.0×</output></label><input id="animationSpeed" type="range" min="0.5" max="2" step="0.25" value="1"></div>
+          </section>
+
+          <section class="panel measurements-panel supermesh-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div class="highlight"><dt>Mesh current J₁ · clockwise +</dt><dd id="j1Value">+1.778 A</dd></div>
+              <div class="highlight"><dt>Mesh current J₂ · clockwise +</dt><dd id="j2Value">−0.222 A</dd></div>
+              <div><dt>Current-source constraint · J₁ − J₂</dt><dd id="constraintValue">+2.000 A</dd></div>
+              <div><dt>Junction voltage V<sub>B</sub></dt><dd id="vbValue">+3.778 V</dd></div>
+              <div><dt>Current-source voltage V<sub>BD</sub></dt><dd id="vcsValue">+3.778 V</dd></div>
+              <div class="law-check"><dt>KCL / constraint residual</dt><dd id="constraintResidual">0.000000 A</dd></div>
+              <div class="law-check"><dt>Supermesh KVL residual</dt><dd id="supermeshResidual">0.000000 V</dd></div>
+              <div><dt>Current-source power · + absorbs</dt><dd id="currentSourcePower">+7.56 W</dd></div>
+              <div><dt>Net source power delivered</dt><dd id="sourcePower">25.68 W</dd></div>
+              <div><dt>Total resistor dissipation</dt><dd id="resistorPower">25.68 W</dd></div>
+            </dl>
+            <div class="law-accounting supermesh-accounting">
+              <div><span>SUPERMESH EQUATION</span><strong id="equationAccount">J₁R₁ + J₂R₂ = E₁ − E₂</strong></div>
+              <div><span>CONSTRAINT</span><strong id="constraintAccount">J₁ − J₂ = Iₛ</strong></div>
+              <div><span>POWER BALANCE</span><strong id="powerAccount">0.000000 W</strong></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>A <b>supermesh</b> is used when an ideal current source lies on the branch shared by two meshes.</li><li>The ideal current source fixes its branch current, but its voltage is whatever the rest of the circuit requires. That is why ordinary mesh KVL cannot cross that branch directly.</li><li>We temporarily exclude the shared current-source branch and write one KVL equation around the outer perimeter of both meshes.</li><li>The missing equation comes from the current source itself: with the arrows used here, <b>J₁ − J₂ = Iₛ</b>.</li><li>A negative J₁ or J₂ means the actual current is opposite to the chosen clockwise reference. The animation reverses automatically.</li><li>An ideal current source can either deliver or absorb power depending on the voltage that develops across it and the direction of its current.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Supermesh Equations</h2></div><div class="equations"><p>E₁ − J₁R₁ − J₂R₂ − E₂ = 0</p><p>J₁ − J₂ = Iₛ</p><p>J₁ = (E₁ − E₂ + IₛR₂) / (R₁ + R₂)</p><p>J₂ = (E₁ − E₂ − IₛR₁) / (R₁ + R₂)</p><p>V<sub>B</sub> = E₁ − J₁R₁ = E₂ + J₂R₂</p><p>P<sub>current source, absorbed</sub> = V<sub>BD</sub>Iₛ</p></div><small class="model-note">Model assumptions: ideal DC voltage sources, one ideal DC current source, ideal wires, ohmic resistors and steady state. Positive Iₛ is downward B → D. Positive mesh currents J₁ and J₂ are clockwise.</small></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="kirchhoff-supermesh.js"></script>
+</body>
+</html>

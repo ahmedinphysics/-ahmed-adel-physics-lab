@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive Kirchhoff supernode simulation with an ideal voltage source between two non-reference nodes by AHMED ADEL PHYSICS">
+  <title>Kirchhoff VII — Supernode Voltage Source — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="kirchhoff-supernode.css">
+</head>
+<body class="kirchhoff-page supernode-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item" href="voltage.html"><span class="radio-dot"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-parallel.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
+          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
+          <a class="nav-item" href="kirchhoff-voltage-law.html"><span class="radio-dot"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
+          <a class="nav-item" href="kirchhoff-two-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff III — Two-Loop Network</b><small>KCL + KVL · two sources</small></span></a>
+          <a class="nav-item" href="kirchhoff-wheatstone-bridge.html"><span class="radio-dot"></span><span><b>Kirchhoff IV — Wheatstone Bridge</b><small>bridge balance · current reversal</small></span></a>
+          <a class="nav-item" href="kirchhoff-three-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff V — Three-Loop Mesh</b><small>3 coupled loops · shared branches</small></span></a>
+          <a class="nav-item" href="kirchhoff-supermesh.html"><span class="radio-dot"></span><span><b>Kirchhoff VI — Supermesh</b><small>shared current source · constraint equation</small></span></a>
+          <a class="nav-item active" href="#kirchhoff-supernode"><span class="radio-dot filled"></span><span><b>Kirchhoff VII — Supernode</b><small>floating voltage source · nodal constraint</small></span></a>
+          <a class="nav-item" href="kirchhoff-dependent-source.html"><span class="radio-dot"></span><span><b>Kirchhoff VIII — Dependent Source</b><small>VCCS · controlled branch current</small></span></a>
+          <a class="nav-item" href="kirchhoff-vcvs.html"><span class="radio-dot"></span><span><b>Kirchhoff IX — VCVS Supernode</b><small>dependent voltage · control constraint</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="kirchhoff-supernode">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Kirchhoff VII — Supernode with a Floating Voltage Source</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Supernode equations satisfied</strong><small id="headerDetail">KCL around B + C · Vᴮ − Vᶜ = Eₛ</small></div>
+      </header>
+
+      <section class="lab-grid supernode-lab">
+        <article class="panel supernode-workspace">
+          <div class="panel-head"><h2><span>⌘</span> Two Nodes Joined by an Ideal Voltage Source</h2><div class="legend"><i></i> Conventional current · actual direction follows solved sign</div></div>
+          <div class="supernode-stage">
+            <svg id="supernodeScene" viewBox="0 0 1200 790" role="img" aria-labelledby="sceneTitle sceneDesc">
+              <title id="sceneTitle">Kirchhoff supernode circuit</title>
+              <desc id="sceneDesc">Nodes B and C are connected by an ideal voltage source, so they are treated as one supernode for KCL and linked by the constraint VB minus VC equals Es.</desc>
+              <defs>
+                <linearGradient id="nCopper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#411006"/><stop offset=".2" stop-color="#f26524"/><stop offset=".42" stop-color="#ffd0a0"/><stop offset=".64" stop-color="#ba3511"/><stop offset="1" stop-color="#260803"/></linearGradient>
+                <radialGradient id="nNode" cx=".34" cy=".28"><stop stop-color="#fff2dc"/><stop offset=".2" stop-color="#ffad6d"/><stop offset=".58" stop-color="#bd4119"/><stop offset="1" stop-color="#421008"/></radialGradient>
+                <linearGradient id="nMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6fafb"/><stop offset=".22" stop-color="#748a94"/><stop offset=".48" stop-color="#dfe8ea"/><stop offset=".75" stop-color="#50636c"/><stop offset="1" stop-color="#bbc9ce"/></linearGradient>
+                <linearGradient id="nCell" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#294452"/><stop offset=".18" stop-color="#111f28"/><stop offset=".48" stop-color="#03080c"/><stop offset=".8" stop-color="#142f3d"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="nCellRed" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff8159"/><stop offset=".28" stop-color="#f04426"/><stop offset=".72" stop-color="#9b1d0e"/><stop offset="1" stop-color="#641008"/></linearGradient>
+                <linearGradient id="nResistor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8c7a0"/><stop offset=".18" stop-color="#b88658"/><stop offset=".5" stop-color="#795235"/><stop offset=".8" stop-color="#c69b6d"/><stop offset="1" stop-color="#513322"/></linearGradient>
+                <radialGradient id="nSourceFace"><stop stop-color="#124766"/><stop offset=".68" stop-color="#07283d"/><stop offset="1" stop-color="#031724"/></radialGradient>
+                <filter id="nShadow" x="-40%" y="-80%" width="180%" height="280%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".72"/></filter>
+                <filter id="nCopperGlow" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="nCyanGlow" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <marker id="nArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#70ddff"/></marker>
+              </defs>
+
+              <g class="bench-shadow"><ellipse cx="600" cy="608" rx="520" ry="32"/></g>
+              <rect class="supernode-boundary" x="410" y="95" width="380" height="180" rx="34"/>
+              <text class="supernode-title" x="600" y="122">SUPERNODE · NODES B + C</text>
+
+              <g class="network-wires" filter="url(#nShadow)">
+                <path class="wire-under" d="M140 170H1060M140 170V570H1060V170M455 170V570M745 170V570M140 570H1060"/>
+                <path class="wire-main" d="M140 170H1060M140 170V570H1060V170M455 170V570M745 170V570M140 570H1060"/>
+                <path class="wire-shine" d="M140 174H1060M144 170V566H1056V170M459 170V570M749 170V570M140 566H1060"/>
+              </g>
+
+              <g id="chargeLayer" aria-hidden="true"></g>
+
+              <g class="node-layer" aria-hidden="true">
+                <g transform="translate(140 170)"><circle class="node-dot" r="9"/><text class="node-label" y="-22">A</text><text class="node-voltage" id="svgVA" y="27">18.00 V</text></g>
+                <g transform="translate(455 170)"><circle class="node-dot junction" r="11"/><text class="node-label" y="-22">B</text><text class="node-voltage cyan" id="svgVB" y="27">12.58 V</text></g>
+                <g transform="translate(745 170)"><circle class="node-dot junction" r="11"/><text class="node-label" y="-22">C</text><text class="node-voltage cyan" id="svgVC" y="27">2.58 V</text></g>
+                <g transform="translate(1060 170)"><circle class="node-dot" r="9"/><text class="node-label" y="-22">D</text><text class="node-voltage" id="svgVD" y="27">8.00 V</text></g>
+                <g transform="translate(600 570)"><circle class="node-dot junction" r="10"/><text class="node-label" y="30">G · 0 V REFERENCE</text></g>
+              </g>
+
+              <g class="resistor" transform="translate(300 170)" filter="url(#nShadow)">
+                <path class="resistor-lead" d="M-82 0H-61M61 0H82"/><rect class="resistor-body" x="-61" y="-23" width="122" height="46" rx="21"/><line class="resistor-band b1" x1="-34" y1="-19" x2="-34" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="13" y1="-21" x2="13" y2="21"/><line class="resistor-band b4" x1="37" y1="-19" x2="37" y2="19"/><path class="resistor-highlight" d="M-42-14H40c8 0 13 4 15 8H-51c2-4 5-8 9-8Z"/>
+              </g>
+              <g class="resistor-labels"><text x="300" y="117">R₁</text><text id="svgR1" x="300" y="137">8.0 Ω</text></g>
+
+              <g class="resistor" transform="translate(900 170)" filter="url(#nShadow)">
+                <path class="resistor-lead" d="M-82 0H-61M61 0H82"/><rect class="resistor-body" x="-61" y="-23" width="122" height="46" rx="21"/><line class="resistor-band b1" x1="-34" y1="-19" x2="-34" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="13" y1="-21" x2="13" y2="21"/><line class="resistor-band b4" x1="37" y1="-19" x2="37" y2="19"/><path class="resistor-highlight" d="M-42-14H40c8 0 13 4 15 8H-51c2-4 5-8 9-8Z"/>
+              </g>
+              <g class="resistor-labels"><text x="900" y="117">R₂</text><text id="svgR2" x="900" y="137">10.0 Ω</text></g>
+
+              <g class="resistor vertical-resistor" transform="translate(455 380) rotate(90)" filter="url(#nShadow)">
+                <path class="resistor-lead" d="M-82 0H-61M61 0H82"/><rect class="resistor-body" x="-61" y="-23" width="122" height="46" rx="21"/><line class="resistor-band b1" x1="-34" y1="-19" x2="-34" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="13" y1="-21" x2="13" y2="21"/><line class="resistor-band b4" x1="37" y1="-19" x2="37" y2="19"/><path class="resistor-highlight" d="M-42-14H40c8 0 13 4 15 8H-51c2-4 5-8 9-8Z"/>
+              </g>
+              <g class="resistor-labels vertical-labels"><text x="405" y="365">R₃</text><text id="svgR3" x="405" y="385">12.0 Ω</text></g>
+
+              <g class="resistor vertical-resistor" transform="translate(745 380) rotate(90)" filter="url(#nShadow)">
+                <path class="resistor-lead" d="M-82 0H-61M61 0H82"/><rect class="resistor-body" x="-61" y="-23" width="122" height="46" rx="21"/><line class="resistor-band b1" x1="-34" y1="-19" x2="-34" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="13" y1="-21" x2="13" y2="21"/><line class="resistor-band b4" x1="37" y1="-19" x2="37" y2="19"/><path class="resistor-highlight" d="M-42-14H40c8 0 13 4 15 8H-51c2-4 5-8 9-8Z"/>
+              </g>
+              <g class="resistor-labels vertical-labels"><text x="795" y="365">R₄</text><text id="svgR4" x="795" y="385">15.0 Ω</text></g>
+
+              <g class="battery-vertical" id="batteryE1" transform="translate(140 375)" filter="url(#nShadow)">
+                <rect class="battery-shell" x="-36" y="-82" width="72" height="164" rx="31"/><path class="battery-red" id="redE1" d="M-34-80H34V0H-34Z"/><rect class="battery-band" x="-34" y="-8" width="68" height="9"/><rect class="battery-band copper" x="-34" y="8" width="68" height="9"/><path class="battery-highlight" d="M-25-65Q-10-78 8-72V62Q-10 69-25 52Z"/><text class="battery-sign" id="e1TopSign" x="0" y="-36">+</text><text class="battery-sign" id="e1BottomSign" x="0" y="53">−</text>
+              </g>
+              <text class="emf-label" x="90" y="375" transform="rotate(-90 90 375)">E₁ = <tspan id="svgE1">+18.0 V</tspan></text>
+
+              <g class="battery-vertical" id="batteryE2" transform="translate(1060 375)" filter="url(#nShadow)">
+                <rect class="battery-shell" x="-36" y="-82" width="72" height="164" rx="31"/><path class="battery-red" id="redE2" d="M-34-80H34V0H-34Z"/><rect class="battery-band" x="-34" y="-8" width="68" height="9"/><rect class="battery-band copper" x="-34" y="8" width="68" height="9"/><path class="battery-highlight" d="M-25-65Q-10-78 8-72V62Q-10 69-25 52Z"/><text class="battery-sign" id="e2TopSign" x="0" y="-36">+</text><text class="battery-sign" id="e2BottomSign" x="0" y="53">−</text>
+              </g>
+              <text class="emf-label" x="1110" y="375" transform="rotate(90 1110 375)">E₂ = <tspan id="svgE2">+8.0 V</tspan></text>
+
+              <g class="voltage-source" id="voltageSource" transform="translate(600 170)" filter="url(#nShadow)">
+                <circle class="source-shell" r="56"/><circle class="source-face" r="47"/><text class="source-polarity left" x="-18" y="8">+</text><text class="source-polarity right" x="18" y="8">−</text><text class="source-name" y="-68">IDEAL VOLTAGE SOURCE</text><text class="source-value" id="svgEs" y="80">Eₛ = +10.0 V</text>
+              </g>
+
+              <g class="current-vector" id="i1Vector"><path id="i1Arrow" d="M195 128H405" marker-end="url(#nArrow)"/><text id="i1Label" x="300" y="92">I₁ = +0.678 A · A → B</text></g>
+              <g class="current-vector" id="i2Vector"><path id="i2Arrow" d="M1005 128H795" marker-end="url(#nArrow)"/><text id="i2Label" x="900" y="92">I₂ = +0.542 A · D → C</text></g>
+              <g class="current-vector vertical-vector" id="i3Vector"><path id="i3Arrow" d="M415 245V505" marker-end="url(#nArrow)"/><text id="i3Label" x="365" y="525">I₃ = +1.048 A · B → G</text></g>
+              <g class="current-vector vertical-vector" id="i4Vector"><path id="i4Arrow" d="M785 245V505" marker-end="url(#nArrow)"/><text id="i4Label" x="835" y="525">I₄ = +0.172 A · C → G</text></g>
+              <g class="current-vector source-vector" id="isVector"><path id="isArrow" d="M500 230H700" marker-end="url(#nArrow)"/><text id="isLabel" x="600" y="257">Iₛ = −0.370 A · C → B</text></g>
+
+              <g class="constraint-card" transform="translate(600 654)"><rect x="-520" y="-45" width="1040" height="90" rx="14"/><text class="badge-kicker" y="-19">SUPERNODE KCL · TREAT B + C AS ONE EXTENDED NODE</text><text class="badge-equation" id="svgSupernodeKcl" y="7">I₁ + I₂ − I₃ − I₄ = 0.000000 A</text><text class="badge-balance" id="svgSupernodeBalance" y="31">+0.678 +0.542 −1.048 −0.172 = 0</text></g>
+              <g class="law-badge" transform="translate(600 742)"><rect x="-520" y="-34" width="1040" height="68" rx="13"/><text class="badge-kicker" y="-11">VOLTAGE-SOURCE CONSTRAINT</text><text class="badge-equation" id="svgConstraint" y="13">Vᴮ − Vᶜ = Eₛ · +12.578 − (+2.578) = +10.000 V</text></g>
+            </svg>
+          </div>
+          <div class="effect-strip"><div><span>Σ</span><strong id="effectTitle">The floating source makes B and C a supernode</strong></div><p id="effectText">Because the current through an ideal voltage source is not known from Ohm's law, KCL is written around both nodes together. The source supplies the second equation: Vᴮ − Vᶜ = Eₛ.</p></div>
+        </article>
+
+        <div class="two-panels supernode-panels">
+          <section class="panel controls-panel supernode-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="source-grid">
+              <div class="source-control"><div class="branch-control-head"><span>Left source · E₁</span><strong id="i1Mini">I₁ = +0.678 A</strong></div><div class="slider-control compact"><label for="e1"><span>Signed EMF E₁</span><output id="e1Out">+18.0 V</output></label><input id="e1" type="range" min="-30" max="30" step="0.5" value="18"></div></div>
+              <div class="source-control floating-control"><div class="branch-control-head"><span>Floating source · Eₛ</span><strong id="isMini">Iₛ = −0.370 A</strong></div><div class="slider-control compact"><label for="es"><span>Constraint voltage Eₛ</span><output id="esOut">+10.0 V</output></label><input id="es" type="range" min="-24" max="24" step="0.5" value="10"></div></div>
+              <div class="source-control"><div class="branch-control-head"><span>Right source · E₂</span><strong id="i2Mini">I₂ = +0.542 A</strong></div><div class="slider-control compact"><label for="e2"><span>Signed EMF E₂</span><output id="e2Out">+8.0 V</output></label><input id="e2" type="range" min="-30" max="30" step="0.5" value="8"></div></div>
+            </div>
+            <div class="resistor-grid">
+              <div class="branch-control-block"><div class="branch-control-head"><span>Left feed · R₁</span><strong>A ↔ B</strong></div><div class="slider-control compact"><label for="r1"><span>Resistance R₁</span><output id="r1Out">8.0 Ω</output></label><input id="r1" type="range" min="1" max="40" step="0.5" value="8"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Right feed · R₂</span><strong>D ↔ C</strong></div><div class="slider-control compact"><label for="r2"><span>Resistance R₂</span><output id="r2Out">10.0 Ω</output></label><input id="r2" type="range" min="1" max="40" step="0.5" value="10"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>B to reference · R₃</span><strong>B ↔ G</strong></div><div class="slider-control compact"><label for="r3"><span>Resistance R₃</span><output id="r3Out">12.0 Ω</output></label><input id="r3" type="range" min="1" max="40" step="0.5" value="12"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>C to reference · R₄</span><strong>C ↔ G</strong></div><div class="slider-control compact"><label for="r4"><span>Resistance R₄</span><output id="r4Out">15.0 Ω</output></label><input id="r4" type="range" min="1" max="40" step="0.5" value="15"></div></div>
+            </div>
+            <div class="preset-area"><span>Scenario presets</span><div class="preset-grid"><button class="preset active" data-preset="source-reversal" type="button">Eₛ reverses its branch current</button><button class="preset" data-preset="zero-source-current" type="button">Eₛ ≠ 0 but Iₛ = 0</button><button class="preset" data-preset="source-absorbs" type="button">Floating source absorbs power</button></div></div>
+            <div class="slider-control presentation-control"><label for="animationSpeed"><span>Animation Speed <small>(visual only)</small></span><output id="animationSpeedOut">1.0×</output></label><input id="animationSpeed" type="range" min="0.5" max="2" step="0.25" value="1"></div>
+          </section>
+
+          <section class="panel measurements-panel supernode-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div class="highlight"><dt>Node voltage V<sub>B</sub></dt><dd id="vbValue">+12.578 V</dd></div>
+              <div class="highlight"><dt>Node voltage V<sub>C</sub></dt><dd id="vcValue">+2.578 V</dd></div>
+              <div><dt>Floating-source current Iₛ · B → C +</dt><dd id="isValue">−0.370 A</dd></div>
+              <div><dt>Left feed current I₁ · A → B +</dt><dd id="i1Value">+0.678 A</dd></div>
+              <div><dt>Right feed current I₂ · D → C +</dt><dd id="i2Value">+0.542 A</dd></div>
+              <div><dt>Shunt current I₃ · B → G +</dt><dd id="i3Value">+1.048 A</dd></div>
+              <div><dt>Shunt current I₄ · C → G +</dt><dd id="i4Value">+0.172 A</dd></div>
+              <div class="law-check"><dt>Supernode KCL residual</dt><dd id="supernodeResidual">0.000000 A</dd></div>
+              <div class="law-check"><dt>Voltage constraint residual</dt><dd id="constraintResidual">0.000000 V</dd></div>
+              <div><dt>Floating-source power · + absorbs</dt><dd id="floatingPower">−3.70 W</dd></div>
+              <div><dt>Net source power delivered</dt><dd id="sourcePower">20.24 W</dd></div>
+              <div><dt>Total resistor dissipation</dt><dd id="resistorPower">20.24 W</dd></div>
+            </dl>
+            <div class="law-accounting supernode-accounting">
+              <div><span>SUPERNODE KCL</span><strong id="kclAccount">I₁ + I₂ = I₃ + I₄</strong></div>
+              <div><span>SOURCE CONSTRAINT</span><strong id="constraintAccount">Vᴮ − Vᶜ = Eₛ</strong></div>
+              <div><span>NODE-B CHECK</span><strong id="nodeBAccount">I₁ − I₃ − Iₛ = 0</strong></div>
+              <div><span>NODE-C CHECK</span><strong id="nodeCAccount">I₂ + Iₛ − I₄ = 0</strong></div>
+              <div><span>POWER BALANCE</span><strong id="powerAccount">0.000000 W</strong></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>A <b>supernode</b> is used when an ideal voltage source directly connects two non-reference nodes.</li><li>The voltage source fixes <b>V<sub>B</sub> − V<sub>C</sub></b>, but its current is not known from Ohm's law. That is why ordinary nodal analysis cannot write a conductance term through the source itself.</li><li>Enclose B, C and the voltage source inside one boundary, then apply KCL to currents crossing that boundary.</li><li>The second equation is the source constraint: <b>V<sub>B</sub> − V<sub>C</sub> = Eₛ</b>.</li><li>After V<sub>B</sub> and V<sub>C</sub> are solved, the current through the ideal voltage source follows from KCL at either internal node.</li><li>A negative branch current simply means the physical current is opposite to the chosen reference arrow; the animation reverses automatically.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Supernode Equations</h2></div><div class="equations"><p>(V<sub>B</sub> − E₁)/R₁ + V<sub>B</sub>/R₃ + (V<sub>C</sub> − E₂)/R₂ + V<sub>C</sub>/R₄ = 0</p><p>V<sub>B</sub> − V<sub>C</sub> = Eₛ</p><p>I₁ = (E₁ − V<sub>B</sub>)/R₁</p><p>I₂ = (E₂ − V<sub>C</sub>)/R₂</p><p>I₃ = V<sub>B</sub>/R₃ · I₄ = V<sub>C</sub>/R₄</p><p>Iₛ = I₁ − I₃ = I₄ − I₂</p></div><small class="model-note">Model assumptions: ideal DC voltage sources, ideal wires, ohmic resistors and steady state. Positive Eₛ means B is Eₛ volts above C. Positive Iₛ is B → C.</small></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="kirchhoff-supernode.js"></script>
+</body>
+</html>
