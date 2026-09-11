@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive Wheatstone bridge Kirchhoff simulation by AHMED ADEL PHYSICS">
+  <title>Kirchhoff IV — Wheatstone Bridge — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="kirchhoff-wheatstone-bridge.css">
+</head>
+<body class="kirchhoff-page bridge-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item" href="voltage.html"><span class="radio-dot"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-parallel.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
+          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
+          <a class="nav-item" href="kirchhoff-voltage-law.html"><span class="radio-dot"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
+          <a class="nav-item" href="kirchhoff-two-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff III — Two-Loop Network</b><small>KCL + KVL · two sources</small></span></a>
+          <a class="nav-item active" href="#kirchhoff-wheatstone"><span class="radio-dot filled"></span><span><b>Kirchhoff IV — Wheatstone Bridge</b><small>bridge balance · current reversal</small></span></a>
+          <a class="nav-item" href="kirchhoff-three-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff V — Three-Loop Mesh</b><small>3 coupled loops · shared branches</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="kirchhoff-wheatstone">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Kirchhoff IV — Wheatstone Bridge</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Kirchhoff bridge solved</strong><small id="headerDetail">KCL at B &amp; C · KVL around independent loops</small></div>
+      </header>
+
+      <section class="lab-grid bridge-lab">
+        <article class="panel bridge-workspace">
+          <div class="panel-head"><h2><span>◇</span> Five-Resistor Bridge Network</h2><div class="legend"><i></i> Conventional current · bridge arrow reverses automatically</div></div>
+          <div class="bridge-stage">
+            <svg id="bridgeScene" viewBox="0 0 1100 760" role="img" aria-labelledby="sceneTitle sceneDesc">
+              <title id="sceneTitle">Wheatstone bridge circuit solved with Kirchhoff laws</title>
+              <desc id="sceneDesc">A DC source feeds four bridge arms and a central bridge resistor. Current through the bridge becomes zero at balance and reverses when the resistance ratio crosses the balance point.</desc>
+              <defs>
+                <linearGradient id="wbCopper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#411006"/><stop offset=".2" stop-color="#f26524"/><stop offset=".42" stop-color="#ffd0a0"/><stop offset=".64" stop-color="#ba3511"/><stop offset="1" stop-color="#260803"/></linearGradient>
+                <radialGradient id="wbNode" cx=".34" cy=".28"><stop stop-color="#fff2dc"/><stop offset=".2" stop-color="#ffad6d"/><stop offset=".58" stop-color="#bd4119"/><stop offset="1" stop-color="#421008"/></radialGradient>
+                <linearGradient id="wbMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6fafb"/><stop offset=".22" stop-color="#748a94"/><stop offset=".48" stop-color="#dfe8ea"/><stop offset=".75" stop-color="#50636c"/><stop offset="1" stop-color="#bbc9ce"/></linearGradient>
+                <linearGradient id="wbCell" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#294452"/><stop offset=".18" stop-color="#111f28"/><stop offset=".48" stop-color="#03080c"/><stop offset=".8" stop-color="#142f3d"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="wbCellRed" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff8159"/><stop offset=".25" stop-color="#f04426"/><stop offset=".6" stop-color="#8d130b"/><stop offset=".84" stop-color="#db351f"/><stop offset="1" stop-color="#641008"/></linearGradient>
+                <linearGradient id="wbResistor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8c7a0"/><stop offset=".18" stop-color="#b88658"/><stop offset=".5" stop-color="#795235"/><stop offset=".8" stop-color="#c69b6d"/><stop offset="1" stop-color="#513322"/></linearGradient>
+                <filter id="wbShadow" x="-40%" y="-80%" width="180%" height="280%"><feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".72"/></filter>
+                <filter id="wbCopperGlow" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="wbCyanGlow" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <marker id="wbArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#70ddff"/></marker>
+              </defs>
+
+              <g class="bench-shadow"><ellipse cx="550" cy="572" rx="470" ry="28"/></g>
+
+              <g class="network-wires" filter="url(#wbShadow)">
+                <path class="wire-under" d="M550 118H150V530H550M550 118L330 325L550 530M550 118L770 325L550 530M330 325H770"/>
+                <path class="wire-main" d="M550 118H150V530H550M550 118L330 325L550 530M550 118L770 325L550 530M330 325H770"/>
+                <path class="wire-shine" d="M550 122H154V526H550M550 122L334 325L550 526M550 122L766 325L550 526M330 329H770"/>
+              </g>
+
+              <g id="chargeLayer" aria-hidden="true"></g>
+
+              <g class="node-layer" aria-hidden="true">
+                <g transform="translate(550 118)"><circle class="node-dot junction" r="12"/><text class="node-label" y="-24">A · SUPPLY NODE</text><text class="node-potential strong" id="nodeAText" y="34">18.00 V</text></g>
+                <g transform="translate(330 325)"><circle class="node-dot junction" r="12"/><text class="node-label" x="-2" y="-25">B</text><text class="node-potential strong" id="nodeBText" x="-2" y="35">11.12 V</text></g>
+                <g transform="translate(770 325)"><circle class="node-dot junction" r="12"/><text class="node-label" x="2" y="-25">C</text><text class="node-potential strong" id="nodeCText" x="2" y="35">6.88 V</text></g>
+                <g transform="translate(550 530)"><circle class="node-dot" r="10"/><text class="node-label" y="30">D · 0 V REFERENCE</text></g>
+              </g>
+
+              <g class="battery-vertical" transform="translate(150 325)" filter="url(#wbShadow)">
+                <rect class="battery-shell" x="-36" y="-67" width="72" height="134" rx="30"/><path class="battery-red" d="M-36-18V-38c0-17 14-29 36-29h1v49Z"/>
+                <rect class="battery-band copper" x="-36" y="-8" width="72" height="13"/><rect class="battery-band" x="-36" y="5" width="72" height="8"/><path class="battery-highlight" d="M-24-52c7-7 16-10 27-10v110c-11-2-20-6-27-13Z"/>
+                <text class="battery-sign" x="0" y="-30">+</text><text class="battery-sign" x="0" y="47">−</text><text class="emf-label" x="-62" y="4" transform="rotate(-90 -62 4)">Vₛ = <tspan id="svgVs">18.0 V</tspan></text>
+              </g>
+
+              <g class="resistor" transform="translate(440 221) rotate(137)" filter="url(#wbShadow)"><path class="resistor-lead" d="M-66 0H-55M55 0H66"/><rect class="resistor-body" x="-55" y="-22" width="110" height="44" rx="20"/><line class="resistor-band b1" x1="-29" y1="-18" x2="-29" y2="18"/><line class="resistor-band b2" x1="-10" y1="-20" x2="-10" y2="20"/><line class="resistor-band b3" x1="11" y1="-20" x2="11" y2="20"/><line class="resistor-band b4" x1="32" y1="-18" x2="32" y2="18"/><path class="resistor-highlight" d="M-38-13H30c9 0 15 4 19 9H-46c2-5 4-7 8-9Z"/></g>
+              <g class="resistor" transform="translate(660 221) rotate(43)" filter="url(#wbShadow)"><path class="resistor-lead" d="M-66 0H-55M55 0H66"/><rect class="resistor-body" x="-55" y="-22" width="110" height="44" rx="20"/><line class="resistor-band b1" x1="-29" y1="-18" x2="-29" y2="18"/><line class="resistor-band b2" x1="-10" y1="-20" x2="-10" y2="20"/><line class="resistor-band b3" x1="11" y1="-20" x2="11" y2="20"/><line class="resistor-band b4" x1="32" y1="-18" x2="32" y2="18"/><path class="resistor-highlight" d="M-38-13H30c9 0 15 4 19 9H-46c2-5 4-7 8-9Z"/></g>
+              <g class="resistor" transform="translate(440 427) rotate(43)" filter="url(#wbShadow)"><path class="resistor-lead" d="M-66 0H-55M55 0H66"/><rect class="resistor-body" x="-55" y="-22" width="110" height="44" rx="20"/><line class="resistor-band b1" x1="-29" y1="-18" x2="-29" y2="18"/><line class="resistor-band b2" x1="-10" y1="-20" x2="-10" y2="20"/><line class="resistor-band b3" x1="11" y1="-20" x2="11" y2="20"/><line class="resistor-band b4" x1="32" y1="-18" x2="32" y2="18"/><path class="resistor-highlight" d="M-38-13H30c9 0 15 4 19 9H-46c2-5 4-7 8-9Z"/></g>
+              <g class="resistor" transform="translate(660 427) rotate(137)" filter="url(#wbShadow)"><path class="resistor-lead" d="M-66 0H-55M55 0H66"/><rect class="resistor-body" x="-55" y="-22" width="110" height="44" rx="20"/><line class="resistor-band b1" x1="-29" y1="-18" x2="-29" y2="18"/><line class="resistor-band b2" x1="-10" y1="-20" x2="-10" y2="20"/><line class="resistor-band b3" x1="11" y1="-20" x2="11" y2="20"/><line class="resistor-band b4" x1="32" y1="-18" x2="32" y2="18"/><path class="resistor-highlight" d="M-38-13H30c9 0 15 4 19 9H-46c2-5 4-7 8-9Z"/></g>
+              <g class="resistor bridge-resistor" transform="translate(550 325)" filter="url(#wbShadow)"><path class="resistor-lead" d="M-68 0H-56M56 0H68"/><rect class="resistor-body" x="-56" y="-23" width="112" height="46" rx="21"/><line class="resistor-band b1" x1="-30" y1="-19" x2="-30" y2="19"/><line class="resistor-band b2" x1="-11" y1="-21" x2="-11" y2="21"/><line class="resistor-band b3" x1="11" y1="-21" x2="11" y2="21"/><line class="resistor-band b4" x1="33" y1="-19" x2="33" y2="19"/><path class="resistor-highlight" d="M-40-14H31c10 0 16 4 20 10H-48c2-5 4-8 8-10Z"/></g>
+
+              <g class="resistor-labels" aria-hidden="true">
+                <text x="386" y="176">R₁ · <tspan id="svgR1">6.0 Ω</tspan></text>
+                <text x="714" y="176">R₂ · <tspan id="svgR2">18.0 Ω</tspan></text>
+                <text x="385" y="481">R₃ · <tspan id="svgR3">18.0 Ω</tspan></text>
+                <text x="715" y="481">R₄ · <tspan id="svgR4">6.0 Ω</tspan></text>
+                <text class="bridge-label" x="550" y="374">R₅ · bridge · <tspan id="svgR5">8.0 Ω</tspan></text>
+              </g>
+
+              <g class="current-vector" id="isVector"><path id="isArrow" d="M105 450V200" marker-end="url(#wbArrow)"/><text id="isLabel" x="93" y="188">Iₛ = 1.765 A</text></g>
+              <g class="current-vector" id="i1Vector"><path id="i1Arrow" d="M507 151L368 282" marker-end="url(#wbArrow)"/><text id="i1Label" x="400" y="137">I₁ = 1.147 A · A → B</text></g>
+              <g class="current-vector" id="i2Vector"><path id="i2Arrow" d="M593 151L732 282" marker-end="url(#wbArrow)"/><text id="i2Label" x="700" y="137">I₂ = 0.618 A · A → C</text></g>
+              <g class="current-vector lower" id="i3Vector"><path id="i3Arrow" d="M368 368L507 498" marker-end="url(#wbArrow)"/><text id="i3Label" x="394" y="516">I₃ = 0.618 A · B → D</text></g>
+              <g class="current-vector lower" id="i4Vector"><path id="i4Arrow" d="M732 368L593 498" marker-end="url(#wbArrow)"/><text id="i4Label" x="706" y="516">I₄ = 1.147 A · C → D</text></g>
+              <g class="current-vector bridge-vector" id="i5Vector"><path id="i5Arrow" d="M390 282H710" marker-end="url(#wbArrow)"/><text id="i5Label" x="550" y="265">I₅ = +0.529 A · B → C</text></g>
+
+              <g class="law-badge kcl-b" transform="translate(310 625)"><rect x="-210" y="-38" width="420" height="76" rx="13"/><text class="badge-kicker" y="-14">NODE B · KCL</text><text class="badge-equation" id="svgKclB" y="10">I₁ − I₃ − I₅ = 0.000 A</text><text class="badge-balance" y="29">current in = current out</text></g>
+              <g class="law-badge kcl-c" transform="translate(790 625)"><rect x="-210" y="-38" width="420" height="76" rx="13"/><text class="badge-kicker" y="-14">NODE C · KCL</text><text class="badge-equation" id="svgKclC" y="10">I₂ + I₅ − I₄ = 0.000 A</text><text class="badge-balance" y="29">current in = current out</text></g>
+              <g class="balance-badge" transform="translate(550 710)"><rect x="-315" y="-34" width="630" height="68" rx="14"/><text class="badge-kicker" y="-11">WHEATSTONE BALANCE</text><text class="badge-equation" id="svgBalanceEquation" y="12">R₁/R₃ = 0.333 · R₂/R₄ = 3.000</text><text class="badge-balance" id="svgBalanceDetail" y="31">Vᴮ − Vᶜ = +4.235 V · bridge current flows B → C</text></g>
+            </svg>
+          </div>
+          <div class="effect-strip"><div><span>◇</span><strong id="effectTitle">Bridge current flows B → C</strong></div><p id="effectText">The two divider midpoints are at different potentials, so R₅ carries current. Change an arm resistance until Vᴮ = Vᶜ and the bridge current collapses to zero.</p></div>
+        </article>
+
+        <div class="two-panels bridge-panels">
+          <section class="panel controls-panel bridge-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="slider-control source-slider"><label for="vs"><span>DC source Vₛ</span><output id="vsOut">18.0 V</output></label><input id="vs" type="range" min="1" max="30" step="0.5" value="18"></div>
+            <div class="resistance-control-grid bridge-grid">
+              <div class="branch-control-block"><div class="branch-control-head"><span>Upper-left arm · R₁</span><strong id="i1Mini">I₁ = 1.147 A</strong></div><div class="slider-control compact"><label for="r1"><span>Resistance R₁</span><output id="r1Out">6.0 Ω</output></label><input id="r1" type="range" min="1" max="40" step="0.5" value="6"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Upper-right arm · R₂</span><strong id="i2Mini">I₂ = 0.618 A</strong></div><div class="slider-control compact"><label for="r2"><span>Resistance R₂</span><output id="r2Out">18.0 Ω</output></label><input id="r2" type="range" min="1" max="40" step="0.5" value="18"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Lower-left arm · R₃</span><strong id="i3Mini">I₃ = 0.618 A</strong></div><div class="slider-control compact"><label for="r3"><span>Resistance R₃</span><output id="r3Out">18.0 Ω</output></label><input id="r3" type="range" min="1" max="40" step="0.5" value="18"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Lower-right arm · R₄</span><strong id="i4Mini">I₄ = 1.147 A</strong></div><div class="slider-control compact"><label for="r4"><span>Resistance R₄</span><output id="r4Out">6.0 Ω</output></label><input id="r4" type="range" min="1" max="40" step="0.5" value="6"></div></div>
+              <div class="branch-control-block shared-control"><div class="branch-control-head"><span>Bridge branch · R₅</span><strong id="i5Mini">I₅ = +0.529 A</strong></div><div class="slider-control compact"><label for="r5"><span>Bridge resistance R₅</span><output id="r5Out">8.0 Ω</output></label><input id="r5" type="range" min="1" max="50" step="0.5" value="8"></div></div>
+            </div>
+            <div class="preset-area"><span>Scenario presets</span><div class="preset-grid"><button class="preset active" data-preset="b-to-c" type="button">Bridge B → C</button><button class="preset" data-preset="balanced" type="button">Balanced · I₅ = 0</button><button class="preset" data-preset="c-to-b" type="button">Reverse C → B</button></div></div>
+            <div class="slider-control presentation-control"><label for="animationSpeed"><span>Animation Speed <small>(visual only)</small></span><output id="animationSpeedOut">1.0×</output></label><input id="animationSpeed" type="range" min="0.5" max="2" step="0.25" value="1"></div>
+          </section>
+
+          <section class="panel measurements-panel bridge-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div class="highlight"><dt>Bridge voltage V<sub>B</sub> − V<sub>C</sub></dt><dd id="bridgeVoltage">+4.235 V</dd></div>
+              <div><dt>Node B potential</dt><dd id="nodeBValue">11.118 V</dd></div>
+              <div><dt>Node C potential</dt><dd id="nodeCValue">6.882 V</dd></div>
+              <div><dt>Source current I<sub>s</sub></dt><dd id="sourceCurrent">1.765 A</dd></div>
+              <div><dt>Bridge current I₅ · positive B → C</dt><dd id="bridgeCurrent">+0.529 A</dd></div>
+              <div class="law-check"><dt>KCL residual · node B</dt><dd id="kclBResidual">0.000000 A</dd></div>
+              <div class="law-check"><dt>KCL residual · node C</dt><dd id="kclCResidual">0.000000 A</dd></div>
+              <div class="law-check"><dt>Left-loop KVL residual</dt><dd id="leftResidual">0.000000 V</dd></div>
+              <div class="law-check"><dt>Right-loop KVL residual</dt><dd id="rightResidual">0.000000 V</dd></div>
+              <div class="law-check"><dt>Bridge-loop KVL residual</dt><dd id="bridgeResidual">0.000000 V</dd></div>
+              <div><dt>Source power</dt><dd id="sourcePower">31.76 W</dd></div>
+              <div><dt>Resistor dissipation</dt><dd id="resistorPower">31.76 W</dd></div>
+            </dl>
+            <div class="law-accounting bridge-accounting">
+              <div><span>BALANCE RATIOS</span><strong id="ratioAccount">0.333 vs 3.000</strong></div>
+              <div><span>KCL · B / C</span><strong id="kclAccount">ΣI = 0 / ΣI = 0</strong></div>
+              <div><span>KVL</span><strong id="kvlAccount">all independent loops = 0</strong></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>A Wheatstone bridge has two divider branches connected by a fifth resistor R₅ between their midpoint nodes B and C.</li><li>Kirchhoff's Current Law must hold at both midpoint junctions: I₁ = I₃ + I₅ and I₂ + I₅ = I₄ using the stated current directions.</li><li>The bridge is balanced when V<sub>B</sub> = V<sub>C</sub>. Then ΔV across R₅ is zero, so I₅ = 0 even though R₅ is physically connected.</li><li>For ideal resistors, balance occurs when R₁/R₃ = R₂/R₄. This condition does not depend on the value of R₅.</li><li>Cross the balance point and I₅ changes sign. The animation reverses automatically to show the real current direction.</li><li>KVL still closes around the left, right and bridge-containing loops at every slider setting.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>(V<sub>B</sub> − Vₛ)/R₁ + V<sub>B</sub>/R₃ + (V<sub>B</sub> − V<sub>C</sub>)/R₅ = 0</p><p>(V<sub>C</sub> − Vₛ)/R₂ + V<sub>C</sub>/R₄ + (V<sub>C</sub> − V<sub>B</sub>)/R₅ = 0</p><p>I₁ = (Vₛ − V<sub>B</sub>)/R₁ · I₂ = (Vₛ − V<sub>C</sub>)/R₂</p><p>I₃ = V<sub>B</sub>/R₃ · I₄ = V<sub>C</sub>/R₄</p><p>I₅ = (V<sub>B</sub> − V<sub>C</sub>)/R₅</p><p>Balanced bridge: R₁/R₃ = R₂/R₄ ⇔ V<sub>B</sub> = V<sub>C</sub> ⇔ I₅ = 0</p></div><small class="model-note">Model assumptions: ideal DC source, ideal wires, ohmic resistors, steady state, and no internal source resistance. The sign of I₅ is referenced to B → C.</small></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="kirchhoff-wheatstone-bridge.js"></script>
+</body>
+</html>
