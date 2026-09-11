@@ -212,5 +212,21 @@
     </main>
   </div>
   <script src="kirchhoff-vcvs.js"></script>
+
+<script>
+/* Keep the active simulation visible inside the independently scrollable sidebar. */
+document.addEventListener('DOMContentLoaded', function () {
+  const sidebar = document.getElementById('sidebar');
+  const active = sidebar && sidebar.querySelector('.nav-item.active');
+  if (!sidebar || !active) return;
+  requestAnimationFrame(function () {
+    const s = sidebar.getBoundingClientRect();
+    const a = active.getBoundingClientRect();
+    if (a.bottom > s.bottom - 20 || a.top < s.top + 20) {
+      sidebar.scrollTop += (a.top - s.top) - (s.height - a.height) * 0.48;
+    }
+  });
+});
+</script>
 </body>
 </html>

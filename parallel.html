@@ -1,1 +1,17 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=./"><title>Parallel Circuit</title></head><body><a href="./">Open Parallel Circuit</a></body></html>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=./"><title>Parallel Circuit</title></head><body><a href="./">Open Parallel Circuit</a>
+<script>
+/* Keep the active simulation visible inside the independently scrollable sidebar. */
+document.addEventListener('DOMContentLoaded', function () {
+  const sidebar = document.getElementById('sidebar');
+  const active = sidebar && sidebar.querySelector('.nav-item.active');
+  if (!sidebar || !active) return;
+  requestAnimationFrame(function () {
+    const s = sidebar.getBoundingClientRect();
+    const a = active.getBoundingClientRect();
+    if (a.bottom > s.bottom - 20 || a.top < s.top + 20) {
+      sidebar.scrollTop += (a.top - s.top) - (s.height - a.height) * 0.48;
+    }
+  });
+});
+</script>
+</body></html>
