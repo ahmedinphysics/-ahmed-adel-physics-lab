@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive closed-circuit Ohm's law parallel simulation by AHMED ADEL PHYSICS">
+  <title>Closed-Circuit Ohm's Law — Parallel — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="closed-circuit-ohm-parallel.css">
+</head>
+<body class="ohm-parallel-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item" href="voltage.html"><span class="radio-dot"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
+          <a class="nav-item active" href="#closed-ohm-parallel"><span class="radio-dot filled"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
+          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="closed-ohm-parallel">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Closed-Circuit Ohm's Law — Parallel</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Circuit energized</strong><small id="headerDetail">Voltage source mode</small></div>
+      </header>
+
+      <section class="lab-grid parallel-ohm-lab">
+        <article class="panel parallel-ohm-workspace">
+          <div class="panel-head"><h2><span>◉</span> Dynamic Parallel Network</h2><div class="legend"><i></i> Conventional current: + → −</div></div>
+          <div class="parallel-ohm-stage">
+            <svg id="parallelScene" viewBox="0 0 1100 700" role="img" aria-labelledby="sceneTitle sceneDesc">
+              <title id="sceneTitle">A battery with internal resistance powering adjustable lamps in parallel</title>
+              <desc id="sceneDesc">Add or remove parallel lamp branches, open individual switches, and observe equivalent resistance, total and branch currents, terminal voltage, charge flow and lamp brightness.</desc>
+              <defs>
+                <linearGradient id="pCopper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#411006"/><stop offset=".2" stop-color="#f26524"/><stop offset=".42" stop-color="#ffd0a0"/><stop offset=".64" stop-color="#ba3511"/><stop offset="1" stop-color="#260803"/></linearGradient>
+                <radialGradient id="pNode" cx=".34" cy=".28"><stop stop-color="#fff2dc"/><stop offset=".2" stop-color="#ffad6d"/><stop offset=".58" stop-color="#bd4119"/><stop offset="1" stop-color="#421008"/></radialGradient>
+                <linearGradient id="pMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6fafb"/><stop offset=".22" stop-color="#748a94"/><stop offset=".48" stop-color="#dfe8ea"/><stop offset=".75" stop-color="#50636c"/><stop offset="1" stop-color="#bbc9ce"/></linearGradient>
+                <linearGradient id="pCell" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#294452"/><stop offset=".18" stop-color="#111f28"/><stop offset=".48" stop-color="#03080c"/><stop offset=".8" stop-color="#142f3d"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="pCellRed" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff8159"/><stop offset=".25" stop-color="#f04426"/><stop offset=".6" stop-color="#8d130b"/><stop offset=".84" stop-color="#db351f"/><stop offset="1" stop-color="#641008"/></linearGradient>
+                <linearGradient id="pGlass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9f1fb" stop-opacity=".32"/><stop offset=".24" stop-color="#7196aa" stop-opacity=".16"/><stop offset=".72" stop-color="#183b50" stop-opacity=".34"/><stop offset="1" stop-color="#b7d6e4" stop-opacity=".18"/></linearGradient>
+                <radialGradient id="pGlassOn" cx=".48" cy=".47"><stop stop-color="#fffde1" stop-opacity=".98"/><stop offset=".18" stop-color="#ffd463" stop-opacity=".9"/><stop offset=".58" stop-color="#ff8a25" stop-opacity=".42"/><stop offset="1" stop-color="#9e441b" stop-opacity=".12"/></radialGradient>
+                <linearGradient id="pBase" x1="0" y1="0" x2="1" y2=".25"><stop stop-color="#53656c"/><stop offset=".2" stop-color="#e6ecee"/><stop offset=".42" stop-color="#6a7b80"/><stop offset=".65" stop-color="#cbd5d8"/><stop offset="1" stop-color="#3c4e55"/></linearGradient>
+                <filter id="pShadow" x="-30%" y="-60%" width="160%" height="240%"><feDropShadow dx="0" dy="9" stdDeviation="7" flood-color="#000" flood-opacity=".75"/></filter>
+                <filter id="pCopperGlow" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="pCyanGlow" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="pBloom" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="22"/></filter>
+                <filter id="pFilamentGlow" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+
+              <g class="bench-shadow"><ellipse cx="550" cy="617" rx="470" ry="31"/></g>
+              <g id="railLayer" filter="url(#pShadow)"></g>
+              <g id="branchLayer"></g>
+              <g id="chargeLayer" aria-hidden="true"></g>
+
+              <g class="source-assembly" id="batterySvg" role="button" tabindex="0" aria-label="Connect or disconnect battery" aria-pressed="true" filter="url(#pShadow)">
+                <ellipse class="battery-floor" cx="500" cy="599" rx="132" ry="18"/>
+                <rect class="battery-terminal" x="357" y="521" width="25" height="40" rx="6"/><rect class="battery-terminal" x="618" y="521" width="25" height="40" rx="6"/>
+                <rect class="battery-shell" x="370" y="500" width="260" height="91" rx="44"/>
+                <path class="battery-red" d="M444 500h-29c-25 0-45 18-45 45v1c0 27 20 45 45 45h29Z"/>
+                <rect class="battery-band copper" x="441" y="500" width="21" height="91"/><rect class="battery-band" x="462" y="500" width="12" height="91"/>
+                <path class="battery-highlight" d="M408 510h169c21 0 35 10 43 25H381c7-14 15-23 27-25Z"/>
+                <text class="battery-sign" x="410" y="557">+</text><text class="battery-sign" x="592" y="557">−</text>
+                <text class="emf-label" x="500" y="620">EMF ℰ = <tspan id="svgEmf">12.0 V</tspan></text>
+                <rect class="hit" x="345" y="483" width="310" height="145"/>
+              </g>
+              <g class="internal-resistance" filter="url(#pShadow)"><path d="M486 569h20l8-12 13 24 13-24 13 24 9-12h20"/><text x="534" y="594">internal r = <tspan id="svgInternalR">1.0 Ω</tspan></text></g>
+
+              <g class="main-switch" id="mainSwitchSvg" role="button" tabindex="0" aria-label="Open or close main switch" aria-pressed="true" filter="url(#pShadow)">
+                <circle cx="722" cy="545" r="14"/><circle cx="842" cy="545" r="14"/>
+                <line class="switch-arm-shadow" x1="722" y1="545" x2="842" y2="545"/><line class="switch-arm-body" x1="722" y1="545" x2="842" y2="545"/><line class="switch-arm-shine" x1="728" y1="541" x2="836" y2="541"/>
+                <circle class="switch-pin" cx="722" cy="545" r="5"/><text x="782" y="501">MAIN SWITCH</text><text class="switch-state" id="svgSwitchState" x="782" y="585">ON</text><rect class="hit" x="695" y="477" width="174" height="123"/>
+              </g>
+
+              <g class="direction-label"><path d="M112 481V422"/><path d="m104 436 8-16 8 16"/><text x="96" y="453" transform="rotate(-90 96 453)">I total</text></g>
+              <g class="circuit-badge"><rect x="823" y="51" width="211" height="59" rx="12"/><text x="928" y="75">SAME VOLTAGE · SPLIT CURRENT</text><text id="svgCircuitSummary" x="928" y="96">2 active branches</text></g>
+            </svg>
+          </div>
+          <div class="effect-strip" id="effectStrip" aria-live="polite"><div><span id="effectIcon">＋</span><b id="effectTitle">Add a parallel lamp and observe</b></div><p id="effectText">At fixed EMF: equivalent resistance falls and total current rises. Internal resistance makes terminal voltage fall slightly under the heavier load.</p></div>
+          <div class="flow-note"><span class="flow-dot"></span><span>Cyan markers show <b>conventional current</b>. Branch speed follows I₁, I₂… while the common wire follows I<sub>total</sub>.</span></div>
+        </article>
+
+        <div class="lower-grid parallel-ohm-panels">
+          <section class="panel controls-panel parallel-ohm-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="mode-picker" role="group" aria-label="Source control mode"><button id="voltageMode" class="active" type="button">Voltage source</button><button id="currentMode" type="button">Current source</button></div>
+            <p class="mode-note" id="modeNote">Control ℰ and branch resistances; the simulation calculates every current.</p>
+            <div class="slider-control" id="emfControl"><label for="emf"><span>Battery EMF ℰ</span><output id="emfOut">12.0 V</output></label><input id="emf" type="range" min="1" max="30" step="0.5" value="12"></div>
+            <div class="slider-control hidden" id="currentControl"><label for="targetCurrent"><span>Target Total Current</span><output id="currentOut">1.50 A</output></label><input id="targetCurrent" type="range" min="0.1" max="4" step="0.05" value="1.5"></div>
+            <div class="slider-control"><label for="internalResistance"><span>Internal Resistance r</span><output id="internalResistanceOut">1.0 Ω</output></label><input id="internalResistance" type="range" min="0" max="10" step="0.5" value="1"></div>
+            <div class="lamp-controls-head"><span>Parallel Branches</span><small>1/R<sub>eq</sub> = Σ(1/R)</small></div>
+            <div id="branchControls" class="branch-controls"></div>
+            <div class="lamp-actions"><button id="removeLamp" type="button">− Remove branch</button><button id="addLamp" type="button">＋ Add lamp branch</button></div>
+            <div class="slider-control presentation-control"><label for="animationSpeed"><span>Animation Speed <small>(visual only)</small></span><output id="animationSpeedOut">1.0×</output></label><input id="animationSpeed" type="range" min="0.5" max="2" step="0.25" value="1"></div>
+            <div class="button-grid"><button class="state-button on" id="switchButton" type="button" aria-pressed="true">Main switch <span>ON</span></button><button class="state-button on" id="batteryButton" type="button" aria-pressed="true">Battery <span>connected</span></button></div>
+          </section>
+
+          <section class="panel measurements-panel parallel-ohm-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div class="highlight"><dt>Total current I<sub>total</sub></dt><dd id="measuredCurrent">1.714 A</dd></div>
+              <div><dt>Equivalent resistance R<sub>eq</sub></dt><dd id="equivalentResistance">3.00 Ω</dd></div>
+              <div><dt>Total resistance R<sub>eq</sub> + r</dt><dd id="totalResistance">4.00 Ω</dd></div>
+              <div><dt id="sourceValueLabel">Battery EMF ℰ</dt><dd id="sourceValue">12.00 V</dd></div>
+              <div><dt>Terminal / branch voltage V</dt><dd id="terminalVoltage">9.00 V</dd></div>
+              <div><dt>Internal drop I<sub>total</sub>r</dt><dd id="internalDrop">3.00 V</dd></div>
+              <div><dt>Power to all lamps</dt><dd id="loadPower">27.00 W</dd></div>
+              <div><dt>Power lost inside battery</dt><dd id="internalPower">9.00 W</dd></div>
+            </dl>
+            <div class="branch-readings" id="branchReadings"></div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>Every closed parallel branch has the same terminal voltage.</li><li>Total current equals the sum of all active branch currents: I<sub>total</sub> = I₁ + I₂ + …</li><li>Adding a branch lowers R<sub>eq</sub> and increases the current demanded from the battery.</li><li>With a real battery, more total current produces a larger internal drop I<sub>total</sub>r, so terminal voltage falls.</li><li>If r = 0, adding a branch does not change the voltage or brightness of existing lamps.</li><li>Opening one branch stops only its current; the other closed branches continue working.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>I<sub>total</sub> = ℰ / (R<sub>eq</sub> + r)</p><p>1/R<sub>eq</sub> = Σ(1/R<sub>i</sub>)</p><p>V<sub>terminal</sub> = ℰ − I<sub>total</sub>r</p><p>I<sub>i</sub> = V<sub>terminal</sub>/R<sub>i</sub></p><p>P<sub>i</sub> = V<sub>terminal</sub>²/R<sub>i</sub></p></div><small class="model-note">Lamps are modeled as adjustable ohmic resistors for this activity.</small></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="closed-circuit-ohm-parallel.js"></script>
+</body>
+</html>
