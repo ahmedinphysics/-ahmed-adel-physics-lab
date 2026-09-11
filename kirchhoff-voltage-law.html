@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#06192b">
-  <meta name="description" content="Interactive Kirchhoff's Current Law junction simulation by AHMED ADEL PHYSICS">
-  <title>Kirchhoff's Current Law — Junction Rule — AHMED ADEL PHYSICS</title>
+  <meta name="description" content="Interactive Kirchhoff's Voltage Law loop simulation by AHMED ADEL PHYSICS">
+  <title>Kirchhoff's Voltage Law — Loop Rule — AHMED ADEL PHYSICS</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="kirchhoff-current-law.css">
+  <link rel="stylesheet" href="kirchhoff-voltage-law.css">
 </head>
-<body class="kirchhoff-page">
+<body class="kirchhoff-page kvl-page">
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
       <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
@@ -23,8 +23,8 @@
           <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
           <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
           <a class="nav-item" href="closed-circuit-ohm-parallel.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
-          <a class="nav-item active" href="#kirchhoff-current"><span class="radio-dot filled"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
-          <a class="nav-item" href="kirchhoff-voltage-law.html"><span class="radio-dot"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
+          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
+          <a class="nav-item active" href="#kirchhoff-voltage"><span class="radio-dot filled"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
         </div>
         <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
         <div class="nav-divider"></div>
@@ -38,20 +38,20 @@
       <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
     </aside>
 
-    <main class="main-area" id="kirchhoff-current">
+    <main class="main-area" id="kirchhoff-voltage">
       <header class="app-header">
         <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
-        <div><p>INTERACTIVE SIMULATION</p><h1>Kirchhoff's Current Law — Junction Rule</h1></div>
-        <div class="header-status"><span id="statusDot"></span><strong id="headerState">KCL satisfied</strong><small id="headerDetail">Current splits at J₁ and recombines at J₂</small></div>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Kirchhoff's Voltage Law — Loop Rule</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">KVL satisfied</strong><small id="headerDetail">Voltage rise equals the sum of voltage drops</small></div>
       </header>
 
       <section class="lab-grid kirchhoff-lab">
         <article class="panel kirchhoff-workspace">
-          <div class="panel-head"><h2><span>◉</span> Junction Network</h2><div class="legend"><i></i> Conventional current: + → −</div></div>
+          <div class="panel-head"><h2><span>◉</span> Single Closed Loop</h2><div class="legend"><i></i> Conventional current: + → −</div></div>
           <div class="kirchhoff-stage">
             <svg id="kirchhoffScene" viewBox="0 0 1100 690" role="img" aria-labelledby="sceneTitle sceneDesc">
-              <title id="sceneTitle">Kirchhoff current law circuit with one current splitting into two branches and recombining</title>
-              <desc id="sceneDesc">Adjust the source voltage and two branch resistances. Animated cyan charge markers show the total current entering junction J1, splitting into I1 and I2, and recombining at junction J2.</desc>
+              <title id="sceneTitle">Kirchhoff voltage law single-loop circuit with two series resistors</title>
+              <desc id="sceneDesc">Adjust the source voltage and two series resistances. Animated cyan current markers travel around the closed loop. Voltage labels show the source rise and resistor drops so their algebraic sum is zero.</desc>
               <defs>
                 <linearGradient id="kCopper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#411006"/><stop offset=".2" stop-color="#f26524"/><stop offset=".42" stop-color="#ffd0a0"/><stop offset=".64" stop-color="#ba3511"/><stop offset="1" stop-color="#260803"/></linearGradient>
                 <radialGradient id="kNode" cx=".34" cy=".28"><stop stop-color="#fff2dc"/><stop offset=".2" stop-color="#ffad6d"/><stop offset=".58" stop-color="#bd4119"/><stop offset="1" stop-color="#421008"/></radialGradient>
@@ -64,22 +64,48 @@
                 <filter id="kCyanGlow" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
               </defs>
 
-              <g class="bench-shadow"><ellipse cx="550" cy="616" rx="470" ry="31"/></g>
+              <g class="bench-shadow"><ellipse cx="550" cy="612" rx="470" ry="31"/></g>
 
-              <g class="common-wire" id="commonWire" filter="url(#kShadow)">
-                <path class="wire-under" d="M430 555H150V265H260"/>
-                <path class="wire-main" d="M430 555H150V265H260"/>
-                <path class="wire-shine" d="M430 551H154V265H260"/>
-                <path class="wire-under" d="M880 265H950V555H824M704 555H650"/>
-                <path class="wire-main" d="M880 265H950V555H824M704 555H650"/>
-                <path class="wire-shine" d="M880 261H946V551H824M704 551H650"/>
+              <g class="loop-wire" id="loopWire" filter="url(#kShadow)">
+                <path class="wire-under" d="M430 555H150V220H305M455 220H585M735 220H950V555H824M704 555H650"/>
+                <path class="wire-main" d="M430 555H150V220H305M455 220H585M735 220H950V555H824M704 555H650"/>
+                <path class="wire-shine" d="M430 551H154V224H305M455 224H585M735 224H946V551H824M704 551H650"/>
               </g>
 
-              <g id="branchLayer" filter="url(#kShadow)"></g>
-              <g class="junction-layer">
-                <circle class="junction-halo" cx="260" cy="265" r="30"/><circle class="junction-node" cx="260" cy="265" r="15"/><text class="junction-label" x="260" y="309">J₁</text>
-                <circle class="junction-halo" cx="880" cy="265" r="30"/><circle class="junction-node" cx="880" cy="265" r="15"/><text class="junction-label" x="880" y="309">J₂</text>
+              <g class="node-layer" aria-hidden="true">
+                <g transform="translate(245 220)"><circle class="node-dot" r="9"/><text class="node-label" y="-20">A</text><text class="node-potential" id="nodeAText" y="29">12.00 V</text></g>
+                <g transform="translate(520 220)"><circle class="node-dot" r="9"/><text class="node-label" y="-20">B</text><text class="node-potential" id="nodeBText" y="29">7.20 V</text></g>
+                <g transform="translate(815 220)"><circle class="node-dot" r="9"/><text class="node-label" y="-20">C</text><text class="node-potential" id="nodeCText" y="29">0.00 V</text></g>
+                <g transform="translate(900 555)"><circle class="node-dot" r="9"/><text class="node-label" y="-20">D</text><text class="node-potential" id="nodeDText" y="29">0.00 V</text></g>
+                <g transform="translate(677 555)"><circle class="node-dot" r="9"/><text class="node-label" y="-20">E</text><text class="node-potential" id="nodeEText" x="0" y="29">0.00 V</text></g>
               </g>
+
+              <g class="resistor" id="resistor1" transform="translate(380 220)" filter="url(#kShadow)">
+                <path class="resistor-lead" d="M-75 0H-57M57 0H75"/>
+                <rect class="resistor-body" x="-57" y="-24" width="114" height="48" rx="22"/>
+                <line class="resistor-band b1" x1="-31" y1="-20" x2="-31" y2="20"/><line class="resistor-band b2" x1="-12" y1="-22" x2="-12" y2="22"/><line class="resistor-band b3" x1="10" y1="-22" x2="10" y2="22"/><line class="resistor-band b4" x1="34" y1="-20" x2="34" y2="20"/>
+                <path class="resistor-highlight" d="M-40-15H32c10 0 16 4 20 10H-48c2-5 4-8 8-10Z"/>
+                <text class="resistor-label" x="0" y="-43">R₁</text><text class="resistor-value" id="svgR1" x="0" y="44">8.0 Ω</text>
+              </g>
+              <g class="resistor" id="resistor2" transform="translate(660 220)" filter="url(#kShadow)">
+                <path class="resistor-lead" d="M-75 0H-57M57 0H75"/>
+                <rect class="resistor-body" x="-57" y="-24" width="114" height="48" rx="22"/>
+                <line class="resistor-band b1" x1="-31" y1="-20" x2="-31" y2="20"/><line class="resistor-band b2" x1="-12" y1="-22" x2="-12" y2="22"/><line class="resistor-band b3" x1="10" y1="-22" x2="10" y2="22"/><line class="resistor-band b4" x1="34" y1="-20" x2="34" y2="20"/>
+                <path class="resistor-highlight" d="M-40-15H32c10 0 16 4 20 10H-48c2-5 4-8 8-10Z"/>
+                <text class="resistor-label" x="0" y="-43">R₂</text><text class="resistor-value" id="svgR2" x="0" y="44">12.0 Ω</text>
+              </g>
+
+              <g class="drop-badge" id="drop1Badge" transform="translate(380 320)">
+                <rect x="-82" y="-31" width="164" height="62" rx="12"/><text class="drop-kicker" y="-8">VOLTAGE DROP R₁</text><text class="drop-value" id="svgDrop1" y="17">−4.80 V</text>
+              </g>
+              <g class="drop-badge" id="drop2Badge" transform="translate(660 320)">
+                <rect x="-82" y="-31" width="164" height="62" rx="12"/><text class="drop-kicker" y="-8">VOLTAGE DROP R₂</text><text class="drop-value" id="svgDrop2" y="17">−7.20 V</text>
+              </g>
+
+              <g class="current-arrow" aria-hidden="true">
+                <path d="M205 159H835l-18-12m18 12-18 12"/><text x="520" y="145">Loop direction · current I</text>
+              </g>
+
               <g id="chargeLayer" aria-hidden="true"></g>
 
               <g class="source-assembly" id="batterySvg" role="button" tabindex="0" aria-label="Connect or disconnect battery" aria-pressed="true" filter="url(#kShadow)">
@@ -90,41 +116,38 @@
                 <rect class="battery-band copper" x="493" y="510" width="20" height="91"/><rect class="battery-band" x="513" y="510" width="11" height="91"/>
                 <path class="battery-highlight" d="M466 520h139c20 0 31 10 38 25H441c6-14 14-23 25-25Z"/>
                 <text class="battery-sign" x="466" y="568">+</text><text class="battery-sign" x="616" y="568">−</text>
-                <text class="emf-label" x="540" y="633">Source V = <tspan id="svgVoltage">12.0 V</tspan></text>
+                <text class="emf-label" x="540" y="633">Voltage rise = <tspan id="svgVoltage">+12.0 V</tspan></text>
                 <rect class="hit" x="408" y="493" width="266" height="145"/>
               </g>
 
               <g class="main-switch" id="mainSwitchSvg" role="button" tabindex="0" aria-label="Open or close main switch" aria-pressed="true" filter="url(#kShadow)">
                 <circle cx="704" cy="555" r="14"/><circle cx="824" cy="555" r="14"/>
                 <line class="switch-arm-shadow" x1="704" y1="555" x2="824" y2="555"/><line class="switch-arm-body" x1="704" y1="555" x2="824" y2="555"/><line class="switch-arm-shine" x1="710" y1="551" x2="818" y2="551"/>
-                <circle class="switch-pin" cx="704" cy="555" r="5"/><text x="764" y="511">MAIN SWITCH</text><text class="switch-state" id="svgSwitchState" x="764" y="596">ON</text><rect class="hit" x="680" y="488" width="170" height="123"/>
+                <circle class="switch-pin" cx="704" cy="555" r="5"/><text x="764" y="511">MAIN SWITCH</text><text class="switch-state" id="svgSwitchState" x="764" y="606">ON</text>
+                <rect class="hit" x="683" y="493" width="163" height="132"/>
               </g>
 
-              <g class="current-arrow incoming-arrow"><path d="M190 330V291"/><path d="m183 304 7-14 7 14"/><text x="174" y="314" transform="rotate(-90 174 314)">I = I₁ + I₂</text></g>
-              <g class="current-arrow outgoing-arrow"><path d="M922 306V345"/><path d="m915 331 7 14 7-14"/><text x="938" y="333" transform="rotate(90 938 333)">I = I₁ + I₂</text></g>
-
-              <g class="kcl-badge">
-                <rect x="392" y="46" width="316" height="86" rx="14"/>
-                <text class="badge-kicker" x="550" y="72">KIRCHHOFF'S FIRST LAW</text>
-                <text class="badge-equation" id="svgKclEquation" x="550" y="103">I = I₁ + I₂</text>
-                <text class="badge-balance" id="svgKclBalance" x="550" y="123">charge balance at junction = 0</text>
+              <g class="kvl-badge" transform="translate(550 420)">
+                <rect x="-254" y="-57" width="508" height="114" rx="15"/>
+                <text class="badge-kicker" y="-29">KIRCHHOFF'S VOLTAGE LAW · CLOCKWISE LOOP</text>
+                <text class="badge-equation" id="svgKvlEquation" y="2">+12.00 − 4.80 − 7.20 = 0.00 V</text>
+                <text class="badge-balance" id="svgKvlBalance" y="31">ΣΔV = 0 · energy per charge returns to its starting value</text>
               </g>
             </svg>
           </div>
-          <div class="effect-strip" aria-live="polite"><div><span id="effectIcon">Σ</span><b id="effectTitle">Watch the junction, not the electrons individually</b></div><p id="effectText">The incoming current is redistributed between the two paths. At every instant in steady state, the amount of charge entering a junction per second equals the amount leaving it.</p></div>
-          <div class="flow-note"><span class="flow-dot"></span><span>Cyan markers show <b>conventional current</b>. Their speed follows the current in that exact wire segment; an open branch has no charge-flow animation.</span></div>
+          <div class="effect-strip"><div><span>Σ</span><strong id="effectTitle">Energy per charge is conserved around the loop</strong></div><p id="effectText">The battery gives each coulomb 12.00 J of energy. R₁ and R₂ remove exactly the same 12.00 J/C in total, so the net voltage change after one complete loop is zero.</p></div>
         </article>
 
-        <div class="lower-grid kirchhoff-panels">
+        <div class="two-panels kirchhoff-panels">
           <section class="panel controls-panel kirchhoff-controls">
             <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
             <div class="slider-control"><label for="voltage"><span>Source Voltage V</span><output id="voltageOut">12.0 V</output></label><input id="voltage" type="range" min="1" max="30" step="0.5" value="12"></div>
             <div class="branch-control-block">
-              <div class="branch-control-head"><span>Upper branch · R₁</span><button id="branch1Button" class="branch-toggle on" type="button" aria-pressed="true">ON</button></div>
+              <div class="branch-control-head"><span>Series resistor · R₁</span><strong id="r1DropMini">ΔV₁ = 4.80 V</strong></div>
               <div class="slider-control compact"><label for="r1"><span>Resistance R₁</span><output id="r1Out">8.0 Ω</output></label><input id="r1" type="range" min="1" max="40" step="0.5" value="8"></div>
             </div>
             <div class="branch-control-block">
-              <div class="branch-control-head"><span>Lower branch · R₂</span><button id="branch2Button" class="branch-toggle on" type="button" aria-pressed="true">ON</button></div>
+              <div class="branch-control-head"><span>Series resistor · R₂</span><strong id="r2DropMini">ΔV₂ = 7.20 V</strong></div>
               <div class="slider-control compact"><label for="r2"><span>Resistance R₂</span><output id="r2Out">12.0 Ω</output></label><input id="r2" type="range" min="1" max="40" step="0.5" value="12"></div>
             </div>
             <div class="slider-control presentation-control"><label for="animationSpeed"><span>Animation Speed <small>(visual only)</small></span><output id="animationSpeedOut">1.0×</output></label><input id="animationSpeed" type="range" min="0.5" max="2" step="0.25" value="1"></div>
@@ -134,29 +157,28 @@
           <section class="panel measurements-panel kirchhoff-measurements">
             <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
             <dl>
-              <div class="highlight"><dt>Incoming current I</dt><dd id="totalCurrent">2.500 A</dd></div>
-              <div><dt>Upper branch current I₁</dt><dd id="current1">1.500 A</dd></div>
-              <div><dt>Lower branch current I₂</dt><dd id="current2">1.000 A</dd></div>
-              <div><dt>Outgoing sum I₁ + I₂</dt><dd id="currentSum">2.500 A</dd></div>
-              <div class="kcl-check"><dt>KCL residual I − (I₁ + I₂)</dt><dd id="kclResidual">0.000 A</dd></div>
-              <div><dt>Equivalent resistance R<sub>eq</sub></dt><dd id="equivalentResistance">4.80 Ω</dd></div>
-              <div><dt>Source voltage V</dt><dd id="measuredVoltage">12.00 V</dd></div>
-              <div><dt>Current split I₁ : I₂</dt><dd id="splitRatio">1.50 : 1</dd></div>
+              <div class="highlight"><dt>Loop current I</dt><dd id="loopCurrent">0.600 A</dd></div>
+              <div><dt>Source rise +V</dt><dd id="sourceRise">+12.00 V</dd></div>
+              <div><dt>Drop across R₁</dt><dd id="drop1">−4.80 V</dd></div>
+              <div><dt>Drop across R₂</dt><dd id="drop2">−7.20 V</dd></div>
+              <div><dt>Drop across open switch</dt><dd id="switchDrop">0.00 V</dd></div>
+              <div class="kvl-check"><dt>KVL residual ΣΔV</dt><dd id="kvlResidual">0.000 V</dd></div>
+              <div><dt>Total resistance R₁ + R₂</dt><dd id="equivalentResistance">20.00 Ω</dd></div>
+              <div><dt>Source power P = VI</dt><dd id="sourcePower">7.20 W</dd></div>
             </dl>
-            <div class="junction-balance" id="junctionBalance">
-              <div><b>J₁</b><span>IN</span><strong id="j1In">2.500 A</strong><i>→</i><span>OUT</span><strong id="j1Out">2.500 A</strong></div>
-              <div><b>J₂</b><span>IN</span><strong id="j2In">2.500 A</strong><i>→</i><span>OUT</span><strong id="j2Out">2.500 A</strong></div>
+            <div class="voltage-accounting" id="voltageAccounting">
+              <div><span>RISE</span><strong id="riseAccount">+12.00 V</strong></div><i>+</i><div><span>DROPS</span><strong id="dropAccount">−12.00 V</strong></div><i>=</i><div><span>NET</span><strong id="netAccount">0.00 V</strong></div>
             </div>
           </section>
         </div>
 
         <div class="knowledge-grid">
-          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>Kirchhoff's Current Law is a direct consequence of conservation of electric charge.</li><li>At junction J₁, the incoming current splits: I = I₁ + I₂.</li><li>At junction J₂, the two branch currents recombine: I₁ + I₂ = I.</li><li>Current is not “used up” by a resistor. The branch resistance determines how much current takes that path.</li><li>Increasing R₁ reduces I₁. With an ideal voltage source, I₂ is unchanged because the branch voltage remains V.</li><li>Opening a branch makes its current zero; the remaining closed branch carries all of the total current.</li></ul></section>
-          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>ΣI<sub>in</sub> = ΣI<sub>out</sub></p><p>I = I₁ + I₂</p><p>I₁ = V / R₁</p><p>I₂ = V / R₂</p><p>1/R<sub>eq</sub> = 1/R₁ + 1/R₂</p></div><small class="model-note">Ideal DC source and ohmic resistors are used so the junction rule is isolated clearly.</small></section>
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>Kirchhoff's Voltage Law follows from conservation of energy in a lumped DC circuit.</li><li>Choose one loop direction and keep the sign convention consistent.</li><li>Crossing the source from − to + is a voltage rise: +V.</li><li>Moving through a resistor in the direction of current is a voltage drop: −IR.</li><li>In this series loop the same current passes through R₁ and R₂, but the larger resistance takes the larger share of the source voltage.</li><li>If the switch is opened, I = 0, so resistor drops become zero and the full source voltage appears across the open switch.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>ΣΔV = 0</p><p>+V − V₁ − V₂ = 0</p><p>I = V / (R₁ + R₂)</p><p>V₁ = IR₁</p><p>V₂ = IR₂</p></div><small class="model-note">Ideal DC source, ideal wires, and ohmic resistors are used. With the switch open, the open gap carries the source voltage so KVL still closes around the defined loop.</small></section>
         </div>
       </section>
     </main>
   </div>
-  <script src="kirchhoff-current-law.js"></script>
+  <script src="kirchhoff-voltage-law.js"></script>
 </body>
 </html>
