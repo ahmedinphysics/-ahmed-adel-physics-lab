@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive two-loop Kirchhoff circuit combining KCL and KVL by AHMED ADEL PHYSICS">
+  <title>Kirchhoff III — Two-Loop Network — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="kirchhoff-two-loop.css">
+</head>
+<body class="kirchhoff-page two-loop-page">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open">
+          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
+          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item" href="voltage.html"><span class="radio-dot"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-parallel.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
+          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
+          <a class="nav-item" href="kirchhoff-voltage-law.html"><span class="radio-dot"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
+          <a class="nav-item active" href="#kirchhoff-two-loop"><span class="radio-dot filled"></span><span><b>Kirchhoff III — Two-Loop Network</b><small>KCL + KVL · two sources</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+
+    <main class="main-area" id="kirchhoff-two-loop">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Kirchhoff III — Two-Loop Network</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">KCL + KVL satisfied</strong><small id="headerDetail">Two loops coupled through one shared branch</small></div>
+      </header>
+
+      <section class="lab-grid two-loop-lab">
+        <article class="panel two-loop-workspace">
+          <div class="panel-head"><h2><span>◉</span> Coupled Two-Loop DC Network</h2><div class="legend"><i></i> Conventional current · arrows reverse automatically</div></div>
+          <div class="two-loop-stage">
+            <svg id="twoLoopScene" viewBox="0 0 1100 720" role="img" aria-labelledby="sceneTitle sceneDesc">
+              <title id="sceneTitle">Two-loop Kirchhoff circuit with two voltage sources and a shared resistor</title>
+              <desc id="sceneDesc">Two ideal voltage sources feed a common junction through two resistors. A third resistor forms the shared return branch. Current markers reverse direction automatically if a branch current becomes negative.</desc>
+              <defs>
+                <linearGradient id="tlCopper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#411006"/><stop offset=".2" stop-color="#f26524"/><stop offset=".42" stop-color="#ffd0a0"/><stop offset=".64" stop-color="#ba3511"/><stop offset="1" stop-color="#260803"/></linearGradient>
+                <radialGradient id="tlNode" cx=".34" cy=".28"><stop stop-color="#fff2dc"/><stop offset=".2" stop-color="#ffad6d"/><stop offset=".58" stop-color="#bd4119"/><stop offset="1" stop-color="#421008"/></radialGradient>
+                <linearGradient id="tlMetal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6fafb"/><stop offset=".22" stop-color="#748a94"/><stop offset=".48" stop-color="#dfe8ea"/><stop offset=".75" stop-color="#50636c"/><stop offset="1" stop-color="#bbc9ce"/></linearGradient>
+                <linearGradient id="tlCell" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#294452"/><stop offset=".18" stop-color="#111f28"/><stop offset=".48" stop-color="#03080c"/><stop offset=".8" stop-color="#142f3d"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="tlCellRed" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff8159"/><stop offset=".25" stop-color="#f04426"/><stop offset=".6" stop-color="#8d130b"/><stop offset=".84" stop-color="#db351f"/><stop offset="1" stop-color="#641008"/></linearGradient>
+                <linearGradient id="tlResistor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e8c7a0"/><stop offset=".18" stop-color="#b88658"/><stop offset=".5" stop-color="#795235"/><stop offset=".8" stop-color="#c69b6d"/><stop offset="1" stop-color="#513322"/></linearGradient>
+                <filter id="tlShadow" x="-35%" y="-70%" width="170%" height="260%"><feDropShadow dx="0" dy="9" stdDeviation="7" flood-color="#000" flood-opacity=".75"/></filter>
+                <filter id="tlCopperGlow" x="-50%" y="-100%" width="200%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="tlCyanGlow" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#70ddff"/></marker>
+              </defs>
+
+              <g class="bench-shadow"><ellipse cx="550" cy="590" rx="485" ry="30"/></g>
+
+              <g class="network-wires" filter="url(#tlShadow)">
+                <path class="wire-under" d="M130 376V170H300M440 170H550M550 170H660M800 170H970V376M130 508V535H550M550 535H970V508M550 170V300M550 420V535"/>
+                <path class="wire-main" d="M130 376V170H300M440 170H550M550 170H660M800 170H970V376M130 508V535H550M550 535H970V508M550 170V300M550 420V535"/>
+                <path class="wire-shine" d="M134 376V174H300M440 174H550M550 174H660M800 174H966V376M134 508V531H550M550 531H966V508M554 170V300M554 420V535"/>
+              </g>
+
+              <g id="chargeLayer" aria-hidden="true"></g>
+
+              <g class="node-layer" aria-hidden="true">
+                <g transform="translate(130 170)"><circle class="node-dot" r="10"/><text class="node-label" y="-22">A</text><text class="node-potential" id="nodeAText" y="33">18.00 V</text></g>
+                <g transform="translate(550 170)"><circle class="node-dot junction" r="12"/><text class="node-label" y="-25">B · JUNCTION</text><text class="node-potential strong" id="nodeBText" y="36">8.81 V</text></g>
+                <g transform="translate(970 170)"><circle class="node-dot" r="10"/><text class="node-label" y="-22">C</text><text class="node-potential" id="nodeCText" y="33">12.00 V</text></g>
+                <g transform="translate(550 535)"><circle class="node-dot" r="10"/><text class="node-label" y="30">D · 0 V REFERENCE</text></g>
+              </g>
+
+              <g class="resistor horizontal" id="resistor1" transform="translate(370 170)" filter="url(#tlShadow)">
+                <path class="resistor-lead" d="M-70 0H-57M57 0H70"/><rect class="resistor-body" x="-57" y="-23" width="114" height="46" rx="21"/>
+                <line class="resistor-band b1" x1="-31" y1="-19" x2="-31" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="10" y1="-21" x2="10" y2="21"/><line class="resistor-band b4" x1="34" y1="-19" x2="34" y2="19"/>
+                <path class="resistor-highlight" d="M-40-14H32c10 0 16 4 20 10H-48c2-5 4-8 8-10Z"/><text class="resistor-label" x="0" y="-42">R₁</text><text class="resistor-value" id="svgR1" x="0" y="43">8.0 Ω</text>
+              </g>
+              <g class="resistor horizontal" id="resistor2" transform="translate(730 170)" filter="url(#tlShadow)">
+                <path class="resistor-lead" d="M-70 0H-57M57 0H70"/><rect class="resistor-body" x="-57" y="-23" width="114" height="46" rx="21"/>
+                <line class="resistor-band b1" x1="-31" y1="-19" x2="-31" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="10" y1="-21" x2="10" y2="21"/><line class="resistor-band b4" x1="34" y1="-19" x2="34" y2="19"/>
+                <path class="resistor-highlight" d="M-40-14H32c10 0 16 4 20 10H-48c2-5 4-8 8-10Z"/><text class="resistor-label" x="0" y="-42">R₂</text><text class="resistor-value" id="svgR2" x="0" y="43">10.0 Ω</text>
+              </g>
+              <g class="resistor vertical" id="resistor3" transform="translate(550 360) rotate(90)" filter="url(#tlShadow)">
+                <path class="resistor-lead" d="M-60 0H-57M57 0H60"/><rect class="resistor-body" x="-57" y="-23" width="114" height="46" rx="21"/>
+                <line class="resistor-band b1" x1="-31" y1="-19" x2="-31" y2="19"/><line class="resistor-band b2" x1="-12" y1="-21" x2="-12" y2="21"/><line class="resistor-band b3" x1="10" y1="-21" x2="10" y2="21"/><line class="resistor-band b4" x1="34" y1="-19" x2="34" y2="19"/>
+                <path class="resistor-highlight" d="M-40-14H32c10 0 16 4 20 10H-48c2-5 4-8 8-10Z"/>
+              </g>
+              <g class="shared-resistor-label" transform="translate(610 360)"><text>R₃ · shared branch</text><text id="svgR3" y="20">6.0 Ω</text></g>
+
+              <g class="battery-vertical source-left" transform="translate(130 442)" filter="url(#tlShadow)">
+                <rect class="battery-shell" x="-36" y="-66" width="72" height="132" rx="30"/><path class="battery-red" d="M-36-18V-37c0-17 14-29 36-29h1v48Z"/>
+                <rect class="battery-band copper" x="-36" y="-8" width="72" height="13"/><rect class="battery-band" x="-36" y="5" width="72" height="8"/><path class="battery-highlight" d="M-24-51c7-7 16-10 27-10v108c-11-2-20-6-27-13Z"/>
+                <text class="battery-sign" x="0" y="-29">+</text><text class="battery-sign" x="0" y="46">−</text><text class="emf-label" x="-62" y="4" transform="rotate(-90 -62 4)">E₁ = <tspan id="svgE1">18.0 V</tspan></text>
+              </g>
+              <g class="battery-vertical source-right" transform="translate(970 442)" filter="url(#tlShadow)">
+                <rect class="battery-shell" x="-36" y="-66" width="72" height="132" rx="30"/><path class="battery-red" d="M-36-18V-37c0-17 14-29 36-29h1v48Z"/>
+                <rect class="battery-band copper" x="-36" y="-8" width="72" height="13"/><rect class="battery-band" x="-36" y="5" width="72" height="8"/><path class="battery-highlight" d="M-24-51c7-7 16-10 27-10v108c-11-2-20-6-27-13Z"/>
+                <text class="battery-sign" x="0" y="-29">+</text><text class="battery-sign" x="0" y="46">−</text><text class="emf-label" x="62" y="4" transform="rotate(90 62 4)">E₂ = <tspan id="svgE2">12.0 V</tspan></text>
+              </g>
+
+              <g class="current-vector" id="i1Vector"><path id="i1Arrow" d="M205 126H490" marker-end="url(#arrowCyan)"/><text id="i1Label" x="348" y="111">I₁ = +1.149 A · A → B</text></g>
+              <g class="current-vector" id="i2Vector"><path id="i2Arrow" d="M895 126H610" marker-end="url(#arrowCyan)"/><text id="i2Label" x="752" y="111">I₂ = +0.319 A · C → B</text></g>
+              <g class="current-vector" id="i3Vector"><path id="i3Arrow" d="M593 245V475" marker-end="url(#arrowCyan)"/><text id="i3Label" x="690" y="365">I₃ = +1.468 A · B → D</text></g>
+
+              <g class="drop-badge" id="drop1Badge" transform="translate(370 247)"><rect x="-105" y="-28" width="210" height="56" rx="11"/><text class="drop-kicker" y="-6">R₁ VOLTAGE A → B</text><text class="drop-value" id="svgV1" y="17">+9.19 V</text></g>
+              <g class="drop-badge" id="drop2Badge" transform="translate(730 247)"><rect x="-105" y="-28" width="210" height="56" rx="11"/><text class="drop-kicker" y="-6">R₂ VOLTAGE C → B</text><text class="drop-value" id="svgV2" y="17">+3.19 V</text></g>
+
+              <g class="junction-badge" transform="translate(550 468)"><rect x="-174" y="-40" width="348" height="80" rx="14"/><text class="badge-kicker" y="-15">JUNCTION B · KCL</text><text class="badge-equation" id="svgKclEquation" y="10">I₁ + I₂ − I₃ = 0.000 A</text><text class="badge-balance" id="svgKclBalance" y="30">charge in = charge out</text></g>
+
+              <g class="loop-badge left-loop" transform="translate(315 645)"><rect x="-225" y="-44" width="450" height="88" rx="14"/><text class="badge-kicker" y="-17">LEFT LOOP · KVL</text><text class="badge-equation" id="svgLeftEquation" y="9">+18.00 − 9.19 − 8.81 = 0.00 V</text><text class="badge-balance" y="30">E₁ − I₁R₁ − I₃R₃ = 0</text></g>
+              <g class="loop-badge right-loop" transform="translate(785 645)"><rect x="-225" y="-44" width="450" height="88" rx="14"/><text class="badge-kicker" y="-17">RIGHT LOOP · KVL</text><text class="badge-equation" id="svgRightEquation" y="9">+12.00 − 3.19 − 8.81 = 0.00 V</text><text class="badge-balance" y="30">E₂ − I₂R₂ − I₃R₃ = 0</text></g>
+
+            </svg>
+          </div>
+          <div class="effect-strip"><div><span>Σ</span><strong id="effectTitle">Both sources are feeding the shared branch</strong></div><p id="effectText">At junction B, the currents from the left and right branches combine and pass through R₃. KCL and both independent KVL loop equations are satisfied simultaneously.</p></div>
+        </article>
+
+        <div class="two-panels two-loop-panels">
+          <section class="panel controls-panel two-loop-controls">
+            <div class="panel-head"><h2><span>＋</span> Controls</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="source-control-row">
+              <div class="slider-control"><label for="e1"><span>Left source E₁</span><output id="e1Out">18.0 V</output></label><input id="e1" type="range" min="0" max="30" step="0.5" value="18"></div>
+              <div class="slider-control"><label for="e2"><span>Right source E₂</span><output id="e2Out">12.0 V</output></label><input id="e2" type="range" min="0" max="30" step="0.5" value="12"></div>
+            </div>
+            <div class="resistance-control-grid">
+              <div class="branch-control-block"><div class="branch-control-head"><span>Left branch · R₁</span><strong id="i1Mini">I₁ = +1.149 A</strong></div><div class="slider-control compact"><label for="r1"><span>Resistance R₁</span><output id="r1Out">8.0 Ω</output></label><input id="r1" type="range" min="1" max="40" step="0.5" value="8"></div></div>
+              <div class="branch-control-block"><div class="branch-control-head"><span>Right branch · R₂</span><strong id="i2Mini">I₂ = +0.319 A</strong></div><div class="slider-control compact"><label for="r2"><span>Resistance R₂</span><output id="r2Out">10.0 Ω</output></label><input id="r2" type="range" min="1" max="40" step="0.5" value="10"></div></div>
+              <div class="branch-control-block shared-control"><div class="branch-control-head"><span>Shared branch · R₃</span><strong id="i3Mini">I₃ = +1.468 A</strong></div><div class="slider-control compact"><label for="r3"><span>Resistance R₃</span><output id="r3Out">6.0 Ω</output></label><input id="r3" type="range" min="1" max="40" step="0.5" value="6"></div></div>
+            </div>
+            <div class="preset-area"><span>Scenario presets</span><div class="preset-grid"><button class="preset active" data-preset="both" type="button">Both feed R₃</button><button class="preset" data-preset="reverse" type="button">Reverse I₂</button><button class="preset" data-preset="balanced" type="button">Equal sources</button></div></div>
+            <div class="slider-control presentation-control"><label for="animationSpeed"><span>Animation Speed <small>(visual only)</small></span><output id="animationSpeedOut">1.0×</output></label><input id="animationSpeed" type="range" min="0.5" max="2" step="0.25" value="1"></div>
+          </section>
+
+          <section class="panel measurements-panel two-loop-measurements">
+            <div class="panel-head"><h2><span>▥</span> Live Measurements</h2><small>LIVE</small></div>
+            <dl>
+              <div class="highlight"><dt>Junction voltage V<sub>B</sub></dt><dd id="junctionVoltage">8.809 V</dd></div>
+              <div><dt>I₁ · positive A → B</dt><dd id="current1">+1.149 A</dd></div>
+              <div><dt>I₂ · positive C → B</dt><dd id="current2">+0.319 A</dd></div>
+              <div><dt>I₃ · positive B → D</dt><dd id="current3">+1.468 A</dd></div>
+              <div class="law-check"><dt>KCL residual</dt><dd id="kclResidual">0.000000 A</dd></div>
+              <div class="law-check"><dt>Left-loop KVL residual</dt><dd id="leftResidual">0.000000 V</dd></div>
+              <div class="law-check"><dt>Right-loop KVL residual</dt><dd id="rightResidual">0.000000 V</dd></div>
+              <div><dt>Net source power</dt><dd id="sourcePower">24.51 W</dd></div>
+              <div><dt>Total resistor dissipation</dt><dd id="resistorPower">24.51 W</dd></div>
+            </dl>
+            <div class="law-accounting">
+              <div><span>KCL</span><strong id="kclAccount">I₁ + I₂ = I₃</strong></div>
+              <div><span>LEFT LOOP</span><strong id="leftAccount">ΣΔV = 0</strong></div>
+              <div><span>RIGHT LOOP</span><strong id="rightAccount">ΣΔV = 0</strong></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="knowledge-grid">
+          <section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts</h2></div><ul><li>This is the first model where Kirchhoff's Current Law and Voltage Law must be satisfied at the same time.</li><li>Node D is the 0 V reference. The ideal sources fix V<sub>A</sub> = E₁ and V<sub>C</sub> = E₂, while V<sub>B</sub> is determined by all three resistive branches together.</li><li>Our sign convention is I₁: A → B, I₂: C → B, and I₃: B → D. A negative current is not an error—it means the real current flows opposite to the assumed arrow.</li><li>At junction B, charge conservation requires I₁ + I₂ = I₃.</li><li>The left loop requires E₁ − I₁R₁ − I₃R₃ = 0, while the right loop requires E₂ − I₂R₂ − I₃R₃ = 0.</li><li>If one source is made strong enough, it can drive current backward through the other source branch. Use the “Reverse I₂” preset to see the animation change direction.</li></ul></section>
+          <section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>V<sub>B</sub> = (E₁/R₁ + E₂/R₂) / (1/R₁ + 1/R₂ + 1/R₃)</p><p>I₁ = (E₁ − V<sub>B</sub>) / R₁</p><p>I₂ = (E₂ − V<sub>B</sub>) / R₂</p><p>I₃ = V<sub>B</sub> / R₃</p><p>I₁ + I₂ − I₃ = 0</p><p>E₁ − I₁R₁ − I₃R₃ = 0</p><p>E₂ − I₂R₂ − I₃R₃ = 0</p></div><small class="model-note">Model assumptions: ideal DC voltage sources, ideal wires, ohmic resistors, steady state, and no internal source resistance. Negative branch current means direction reversal relative to the stated positive direction.</small></section>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="kirchhoff-two-loop.js"></script>
+</body>
+</html>
