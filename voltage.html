@@ -8,40 +8,13 @@
   <title>Voltage Difference Lab — AHMED ADEL PHYSICS</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="voltage.css">
+  <link rel="stylesheet" href="library-navigation.css">
 </head>
 <body class="voltage-page">
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
       <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
-      <nav aria-label="Simulation library">
-        <div class="nav-group open">
-          <button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electricity <span>⌄</span></button>
-          <a class="nav-item" href="./"><span class="radio-dot"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
-          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
-          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
-          <a class="nav-item active" href="#voltage"><span class="radio-dot filled"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
-          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
-          <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
-          <a class="nav-item" href="closed-circuit-ohm-parallel.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
-          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
-          <a class="nav-item" href="kirchhoff-voltage-law.html"><span class="radio-dot"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
-          <a class="nav-item" href="kirchhoff-two-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff III — Two-Loop Network</b><small>KCL + KVL · two sources</small></span></a>
-          <a class="nav-item" href="kirchhoff-wheatstone-bridge.html"><span class="radio-dot"></span><span><b>Kirchhoff IV — Wheatstone Bridge</b><small>bridge balance · current reversal</small></span></a>
-          <a class="nav-item" href="kirchhoff-three-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff V — Three-Loop Mesh</b><small>3 coupled loops · shared branches</small></span></a>
-          <a class="nav-item" href="kirchhoff-supermesh.html"><span class="radio-dot"></span><span><b>Kirchhoff VI — Supermesh</b><small>shared current source · constraint equation</small></span></a>
-          <a class="nav-item" href="kirchhoff-supernode.html"><span class="radio-dot"></span><span><b>Kirchhoff VII — Supernode</b><small>floating voltage source · nodal constraint</small></span></a>
-          <a class="nav-item" href="kirchhoff-dependent-source.html"><span class="radio-dot"></span><span><b>Kirchhoff VIII — Dependent Source</b><small>VCCS · controlled branch current</small></span></a>
-          <a class="nav-item" href="kirchhoff-vcvs.html"><span class="radio-dot"></span><span><b>Kirchhoff IX — VCVS Supernode</b><small>dependent voltage · control constraint</small></span></a>
-        </div>
-        <button class="nav-line disabled" type="button" disabled><span>W</span> Electric Power <small>SOON</small></button>
-        <div class="nav-divider"></div>
-        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
-        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
-        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
-        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
-        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
-        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
-      </nav>
+      <nav aria-label="Simulation library"><a class="library-home-link" href="./">⌂ <span>Laboratory Library</span></a><section class="playlist-group current"><a class="nav-section playlist-link active-playlist" href="playlist-electrical-components.html"><span class="nav-icon">⚡</span><span>Electrical Components</span><span>⌄</span></a><div class="playlist-children"><a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a><a class="nav-item active" href="#simulation"><span class="radio-dot filled"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a><a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a></div></section><section class="playlist-group"><a class="nav-section playlist-link" href="playlist-basic-circuits.html"><span class="nav-icon">◉</span><span>Series &amp; Parallel Circuits</span><span>›</span></a></section><section class="playlist-group"><a class="nav-section playlist-link" href="playlist-closed-circuit-ohm.html"><span class="nav-icon">Ω</span><span>Closed-Circuit Ohm's Law</span><span>›</span></a></section><section class="playlist-group"><a class="nav-section playlist-link" href="playlist-kirchhoff.html"><span class="nav-icon">Σ</span><span>Kirchhoff's Laws</span><span>›</span></a></section><div class="nav-divider"></div><button class="nav-line disabled" disabled><span>⚙</span> Mechanics <small>SOON</small></button><button class="nav-line disabled" disabled><span>≈</span> Waves <small>SOON</small></button></nav>
       <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
     </aside>
 

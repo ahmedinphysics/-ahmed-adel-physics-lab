@@ -1,0 +1,113 @@
+{
+  "version": 24,
+  "collections": [
+    {
+      "slug": "electrical-components",
+      "title": "Electrical Components",
+      "subtitle": "Current · Voltage · Resistance",
+      "simulations": [
+        {
+          "slug": "electric-current",
+          "title": "Electric Current",
+          "subtitle": "Charge motion · drift velocity"
+        },
+        {
+          "slug": "voltage",
+          "title": "Voltage Difference",
+          "subtitle": "Energy transferred per unit charge"
+        },
+        {
+          "slug": "resistance",
+          "title": "Electrical Resistance",
+          "subtitle": "Material · length · area · temperature"
+        }
+      ]
+    },
+    {
+      "slug": "basic-circuits",
+      "title": "Series & Parallel Circuits",
+      "subtitle": "The two fundamental connections",
+      "simulations": [
+        {
+          "slug": "parallel",
+          "title": "Parallel Circuit",
+          "subtitle": "Three independent lamp branches"
+        },
+        {
+          "slug": "series",
+          "title": "Series Circuit",
+          "subtitle": "Three lamps on one current path"
+        }
+      ]
+    },
+    {
+      "slug": "closed-circuit-ohm",
+      "title": "Closed-Circuit Ohm's Law",
+      "subtitle": "EMF · internal resistance · terminal voltage",
+      "simulations": [
+        {
+          "slug": "series",
+          "title": "Closed-Circuit Ohm's Law — Series",
+          "subtitle": "Single load path · internal resistance"
+        },
+        {
+          "slug": "parallel",
+          "title": "Closed-Circuit Ohm's Law — Parallel",
+          "subtitle": "Branch currents · internal resistance"
+        }
+      ]
+    },
+    {
+      "slug": "kirchhoff",
+      "title": "Kirchhoff's Laws",
+      "subtitle": "KCL · KVL · network analysis",
+      "simulations": [
+        {
+          "slug": "current-law",
+          "title": "Kirchhoff I — Junction Rule",
+          "subtitle": "Current conservation · KCL"
+        },
+        {
+          "slug": "voltage-law",
+          "title": "Kirchhoff II — Loop Rule",
+          "subtitle": "Voltage conservation · KVL"
+        },
+        {
+          "slug": "two-loop",
+          "title": "Kirchhoff III — Two-Loop Network",
+          "subtitle": "KCL + KVL · two sources"
+        },
+        {
+          "slug": "wheatstone-bridge",
+          "title": "Kirchhoff IV — Wheatstone Bridge",
+          "subtitle": "Bridge balance · current reversal"
+        },
+        {
+          "slug": "three-loop",
+          "title": "Kirchhoff V — Three-Loop Mesh",
+          "subtitle": "Three coupled loops · shared branches"
+        },
+        {
+          "slug": "supermesh",
+          "title": "Kirchhoff VI — Supermesh",
+          "subtitle": "Shared current source · constraint equation"
+        },
+        {
+          "slug": "supernode",
+          "title": "Kirchhoff VII — Supernode",
+          "subtitle": "Floating voltage source · nodal constraint"
+        },
+        {
+          "slug": "dependent-source",
+          "title": "Kirchhoff VIII — Dependent Source",
+          "subtitle": "VCCS · controlled branch current"
+        },
+        {
+          "slug": "vcvs",
+          "title": "Kirchhoff IX — VCVS Supernode",
+          "subtitle": "Dependent voltage · control constraint"
+        }
+      ]
+    }
+  ]
+}
