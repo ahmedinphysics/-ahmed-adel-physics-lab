@@ -84,13 +84,3 @@
 @media(max-width:880px){.current-stage{padding:2px}.current-panels{grid-template-columns:1fr}.current-explainer{grid-template-columns:28px 1fr}.current-controls,.current-measurements{min-height:0}}
 @media(max-width:520px){.current-stage svg{min-height:360px}.micro-labels text:nth-child(2),.micro-labels text:nth-child(3){display:none}.current-explainer{font-size:10px}.current-page .slider-control{padding-left:12px;padding-right:12px}}
 @media(prefers-reduced-motion:reduce){#macroCharges{display:none}.micro-electron{display:none}.field-line{stroke-dasharray:none}}
-
-/* v23 — iPad/desktop long-library sidebar fix */
-.sidebar{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-gutter:stable;}
-.sidebar nav{flex:0 0 auto;}
-.sidebar .brand{flex:0 0 auto;}
-.sidebar .teacher-mode{flex:0 0 auto;margin-top:16px;}
-.sidebar::-webkit-scrollbar{width:6px;}
-.sidebar::-webkit-scrollbar-track{background:transparent;}
-.sidebar::-webkit-scrollbar-thumb{background:#15547e;border-radius:999px;}
-.sidebar{scrollbar-width:thin;scrollbar-color:#15547e transparent;}

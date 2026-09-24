@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Circuit Examination — AHMED ADEL PHYSICS</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="circuit-examination.css">
+</head>
+<body class="circuit-exam-page">
+<div class="app-shell">
+<aside class="sidebar"><div class="brand"><img src="ahmed-adel-physics-logo.png"></div>
+<nav><div class="nav-group open">
+<button class="nav-section"><span class="nav-icon gold">⚡</span>Electric Circuits</button>
+<a class="nav-item active"><span class="radio-dot filled"></span><span><b>Circuit Examination</b><small>voltmeter · switch · resistance</small></span></a>
+<a class="nav-item" href="parallel.html"><span class="radio-dot"></span><span><b>Parallel Circuit</b></span></a>
+<a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b></span></a>
+</div></nav>
+</aside>
+<main class="main-area">
+<header class="app-header"><div><p>INTERACTIVE SIMULATION</p><h1>Circuit Examination</h1></div><div class="header-status"><span id="dot"></span><strong id="state">Circuit active</strong></div></header>
+<section class="lab-grid">
+<article class="panel">
+<div class="panel-head"><h2>◉ Voltmeter Switch Circuit</h2></div>
+<div class="stage"><svg viewBox="0 0 1000 600">
+<defs><linearGradient id="wire" y2="1"><stop stop-color="#ffd0a0"/><stop offset=".4" stop-color="#f26524"/><stop offset="1" stop-color="#5a1808"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="3"/></filter></defs>
+<path class="wire" d="M120 100H360 M460 100H850V480H120V100"/>
+<path class="wire" d="M360 100V180H600V300H360V100"/>
+<path class="wire" d="M600 300H850"/>
+<g class="res" id="rx"><rect x="330" y="210" width="140" height="45"/><text x="400" y="240">Rx</text></g>
+<g class="res"><rect x="640" y="270" width="120" height="45"/><text x="700" y="300">R₂ = 10Ω</text></g>
+<g class="res"><rect x="200" y="450" width="120" height="45"/><text x="260" y="480">R₁ = 2Ω</text></g>
+<g id="switch"><circle cx="400" cy="170" r="12"/><circle cx="500" cy="170" r="12"/><line x1="400" y1="170" x2="500" y2="170"/><text x="450" y="145">K</text></g>
+<g class="battery"><rect x="420" y="500" width="100" height="50"/><text x="470" y="532">V</text></g>
+<g id="meter"><circle cx="260" cy="420" r="35"/><text x="260" y="428">V</text></g>
+<text id="reading" x="700" y="80">V(R1)=0 V</text>
+</svg></div>
+<div class="flow-note">Cyan markers: conventional current flow</div>
+</article>
+<div class="lower-grid">
+<section class="panel controls-panel">
+<div class="panel-head"><h2>＋ Controls</h2></div>
+<button id="toggle">Switch K OFF</button>
+<label>Rx <output id="rxout">10Ω</output><input id="rxslider" type="range" min="1" max="50" value="10"></label>
+<label>Battery <output id="vout">12V</output><input id="vslider" type="range" min="1" max="30" value="12"></label>
+</section>
+<section class="panel measurements-panel"><div class="panel-head"><h2>▥ Measurements</h2></div>
+<dl><div><dt>Current</dt><dd id="i">0</dd></div><div><dt>Voltmeter</dt><dd id="vm">0</dd></div><div><dt>Req</dt><dd id="req">0</dd></div></dl>
+</section></div>
+</section>
+</main></div>
+<script src="circuit-examination.js"></script>
+</body></html>

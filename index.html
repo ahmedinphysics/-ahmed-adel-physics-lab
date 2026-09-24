@@ -1,1 +1,116 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#06192B"><title>Simulation Library — AHMED ADEL PHYSICS</title><link rel="stylesheet" href="library.css"></head><body><div class="library-shell"><aside class="library-side"><div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div><p class="side-label">SIMULATION PLAYLISTS</p><nav aria-label="Physics playlists"><a class="side-link" href="playlist-electrical-components.html"><span>⚡</span><span>Electrical Components</span><small>3</small></a><a class="side-link" href="playlist-basic-circuits.html"><span>◉</span><span>Series &amp; Parallel Circuits</span><small>2</small></a><a class="side-link" href="playlist-closed-circuit-ohm.html"><span>Ω</span><span>Closed-Circuit Ohm's Law</span><small>2</small></a><a class="side-link" href="playlist-kirchhoff.html"><span>Σ</span><span>Kirchhoff's Laws</span><small>9</small></a></nav><div class="private-note">Each simulation has its own HTML, CSS and JavaScript files. Updating one playlist does not replace another.</div></aside><main><header class="library-header"><div><p class="eyebrow">AHMED ADEL PHYSICS · VIRTUAL LABORATORY</p><h1>Simulation Library</h1></div></header><div class="library-content"><section class="intro"><div><h2>Choose a physics playlist</h2><p>Independent, interactive simulations arranged by concept. Every laboratory opens on its own page and keeps its own scientific model.</p></div><div class="collection-count">16 simulations · 4 playlists</div></section><section class="collection-grid"><a class="collection-card" href="playlist-electrical-components.html"><div class="card-top"><span class="card-icon">⚡</span><span class="card-count">3 SIMULATIONS</span></div><h3>Electrical Components</h3><p>Current · Voltage · Resistance</p><div class="mini-list"><span>Electric Current</span><span>Voltage Difference</span><span>Electrical Resistance</span></div><span class="open-label">Open playlist →</span></a><a class="collection-card" href="playlist-basic-circuits.html"><div class="card-top"><span class="card-icon">◉</span><span class="card-count">2 SIMULATIONS</span></div><h3>Series &amp; Parallel Circuits</h3><p>The two fundamental connections</p><div class="mini-list"><span>Parallel Circuit</span><span>Series Circuit</span></div><span class="open-label">Open playlist →</span></a><a class="collection-card" href="playlist-closed-circuit-ohm.html"><div class="card-top"><span class="card-icon">Ω</span><span class="card-count">2 SIMULATIONS</span></div><h3>Closed-Circuit Ohm's Law</h3><p>EMF · internal resistance · terminal voltage</p><div class="mini-list"><span>Closed-Circuit Ohm's Law — Series</span><span>Closed-Circuit Ohm's Law — Parallel</span></div><span class="open-label">Open playlist →</span></a><a class="collection-card" href="playlist-kirchhoff.html"><div class="card-top"><span class="card-icon">Σ</span><span class="card-count">9 SIMULATIONS</span></div><h3>Kirchhoff's Laws</h3><p>KCL · KVL · network analysis</p><div class="mini-list"><span>Junction Rule</span><span>Loop Rule</span><span>Two-Loop Network</span><span>Wheatstone Bridge</span><span>+5 more</span></div><span class="open-label">Open playlist →</span></a></section></div></main></div></body></html>
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06192b">
+  <meta name="description" content="Interactive parallel circuit simulation by AHMED ADEL PHYSICS">
+  <title>Parallel Circuit Lab — AHMED ADEL PHYSICS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img src="ahmed-adel-physics-logo.png" alt="AHMED ADEL PHYSICS"></div>
+      <nav aria-label="Simulation library">
+        <div class="nav-group open"><button class="nav-section" type="button"><span class="nav-icon gold">⚡</span>Electric Circuits <span>⌄</span></button>
+          <a class="nav-item active" href="#parallel"><span class="radio-dot filled"></span><span><b>Parallel Circuit</b><small>3 lamps · independent paths</small></span></a>
+          <a class="nav-item" href="series.html"><span class="radio-dot"></span><span><b>Series Circuit</b><small>3 lamps · single path</small></span></a>
+          <a class="nav-item" href="electric-current.html"><span class="radio-dot"></span><span><b>Electric Current</b><small>charge motion · drift velocity</small></span></a>
+          <a class="nav-item" href="voltage.html"><span class="radio-dot"></span><span><b>Voltage Difference</b><small>energy per unit charge</small></span></a>
+          <a class="nav-item" href="resistance.html"><span class="radio-dot"></span><span><b>Electrical Resistance</b><small>material · length · area</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-series.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Series</b><small>single load path · internal resistance</small></span></a>
+          <a class="nav-item" href="closed-circuit-ohm-parallel.html"><span class="radio-dot"></span><span><b>Closed-Circuit Ohm's Law — Parallel</b><small>branch currents · internal resistance</small></span></a>
+          <a class="nav-item" href="circuit-examination.html"><span class="radio-dot"></span><span><b>Circuit Examination</b><small>switching effects · voltage division</small></span></a>
+          <a class="nav-item" href="kirchhoff-current-law.html"><span class="radio-dot"></span><span><b>Kirchhoff I — Junction Rule</b><small>current conservation · KCL</small></span></a>
+          <a class="nav-item" href="kirchhoff-voltage-law.html"><span class="radio-dot"></span><span><b>Kirchhoff II — Loop Rule</b><small>voltage conservation · KVL</small></span></a>
+          <a class="nav-item" href="kirchhoff-two-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff III — Two-Loop Network</b><small>KCL + KVL · two sources</small></span></a>
+          <a class="nav-item" href="kirchhoff-wheatstone-bridge.html"><span class="radio-dot"></span><span><b>Kirchhoff IV — Wheatstone Bridge</b><small>bridge balance · current reversal</small></span></a>
+          <a class="nav-item" href="kirchhoff-three-loop.html"><span class="radio-dot"></span><span><b>Kirchhoff V — Three-Loop Mesh</b><small>3 coupled loops · shared branches</small></span></a>
+          <a class="nav-item" href="kirchhoff-supermesh.html"><span class="radio-dot"></span><span><b>Kirchhoff VI — Supermesh</b><small>shared current source · constraint equation</small></span></a>
+          <a class="nav-item" href="kirchhoff-supernode.html"><span class="radio-dot"></span><span><b>Kirchhoff VII — Supernode</b><small>floating voltage source · nodal constraint</small></span></a>
+          <a class="nav-item" href="kirchhoff-dependent-source.html"><span class="radio-dot"></span><span><b>Kirchhoff VIII — Dependent Source</b><small>VCCS · controlled branch current</small></span></a>
+          <a class="nav-item" href="kirchhoff-vcvs.html"><span class="radio-dot"></span><span><b>Kirchhoff IX — VCVS Supernode</b><small>dependent voltage · control constraint</small></span></a>
+        </div>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Ohm's Law <small>SOON</small></button>
+        <div class="nav-divider"></div>
+        <button class="nav-section disabled" type="button" disabled><span class="nav-icon">⚙</span>Mechanics <span>⌄</span></button>
+        <button class="nav-line disabled" type="button" disabled><span>↗</span> Motion &amp; Velocity</button>
+        <button class="nav-line disabled" type="button" disabled><span>⌁</span> Projectile Motion</button>
+        <button class="nav-line disabled" type="button" disabled><span>≈</span> Waves</button>
+        <button class="nav-line disabled" type="button" disabled><span>♨</span> Thermodynamics</button>
+        <button class="nav-line disabled" type="button" disabled><span>☼</span> Optics</button>
+      </nav>
+      <label class="teacher-mode"><span>🎓 Teacher Mode</span><input id="teacherMode" type="checkbox"><i></i></label>
+    </aside>
+    <main class="main-area" id="parallel">
+      <header class="app-header">
+        <button class="menu-button" id="menuButton" type="button" aria-label="Open simulation menu">☰</button>
+        <div><p>INTERACTIVE SIMULATION</p><h1>Parallel Circuit</h1></div>
+        <div class="header-status"><span id="statusDot"></span><strong id="headerState">Circuit active</strong><small>Voltage source mode</small></div>
+      </header>
+      <section class="lab-grid">
+        <article class="panel circuit-panel">
+          <div class="panel-head"><h2><span>◉</span> Circuit Workspace</h2><div class="legend"><i></i> Conventional current</div></div>
+          <div class="circuit-wrap">
+            <svg id="circuit" viewBox="0 0 820 520" role="img" aria-labelledby="svgTitle svgDesc">
+              <title id="svgTitle">Three lamps connected in parallel</title><desc id="svgDesc">Each lamp has an independent switch. A main switch and detachable battery control the whole circuit.</desc>
+              <defs>
+                <radialGradient id="bulbOn" cx=".38" cy=".28"><stop offset="0" stop-color="#fffde1"/><stop offset=".24" stop-color="#fff5a9"/><stop offset=".63" stop-color="#ffd04d"/><stop offset="1" stop-color="#da8012"/></radialGradient>
+                <linearGradient id="glassOff" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#496c82"/><stop offset=".38" stop-color="#24475f"/><stop offset="1" stop-color="#10283a"/></linearGradient>
+                <linearGradient id="batteryBody" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#19394e"/><stop offset=".5" stop-color="#0b263a"/><stop offset="1" stop-color="#061a2a"/></linearGradient>
+                <linearGradient id="batteryRed" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff5a54"/><stop offset=".55" stop-color="#d62d35"/><stop offset="1" stop-color="#981d29"/></linearGradient>
+                <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0f5f7"/><stop offset=".48" stop-color="#8fa4ae"/><stop offset="1" stop-color="#536973"/></linearGradient>
+                <linearGradient id="copperWire" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5d1d09"/><stop offset=".24" stop-color="#ff8a38"/><stop offset=".48" stop-color="#ffd0a1"/><stop offset=".62" stop-color="#d95017"/><stop offset="1" stop-color="#541607"/></linearGradient>
+                <radialGradient id="copperNode" cx=".35" cy=".28"><stop offset="0" stop-color="#ffe0bd"/><stop offset=".26" stop-color="#ff8738"/><stop offset=".66" stop-color="#9e300e"/><stop offset="1" stop-color="#321006"/></radialGradient>
+                <linearGradient id="cellBody" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#263b48"/><stop offset=".18" stop-color="#0d1b24"/><stop offset=".48" stop-color="#02070b"/><stop offset=".76" stop-color="#132b39"/><stop offset="1" stop-color="#05090c"/></linearGradient>
+                <linearGradient id="cellRed" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ff774d"/><stop offset=".22" stop-color="#f22f1f"/><stop offset=".58" stop-color="#9f160f"/><stop offset=".82" stop-color="#e4321c"/><stop offset="1" stop-color="#671109"/></linearGradient>
+                <linearGradient id="bulbGlass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eaf8ff" stop-opacity=".46"/><stop offset=".18" stop-color="#7094a9" stop-opacity=".22"/><stop offset=".52" stop-color="#17384e" stop-opacity=".66"/><stop offset=".82" stop-color="#071e30" stop-opacity=".88"/><stop offset="1" stop-color="#416277" stop-opacity=".45"/></linearGradient>
+                <linearGradient id="bulbBase" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#44545b"/><stop offset=".18" stop-color="#dce5e8"/><stop offset=".38" stop-color="#6f858e"/><stop offset=".58" stop-color="#f3f6f7"/><stop offset=".82" stop-color="#697d85"/><stop offset="1" stop-color="#283a43"/></linearGradient>
+                <filter id="wireGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="copperGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5" result="b"/><feColorMatrix in="b" values="1 0 0 0 .5 0 .25 0 0 .08 0 0 .1 0 0 0 0 0 .8 0"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="softBloom" x="-180%" y="-180%" width="460%" height="460%"><feGaussianBlur stdDeviation="22"/></filter>
+                <filter id="filamentBloom" x="-250%" y="-250%" width="600%" height="600%"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <filter id="glow" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="20" result="b"/><feColorMatrix in="b" values="1 0 0 0 .3 0 .7 0 0 .12 0 0 .2 0 0 0 0 0 .8 0"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+              <g class="wire-shadow" aria-hidden="true"><path d="M110 78V430H270"/><path d="M390 430H505"/><path d="M595 430H730V78"/><path d="M110 100H230M320 100H540M660 100H730"/><path d="M110 235H230M320 235H540M660 235H730"/><path d="M110 370H230M320 370H540M660 370H730"/></g>
+              <g class="wire-layer" aria-hidden="true"><path d="M110 78V430H270"/><path d="M390 430H505"/><path d="M595 430H730V78"/><path d="M110 100H230M320 100H540M660 100H730"/><path d="M110 235H230M320 235H540M660 235H730"/><path d="M110 370H230M320 370H540M660 370H730"/></g>
+              <g id="chargeLayer" aria-hidden="true"></g>
+              <g class="node-layer" aria-hidden="true"><circle cx="110" cy="100" r="5"/><circle cx="110" cy="235" r="5"/><circle cx="110" cy="370" r="5"/><circle cx="730" cy="100" r="5"/><circle cx="730" cy="235" r="5"/><circle cx="730" cy="370" r="5"/></g>
+              <g class="switch branch-switch-svg" data-switch="0" role="button" tabindex="0" aria-label="Toggle switch S1" aria-pressed="true"><text x="275" y="66">S₁</text><circle cx="245" cy="100" r="8"/><circle cx="305" cy="100" r="8"/><line x1="252" y1="97" x2="298" y2="100"/><text class="switch-state" x="275" y="130">ON</text><rect class="hit" x="220" y="58" width="110" height="85"/></g>
+              <g class="switch branch-switch-svg" data-switch="1" role="button" tabindex="0" aria-label="Toggle switch S2" aria-pressed="true"><text x="275" y="201">S₂</text><circle cx="245" cy="235" r="8"/><circle cx="305" cy="235" r="8"/><line x1="252" y1="232" x2="298" y2="235"/><text class="switch-state" x="275" y="265">ON</text><rect class="hit" x="220" y="193" width="110" height="85"/></g>
+              <g class="switch branch-switch-svg" data-switch="2" role="button" tabindex="0" aria-label="Toggle switch S3" aria-pressed="true"><text x="275" y="336">S₃</text><circle cx="245" cy="370" r="8"/><circle cx="305" cy="370" r="8"/><line x1="252" y1="367" x2="298" y2="370"/><text class="switch-state" x="275" y="400">ON</text><rect class="hit" x="220" y="328" width="110" height="85"/></g>
+              <g class="lamp" data-lamp="0"><ellipse class="aura" cx="600" cy="93" rx="88" ry="62"/><path class="light-spill" d="M563 78c8-34 66-39 77 0 7 25-5 46-14 63h-51c-10-18-18-39-12-63Z"/><path class="glass" d="M563 84c0-28 16-47 37-47s37 19 37 47c0 18-8 29-17 40-5 6-7 11-8 18h-24c-1-7-3-12-8-18-9-11-17-22-17-40Z"/><path class="glass-highlight" d="M578 56c-8 8-11 19-10 31 1 8 4 14 7 19"/><path class="support-wire" d="M590 141l3-32m17 32-3-32"/><path class="filament" d="M584 93l11 14 10-27 12 27"/><rect class="base" x="580" y="140" width="40" height="25" rx="4"/><path class="base-ribs" d="M583 146h34m-34 6h34m-31 6h28"/><circle class="contact" cx="600" cy="165" r="4"/><text x="600" y="187">L₁ (<tspan id="lampR0">10 Ω</tspan>)</text></g>
+              <g class="lamp" data-lamp="1"><ellipse class="aura" cx="600" cy="228" rx="88" ry="62"/><path class="light-spill" d="M563 213c8-34 66-39 77 0 7 25-5 46-14 63h-51c-10-18-18-39-12-63Z"/><path class="glass" d="M563 219c0-28 16-47 37-47s37 19 37 47c0 18-8 29-17 40-5 6-7 11-8 18h-24c-1-7-3-12-8-18-9-11-17-22-17-40Z"/><path class="glass-highlight" d="M578 191c-8 8-11 19-10 31 1 8 4 14 7 19"/><path class="support-wire" d="M590 276l3-32m17 32-3-32"/><path class="filament" d="M584 228l11 14 10-27 12 27"/><rect class="base" x="580" y="275" width="40" height="25" rx="4"/><path class="base-ribs" d="M583 281h34m-34 6h34m-31 6h28"/><circle class="contact" cx="600" cy="300" r="4"/><text x="600" y="322">L₂ (<tspan id="lampR1">10 Ω</tspan>)</text></g>
+              <g class="lamp" data-lamp="2"><ellipse class="aura" cx="600" cy="363" rx="88" ry="62"/><path class="light-spill" d="M563 348c8-34 66-39 77 0 7 25-5 46-14 63h-51c-10-18-18-39-12-63Z"/><path class="glass" d="M563 354c0-28 16-47 37-47s37 19 37 47c0 18-8 29-17 40-5 6-7 11-8 18h-24c-1-7-3-12-8-18-9-11-17-22-17-40Z"/><path class="glass-highlight" d="M578 326c-8 8-11 19-10 31 1 8 4 14 7 19"/><path class="support-wire" d="M590 411l3-32m17 32-3-32"/><path class="filament" d="M584 363l11 14 10-27 12 27"/><rect class="base" x="580" y="410" width="40" height="25" rx="4"/><path class="base-ribs" d="M583 416h34m-34 6h34m-31 6h28"/><circle class="contact" cx="600" cy="435" r="4"/><text x="600" y="457">L₃ (<tspan id="lampR2">10 Ω</tspan>)</text></g>
+              <g class="battery" id="batterySvg" role="button" tabindex="0" aria-label="Connect or disconnect battery" aria-pressed="true">
+                <ellipse class="battery-floor-shadow" cx="330" cy="465" rx="70" ry="12"/>
+                <rect class="terminal terminal-left" x="266" y="416" width="16" height="25" rx="4"/><rect class="terminal terminal-right" x="378" y="416" width="16" height="25" rx="4"/>
+                <rect class="cell-shell" x="278" y="397" width="104" height="63" rx="27"/>
+                <path class="cell-red" d="M305 397h-4c-14 0-23 12-23 27v9c0 15 9 27 23 27h4Z"/>
+                <rect class="cell-band" x="304" y="397" width="10" height="63"/><rect class="cell-band silver" x="314" y="397" width="7" height="63"/>
+                <path class="cell-highlight" d="M300 403h58c9 0 15 5 18 12H292c2-7 4-10 8-12Z"/>
+                <circle class="battery-bolt" cx="347" cy="429" r="10"/><path class="bolt-mark" d="M349 416l-9 14h7l-4 13 12-17h-7Z"/>
+                <text class="sign plus-sign" x="294" y="435">+</text><text class="sign minus-sign" x="367" y="435">−</text>
+                <text x="330" y="493">V = <tspan id="batteryLabel">6.0 V</tspan></text><rect class="hit" x="258" y="388" width="145" height="112"/>
+              </g>
+              <g class="switch main-switch-svg" id="mainSvg" role="button" tabindex="0" aria-label="Toggle main switch" aria-pressed="true"><text x="550" y="394">S (Main)</text><circle cx="520" cy="430" r="8"/><circle cx="580" cy="430" r="8"/><line x1="527" y1="427" x2="573" y2="430"/><text class="switch-state" x="550" y="461">ON</text><rect class="hit" x="495" y="380" width="110" height="95"/></g>
+            </svg>
+          </div>
+          <div class="flow-note"><span class="flow-dot"></span><b>Charge flow:</b> each active branch has its own closed path. Shared-wire flow represents the sum of active branch currents.</div>
+        </article>
+        <div class="lower-grid">
+          <section class="panel controls-panel"><div class="panel-head"><h2><span>＋</span> Controls (Parallel)</h2><button id="resetButton" class="reset" type="button">Reset</button></div>
+            <div class="slider-control"><label for="voltage"><span>Battery Voltage (V)</span><output id="voltageOut">6.0 V</output></label><input id="voltage" type="range" min="1" max="24" step="0.5" value="6"></div>
+            <div id="resistanceControls"></div>
+            <div class="button-grid"><button class="state-button on" data-control-switch="0" type="button" aria-pressed="true">S₁ <span>ON</span></button><button class="state-button on" data-control-switch="1" type="button" aria-pressed="true">S₂ <span>ON</span></button><button class="state-button on" data-control-switch="2" type="button" aria-pressed="true">S₃ <span>ON</span></button><button class="state-button on" id="mainButton" type="button" aria-pressed="true">Main <span>ON</span></button><button class="state-button on wide" id="batteryButton" type="button" aria-pressed="true">Battery <span>connected</span></button></div>
+          </section>
+          <section class="panel measurements-panel"><div class="panel-head"><h2><span>▥</span> Measurements</h2><small>LIVE</small></div><dl><div><dt>I₁</dt><dd id="i1">0.60 A</dd></div><div><dt>I₂</dt><dd id="i2">0.60 A</dd></div><div><dt>I₃</dt><dd id="i3">0.60 A</dd></div><div class="highlight"><dt>I<sub>total</sub></dt><dd id="iTotal">1.80 A</dd></div><div><dt>R<sub>eq</sub></dt><dd id="rEq">3.33 Ω</dd></div><div><dt>P<sub>total</sub></dt><dd id="pTotal">10.8 W</dd></div></dl></section>
+        </div>
+        <div class="knowledge-grid"><section class="panel info-panel"><div class="panel-head"><h2><span>💡</span> Key Concepts (Parallel)</h2></div><ul><li>Each lamp gets the full battery voltage.</li><li>Total current is the sum of the branch currents.</li><li>Opening one branch does not stop the other branches.</li><li>Lower branch resistance means a larger branch current.</li></ul></section><section class="panel equation-panel"><div class="panel-head"><h2><span>Σ</span> Equations</h2></div><div class="equations"><p>I<sub>total</sub> = I₁ + I₂ + I₃</p><p>1/R<sub>eq</sub> = 1/R₁ + 1/R₂ + 1/R₃</p><p>I<sub>n</sub> = V/R<sub>n</sub></p><p>P<sub>total</sub> = VI<sub>total</sub></p></div></section></div>
+      </section>
+    </main>
+  </div>
+  <script src="parallel.js"></script>
+</body>
+</html>
